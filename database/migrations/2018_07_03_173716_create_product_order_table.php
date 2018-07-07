@@ -6,6 +6,15 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateProductOrderTable extends Migration {
   /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down() {
+    Schema::dropIfExists('ProductOrder');
+  }
+
+  /**
    * Run the migrations.
    *
    * @return void
@@ -18,14 +27,5 @@ class CreateProductOrderTable extends Migration {
       $table->date('dateUpdatedAt')->nullable();
       $table->date('dateDeletedAt');
     });
-  }
-
-  /**
-   * Reverse the migrations.
-   *
-   * @return void
-   */
-  public function down() {
-    Schema::dropIfExists('ProductOrder');
   }
 }

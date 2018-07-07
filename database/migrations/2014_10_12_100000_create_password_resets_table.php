@@ -6,6 +6,15 @@ use Illuminate\Support\Facades\Schema;
 
 class CreatePasswordResetsTable extends Migration {
   /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down() {
+    Schema::dropIfExists('PasswordReset');
+  }
+
+  /**
    * Run the migrations.
    *
    * @return void
@@ -19,14 +28,5 @@ class CreatePasswordResetsTable extends Migration {
       $table->date('dateUpdatedAt')->nullable();
       $table->date('dateDeletedAt');
     });
-  }
-
-  /**
-   * Reverse the migrations.
-   *
-   * @return void
-   */
-  public function down() {
-    Schema::dropIfExists('PasswordReset');
   }
 }

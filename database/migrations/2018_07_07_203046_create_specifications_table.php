@@ -6,6 +6,15 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateSpecificationsTable extends Migration {
   /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down() {
+    Schema::dropIfExists('Specification');
+  }
+
+  /**
    * Run the migrations.
    *
    * @return void
@@ -19,14 +28,5 @@ class CreateSpecificationsTable extends Migration {
       $table->date('dateUpdatedAt')->nullable();
       $table->date('dateDeletedAt');
     });
-  }
-
-  /**
-   * Reverse the migrations.
-   *
-   * @return void
-   */
-  public function down() {
-    Schema::dropIfExists('Specification');
   }
 }

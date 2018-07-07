@@ -6,6 +6,15 @@ use Illuminate\Support\Facades\Schema;
 
 class CreatePriceRangeTable extends Migration {
   /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down() {
+    Schema::dropIfExists('PriceRange');
+  }
+
+  /**
    * Run the migrations.
    *
    * @return void
@@ -22,14 +31,5 @@ class CreatePriceRangeTable extends Migration {
       $table->date('dateUpdatedAt')->nullable();
       $table->date('dateDeletedAt');
     });
-  }
-
-  /**
-   * Reverse the migrations.
-   *
-   * @return void
-   */
-  public function down() {
-    Schema::dropIfExists('PriceRange');
   }
 }

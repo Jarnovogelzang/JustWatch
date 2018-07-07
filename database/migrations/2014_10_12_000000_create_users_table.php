@@ -6,6 +6,15 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration {
   /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down() {
+    Schema::dropIfExists('User');
+  }
+
+  /**
    * Run the migrations.
    *
    * @return void
@@ -33,14 +42,5 @@ class CreateUsersTable extends Migration {
       $table->date('dateUpdatedAt')->nullable();
       $table->date('dateDeletedAt');
     });
-  }
-
-  /**
-   * Reverse the migrations.
-   *
-   * @return void
-   */
-  public function down() {
-    Schema::dropIfExists('User');
   }
 }
