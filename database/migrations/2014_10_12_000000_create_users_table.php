@@ -21,6 +21,9 @@ class CreateUsersTable extends Migration {
 
       $table->string('stringCountry');
       $table->string('stringZipCode');
+      $table->string('stringLivingPlace');
+
+      $table->string('stringAdress');
       $table->integer('intHouseNumber');
 
       $table->date('dateBirthDate');

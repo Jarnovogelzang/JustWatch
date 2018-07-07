@@ -21,7 +21,7 @@ class UpdateOrderRequest extends FormRequest {
    */
   public function rules() {
     return [
-      //
+      'intUserId' => 'nullable|sometimes|exists:User,intId',
     ];
   }
 }

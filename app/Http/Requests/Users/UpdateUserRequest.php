@@ -21,7 +21,16 @@ class UpdateUserRequest extends FormRequest {
    */
   public function rules() {
     return [
-      //
+      'stringEmail' => 'required|email',
+      'stringName' => 'nullable|sometimes|alpha',
+      'stringPassword' => 'required|string',
+      'stringCountry' => 'nullable|sometimes|alpha',
+      'stringZipCode' => 'nullable|sometimes|string',
+      'intHouseNumber' => 'nullable|sometimes|string',
+      'stringLivingPlace' => 'nullable|sometimes|alpha',
+      'stringAdress' => 'nullable|sometimes|string',
+      'dateBirthDate' => 'nullable|sometimes|date',
+      'stringTelephoneNumber' => 'nullable|sometimes|string',
     ];
   }
 }

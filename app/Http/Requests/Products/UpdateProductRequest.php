@@ -21,7 +21,11 @@ class UpdateProductRequest extends FormRequest {
    */
   public function rules() {
     return [
-      //
+      'stringTitle' => 'required|string',
+      'stringDescription' => 'required|string',
+      'floatPrice' => 'required',
+      'intAliId' => 'nullable|sometimes|integer',
+      'arraySpecifications' => 'nullable|sometimes|array',
     ];
   }
 }
