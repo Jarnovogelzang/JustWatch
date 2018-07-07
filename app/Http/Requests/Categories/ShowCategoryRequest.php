@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Orders;
+namespace App\Http\Requests\Categories;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShowOrderRequest extends FormRequest {
+class ShowCategoryRequest extends FormRequest {
   /**
    * Determine if the user is authorized to make this request.
    *

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Orders;
+namespace App\Http\Requests\PriceRanges;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShowOrderRequest extends FormRequest {
+class ShowPriceRangeRequest extends FormRequest {
   /**
    * Determine if the user is authorized to make this request.
    *
