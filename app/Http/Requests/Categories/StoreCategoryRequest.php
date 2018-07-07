@@ -11,7 +11,7 @@ class StoreCategoryRequest extends FormRequest {
    * @return bool
    */
   public function authorize() {
-    return auth()->user() && auth()->user()->isAdmin();
+    return auth()->user()->can('store', $this->route('objCategory'));
   }
 
   /**

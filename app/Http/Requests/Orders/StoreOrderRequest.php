@@ -11,7 +11,7 @@ class StoreOrderRequest extends FormRequest {
    * @return bool
    */
   public function authorize() {
-    return true;
+    return auth()->user()->can('store', $this->route('objOrder'));
   }
 
   /**

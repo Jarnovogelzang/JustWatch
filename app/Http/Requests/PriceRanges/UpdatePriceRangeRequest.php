@@ -11,7 +11,7 @@ class UpdatePriceRangeRequest extends FormRequest {
    * @return bool
    */
   public function authorize() {
-    return auth()->user() && auth()->user()->isAdmin();
+    return auth()->user()->can('update', $this->route('objPriceRange'));
   }
 
   /**
@@ -21,7 +21,9 @@ class UpdatePriceRangeRequest extends FormRequest {
    */
   public function rules() {
     return [
-      //
+      'floatPriceLow' => 'required|float',
+      'floatPriceHigh' => 'required|float',
+      'floatPriceActual' => 'required|float',
     ];
   }
 }

@@ -2,26 +2,15 @@
 
 namespace App\Http\Requests\PriceRanges;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Foundation\Http\Request;
 
-class ShowPriceRangeRequest extends FormRequest {
+class ShowPriceRangeRequest extends Request {
   /**
    * Determine if the user is authorized to make this request.
    *
    * @return bool
    */
   public function authorize() {
-    return auth()->user() && auth()->user()->isAdmin();
-  }
-
-  /**
-   * Get the validation rules that apply to the request.
-   *
-   * @return array
-   */
-  public function rules() {
-    return [
-      //
-    ];
+    return auth()->user()->can('show', $this->route('objPriceRange'));
   }
 }

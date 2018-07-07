@@ -11,17 +11,6 @@ class EditUserRequest extends FormRequest {
    * @return bool
    */
   public function authorize() {
-    return auth()->user() && (auth()->user()->getIntId() === $this->route('objUser')->getIntId() || auth()->user()->isAdmin());
-  }
-
-  /**
-   * Get the validation rules that apply to the request.
-   *
-   * @return array
-   */
-  public function rules() {
-    return [
-      //
-    ];
+    return auth()->user()->can('edit', $this->route('objUser'));
   }
 }

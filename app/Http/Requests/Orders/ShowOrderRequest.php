@@ -11,17 +11,6 @@ class ShowOrderRequest extends FormRequest {
    * @return bool
    */
   public function authorize() {
-    return auth()->user() && (auth()->user()->getIntId() === $this->route('objOrder')->getIntId() || auth()->user()->isAdmin());
-  }
-
-  /**
-   * Get the validation rules that apply to the request.
-   *
-   * @return array
-   */
-  public function rules() {
-    return [
-      //
-    ];
+    return auth()->user()->can('show', $this->route('objOrder'));
   }
 }

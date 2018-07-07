@@ -11,7 +11,7 @@ class PayOrderRequest extends FormRequest {
    * @return bool
    */
   public function authorize() {
-    return auth()->user() && auth()->user()->getIntId() === $this->route('objOrder')->getIntId();
+    return auth()->user()->can('pay', $this->route('objOrder'));
   }
 
   /**

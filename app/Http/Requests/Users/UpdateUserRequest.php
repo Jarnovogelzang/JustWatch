@@ -11,7 +11,7 @@ class UpdateUserRequest extends FormRequest {
    * @return bool
    */
   public function authorize() {
-    return auth()->user() && (auth()->user()->getIntId() === $this->route('objUser')->getIntId() || auth()->user()->isAdmin());
+    return auth()->user()->can('user', $this->route('objUser'));
   }
 
   /**

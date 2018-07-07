@@ -11,7 +11,7 @@ class UpdateCategoryRequest extends FormRequest {
    * @return bool
    */
   public function authorize() {
-    return auth()->user() && auth()->user()->isAdmin();
+    return auth()->user()->can('update', $this->route('objCategory'));
   }
 
   /**
