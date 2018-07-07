@@ -11,48 +11,13 @@
 |
  */
 
-/*Route::middleware(['auth:basic'])->group(function () {
-Route::resource('users', 'UserController')->only(['show', 'update', 'edit']);
-Route::resource('orders', 'OrderController')->only(['show']);
-
-Route::middleware(['auth:admin'])->group(function () {
-Route::resource([
-'orders' => 'OrderController',
-'users' => 'UserController',
-])->only([
-'delete',
+Route::resources([
+  'User' => 'UserController',
+  'Order' => 'OrderController',
+  'Product' => 'ProductController',
+  'PriceRange' => 'PriceRangeController',
+  'Category' => 'CategoryController',
 ]);
 
-Route::resource([
-'categories' => 'CategoryController',
-'priceranges' => 'PriceRangeController',
-'products' => 'ProductController',
-])->only([
-'create',
-'edit',
-'update',
-'store',
-]);
-
-Route::resource('orders', 'OrderController')->only(['update', 'edit']);
-Route::resource('priceranges', 'PriceRangeController')->only(['show']);
-});
-});
-
-Route::resource([
-'orders' => 'OrderController',
-'users' => 'UserController',
-])->only([
-'create',
-]);
-
-Route::resource([
-'categories' => 'CategoryController',
-'products' => 'ProductController',
-])->only([
-'show',
-]);
-
-Route::get('/', 'PagesController@index');
-
-Auth::routes();*/
+Route::get('/', 'ProductController@index');
+Auth::routes();

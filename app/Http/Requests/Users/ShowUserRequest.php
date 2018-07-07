@@ -11,7 +11,7 @@ class ShowUserRequest extends FormRequest {
    * @return bool
    */
   public function authorize() {
-    return false;
+    return auth()->user() && (auth()->user()->getIntId() === $this->route('objUser')->getIntId() || auth()->user()->isAdmin());
   }
 
   /**
