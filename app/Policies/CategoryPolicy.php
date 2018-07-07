@@ -16,27 +16,27 @@ class CategoryPolicy {
     //
   }
 
-  public function update() {
-    return true;
+  public function update(User $objUser, Category $objCategory) {
+    return isset($objUser) && $objUser && $objUser->isAdmin();
   }
 
-  public function create() {
-    return true;
+  public function create(User $objUser) {
+    return isset($objUser) && $objUser && $objUser->isAdmin();
   }
 
-  public function edit() {
-    return true;
+  public function edit(User $objUser, Category $objCategory) {
+    return isset($objUser) && $objUser && $objUser->isAdmin();
   }
 
-  public function destroy() {
-    return true;
+  public function destroy(User $objUser, Category $objCategory) {
+    return isset($objUser) && $objUser && $objUser->isAdmin();
   }
 
-  public function store() {
-    return true;
+  public function store(User $objUser) {
+    return isset($objUser) && $objUser && $objUser->isAdmin();
   }
 
-  public function show() {
-    return true;
+  public function show(User $objUser, Category $objCategory) {
+    return isset($objUser) && $objUser;
   }
 }
