@@ -2,35 +2,60 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+class ProductController extends Controller {
+  public function index() {
+    return view('products.index')
+      ->with([
+        'arrayproducts' => Product::all(),
+      ]);
+  }
 
-class ProductController extends Controller
-{
-    public function index() {
+  public function show(ShowProductRequest $objRequest, Product $objProduct) {
+    return view('products.show')
+      ->with([
+        'objProduct' => $objProduct,
+      ]);
+  }
 
-    }
+  public function create(CreateProductRequest $objRequest) {
+    return view('products.create');
+  }
 
-    public function show() {
+  public function edit(EditProductRequest $objRequest, Product $objProduct) {
+    return view('products.edit')
+      ->with([
+        'objProduct' => $objProduct,
+      ]);
+  }
 
-    }
+  public function update(UpdateProductRequest $objRequest, Product $objProduct) {
+    $objProduct = $objProduct->update($objRequest->all());
 
-    public function create() {
+    return redirect()
+      ->back()
+      ->with([
+        'stringSuccess' => 'Product succesvol aangepast!',
+        'objProduct' => $objProduct,
+      ]);
+  }
 
-    }
+  public function store(StoreProductRequest $objRequest) {
+    $objProduct = Product::create($objRequest->all());
 
-    public function edit() {
+    return redirect()
+      ->back()
+      ->with([
+        'stringSuccess' => 'Product succesvol aangemaakt!',
+      ]);
+  }
 
-    }
+  public function delete(DeleteProductRequest $objRequest, Product $objProduct) {
+    $objProduct->delete();
 
-    public function update() {
-
-    }
-
-    public function store() {
-
-    }
-
-    public function delete() {
-        
-    }
+    return redirect()
+      ->back()
+      ->with([
+        'stringSuccess' => 'Product succesvol verwijderd!',
+      ]);
+  }
 }

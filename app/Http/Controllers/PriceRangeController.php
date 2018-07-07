@@ -2,35 +2,60 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+class PriceRangeController extends Controller {
+  public function index() {
+    return view('priceranges.index')
+      ->with([
+        'arrayPriceRanges' => PriceRange::all(),
+      ]);
+  }
 
-class PriceRangeController extends Controller
-{
-    public function index() {
+  public function show(ShowPriceRangeRequest $objRequest, PriceRange $objPriceRange) {
+    return view('priceranges.show')
+      ->with([
+        'objPriceRange' => $objPriceRange,
+      ]);
+  }
 
-    }
+  public function create(CreatePriceRangeRequest $objRequest) {
+    return view('priceranges.create');
+  }
 
-    public function show() {
+  public function edit(EditPriceRangeRequest $objRequest, PriceRange $objPriceRange) {
+    return view('priceranges.edit')
+      ->with([
+        'objPriceRange' => $objPriceRange,
+      ]);
+  }
 
-    }
+  public function update(UpdatePriceRangeRequest $objRequest, PriceRange $objPriceRange) {
+    $objPriceRange = $objPriceRange->update($objRequest->all());
 
-    public function create() {
+    return redirect()
+      ->back()
+      ->with([
+        'stringSuccess' => 'Prijsinterval succesvol aangepast!',
+        'objPriceRange' => $objPriceRange,
+      ]);
+  }
 
-    }
+  public function store(StorePriceRangeRequest $objRequest) {
+    $objPriceRange = PriceRange::create($objRequest->all());
 
-    public function edit() {
+    return redirect()
+      ->back()
+      ->with([
+        'stringSuccess' => 'Prijsinterval succesvol aangemaakt!',
+      ]);
+  }
 
-    }
+  public function delete(DeletePriceRangeRequest $objRequest, PriceRange $objPriceRange) {
+    $objPriceRange->delete();
 
-    public function update() {
-
-    }
-
-    public function store() {
-
-    }
-
-    public function delete() {
-        
-    }
+    return redirect()
+      ->back()
+      ->with([
+        'stringSuccess' => 'Prijsinterval succesvol verwijderd!',
+      ]);
+  }
 }

@@ -2,35 +2,60 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+class OrderController extends Controller {
+  public function index() {
+    return view('orders.index')
+      ->with([
+        'arrayOrders' => Order::all(),
+      ]);
+  }
 
-class OrderController extends Controller
-{
-    public function index() {
+  public function show(ShowOrderRequest $objRequest, Order $objOrder) {
+    return view('orders.show')
+      ->with([
+        'objOrder' => $objOrder,
+      ]);
+  }
 
-    }
+  public function create(CreateOrderRequest $objRequest) {
+    return view('orders.create');
+  }
 
-    public function show() {
+  public function edit(EditOrderRequest $objRequest, Order $objOrder) {
+    return view('orders.edit')
+      ->with([
+        'objOrder' => $objOrder,
+      ]);
+  }
 
-    }
+  public function update(UpdateOrderRequest $objRequest, Order $objOrder) {
+    $objOrder = $objOrder->update($objRequest->all());
 
-    public function create() {
+    return redirect()
+      ->back()
+      ->with([
+        'stringSuccess' => 'Bestelling succesvol aangepast!',
+        'objOrder' => $objOrder,
+      ]);
+  }
 
-    }
+  public function store(StoreOrderRequest $objRequest) {
+    $objOrder = Order::create($objRequest->all());
 
-    public function edit() {
+    return redirect()
+      ->back()
+      ->with([
+        'stringSuccess' => 'Bestelling succesvol aangemaakt!',
+      ]);
+  }
 
-    }
+  public function delete(DeleteOrderRequest $objRequest, Order $objOrder) {
+    $objOrder->delete();
 
-    public function update() {
-
-    }
-
-    public function store() {
-
-    }
-
-    public function delete() {
-        
-    }
+    return redirect()
+      ->back()
+      ->with([
+        'stringSuccess' => 'Bestelling succesvol verwijderd!',
+      ]);
+  }
 }

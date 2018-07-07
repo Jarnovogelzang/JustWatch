@@ -9,12 +9,51 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware(['auth'])->group(function () {
+  Route::resource(['users' => 'UserController'])->only(['show', 'update', 'edit']);
+  Route::resource(['orders' => 'OrderController'])->only(['show']);
+
+  Route::middleware(['auth:admin'])->group(function () {
+    Route::resource([
+      'orders' => 'OrderController',
+      'users' => 'UserController',
+    ])->only([
+      'delete',
+    ]);
+
+    Route::resource([
+      'categories' => 'CategoryController',
+      'priceranges' => 'PriceRangeController',
+      'products' => 'ProductController',
+    ])->only([
+      'create',
+      'edit',
+      'update',
+      'store',
+    ]);
+
+    Route::resource(['orders' => 'OrderController'])->only(['update', 'edit']);
+    Route::resource(['priceranges' => 'PriceRangeController'])->only(['show']);
+  });
 });
 
-Auth::routes();
+Route::resource([
+  'orders' => 'OrderController',
+  'users' => 'UserController',
+])->only([
+  'create',
+]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::resource([
+  'categories' => 'CategoryController',
+  'products' => 'ProductController',
+])->only([
+  'show',
+]);
+
+Route::get('/', 'PagesController@index');
+Route::get('/checkout', 'PagesController@checkout');
+
+Auth::routes();
