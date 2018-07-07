@@ -11,9 +11,9 @@
 |
  */
 
-Route::middleware(['auth'])->group(function () {
-  Route::resource(['users' => 'UserController'])->only(['show', 'update', 'edit']);
-  Route::resource(['orders' => 'OrderController'])->only(['show']);
+Route::middleware(['auth:basic'])->group(function () {
+  Route::resource('users', 'UserController')->only(['show', 'update', 'edit']);
+  Route::resource('orders', 'OrderController')->only(['show']);
 
   Route::middleware(['auth:admin'])->group(function () {
     Route::resource([
@@ -34,8 +34,8 @@ Route::middleware(['auth'])->group(function () {
       'store',
     ]);
 
-    Route::resource(['orders' => 'OrderController'])->only(['update', 'edit']);
-    Route::resource(['priceranges' => 'PriceRangeController'])->only(['show']);
+    Route::resource('orders', 'OrderController')->only(['update', 'edit']);
+    Route::resource('priceranges', 'PriceRangeController')->only(['show']);
   });
 });
 
