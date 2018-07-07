@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Products\CreateProductRequest;
+use App\Http\Requests\Products\DeleteProductRequest;
+use App\Http\Requests\Products\EditProductRequest;
+use App\Http\Requests\Products\ShowProductRequest;
+use App\Http\Requests\Products\StoreProductRequest;
+use App\Http\Requests\Products\UpdateProductRequest;
+
 class ProductController extends Controller {
   public function index() {
     return view('products.index')

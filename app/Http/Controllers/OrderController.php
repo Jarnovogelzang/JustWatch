@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Orders\CreateOrderRequest;
+use App\Http\Requests\Orders\DeleteOrderRequest;
+use App\Http\Requests\Orders\EditOrderRequest;
+use App\Http\Requests\Orders\ShowOrderRequest;
+use App\Http\Requests\Orders\StoreOrderRequest;
+use App\Http\Requests\Orders\UpdateOrderRequest;
+
 class OrderController extends Controller {
   public function index() {
     return view('orders.index')

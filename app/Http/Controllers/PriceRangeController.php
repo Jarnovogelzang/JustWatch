@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PriceRanges\CreatePriceRangeRequest;
+use App\Http\Requests\PriceRanges\DeletePriceRangeRequest;
+use App\Http\Requests\PriceRanges\EditPriceRangeRequest;
+use App\Http\Requests\PriceRanges\ShowPriceRangeRequest;
+use App\Http\Requests\PriceRanges\StorePriceRangeRequest;
+use App\Http\Requests\PriceRanges\UpdatePriceRangeRequest;
+
 class PriceRangeController extends Controller {
   public function index() {
     return view('priceranges.index')

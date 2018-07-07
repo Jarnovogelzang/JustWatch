@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Categories\CreateCategoryRequest;
+use App\Http\Requests\Categories\DeleteCategoryRequest;
+use App\Http\Requests\Categories\EditCategoryRequest;
+use App\Http\Requests\Categories\ShowCategoryRequest;
+use App\Http\Requests\Categories\StoreCategoryRequest;
+use App\Http\Requests\Categories\UpdateCategoryRequest;
+
 class CategoryController extends Controller {
   public function index() {
     return view('categories.index')
