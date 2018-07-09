@@ -11,14 +11,14 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script async defer src="{{ asset('js/app.js') }}" defer></script>
+    <script async defer src="{{ asset('js/app.js') }}"></script>
 
     <!-- Fonts -->
-    <link async defer rel="dns-prefetch" href="https://fonts.gstatic.com" media="none" onload="if(media!='all')media='all'">
-    <link async defer href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css" media="none" onload="if(media!='all')media='all'">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" media="false" onload="if(media!='all')media='all'">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css" media="false" onload="if(media!='all')media='all'">
 
     <!-- Styles -->
-    <link async defer href="{{ asset('css/app.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" media="false" onload="if(media!='all')media='all'">
 </head>
 <body>
     <div id="app">
