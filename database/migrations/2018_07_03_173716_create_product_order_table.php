@@ -23,6 +23,9 @@ class CreateProductOrderTable extends Migration {
     Schema::create('ProductOrder', function (Blueprint $table) {
       $table->increments('id');
 
+      $table->integer('intProductId');
+      $table->integer('intOrderId');
+
       $table->date('dateCreatedAt')->nullable();
       $table->date('dateUpdatedAt')->nullable();
       $table->date('dateDeletedAt');

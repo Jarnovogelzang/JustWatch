@@ -3,6 +3,8 @@
 namespace App;
 
 use App\Category;
+use App\Order;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -100,6 +102,13 @@ class Product extends Model {
   }
 
   /**
+   * @return mixed
+   */
+  public function getOrders() {
+    return $this->belongsToMany(Order::class, 'ProductOrder', 'intProductId', 'intOrderId');
+  }
+
+  /**
    * Get the value of stringDescription
    */
   public function getStringDescription() {
@@ -114,19 +123,20 @@ class Product extends Model {
   }
 
   /**
-   * @param Query $objQuery
+   * @param Builder $objBuilder
    * @return mixed
    */
-  public function scopeOrderByOrderAmount(Query $objQuery) {
-    return $objQuery->withCount('getOrders')->sortBy('getOrders_count');
+  public function scopeOrderByOrderAmount(Builder $objBuilder) {
+    return $objBuilder->withCount('getOrders')->orderBy('get_orders_count');
   }
 
   /**
-   * @param Query $objQuery
-   * @param int $intLimit
+   * @param Builder $objBuilder
+   * @param int $intMinOrders
+   * @return mixed
    */
-  public function scopeWhereHasMinAmountOfOrders(Query $objQuery, int $intMinOrders) {
-    return $objQuery->has('getOrders', '>=', $intMinOrders);
+  public function scopeWhereHasMinAmountOfOrders(Builder $objBuilder, int $intMinOrders) {
+    return $objBuilder->has('getOrders', '>=', $intMinOrders);
   }
 
   /**

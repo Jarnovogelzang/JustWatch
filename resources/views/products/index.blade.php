@@ -2,9 +2,9 @@
 
 @section('content')
 <div>
-    <?php foreach ($arrayFeaturedProducts as $objProduct): ?>
+    <?php foreach ($arrayFeaturedCategories as $objCategory): ?>
       <div>
-        <?=$objProduct->getStringTitle() . $objProduct->getIntId() . $objProduct->getStringDescription();?>
+        <?=$objCategory->getStringTitle() . $objCategory->getIntId() . $objCategory->getStringDescription();?>
       </div>
     <?php endforeach;?>
 </div>

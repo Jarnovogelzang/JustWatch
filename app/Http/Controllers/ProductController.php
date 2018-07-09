@@ -10,6 +10,7 @@ use App\Http\Requests\Products\ShowProductRequest;
 use App\Http\Requests\Products\StoreProductRequest;
 use App\Http\Requests\Products\UpdateProductRequest;
 use App\Product;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller {
   /**

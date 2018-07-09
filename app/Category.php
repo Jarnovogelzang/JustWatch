@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Product;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -92,10 +93,11 @@ class Category extends Model {
   }
 
   /**
-   * @param Query $objQuery
+   * @param Builder $objBuilder
+   * @return mixed
    */
-  public function scopeWhereIsFeatured(Query $objQuery) {
-    return $objQuery->where('boolIsFeatured', '=', true);
+  public function scopeWhereIsFeatured(Builder $objBuilder) {
+    return $objBuilder->where('boolIsFeatured', '=', true);
   }
 
   /**
