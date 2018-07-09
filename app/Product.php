@@ -9,6 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model {
   use SoftDeletes;
 
+  const CREATED_AT = 'dateCreatedAt';
+
+  const DELETED_AT = 'dateDeletedAt';
+
+  const UPDATED_AT = 'dateUpdatedAt';
+
   /**
    * @var array
    */
@@ -34,6 +40,16 @@ class Product extends Model {
   protected $hidden = [
     //
   ];
+
+  /**
+   * @var string
+   */
+  protected $primaryKey = 'intId';
+
+  /**
+   * @var string
+   */
+  protected $table = 'Product';
 
   /**
    * @return mixed
@@ -95,6 +111,22 @@ class Product extends Model {
    */
   public function getStringTitle() {
     return $this->stringTitle;
+  }
+
+  /**
+   * @param Query $objQuery
+   * @return mixed
+   */
+  public function scopeOrderByOrderAmount(Query $objQuery) {
+    return $objQuery->withCount('getOrders')->sortBy('getOrders_count');
+  }
+
+  /**
+   * @param Query $objQuery
+   * @param int $intLimit
+   */
+  public function scopeWhereHasMinAmountOfOrders(Query $objQuery, int $intMinOrders) {
+    return $objQuery->has('getOrders', '>=', $intMinOrders);
   }
 
   /**

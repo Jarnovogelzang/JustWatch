@@ -9,6 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Category extends Model {
   use SoftDeletes;
 
+  const CREATED_AT = 'dateCreatedAt';
+
+  const DELETED_AT = 'dateDeletedAt';
+
+  const UPDATED_AT = 'dateUpdatedAt';
+
   /**
    * @var array
    */
@@ -32,6 +38,16 @@ class Category extends Model {
   protected $hidden = [
     //
   ];
+
+  /**
+   * @var string
+   */
+  protected $primaryKey = 'intId';
+
+  /**
+   * @var string
+   */
+  protected $table = 'Category';
 
   /**
    * Get the value of dateCreatedAt
@@ -73,6 +89,13 @@ class Category extends Model {
    */
   public function getStringTitle() {
     return $this->stringTitle;
+  }
+
+  /**
+   * @param Query $objQuery
+   */
+  public function scopeWhereIsFeatured(Query $objQuery) {
+    return $objQuery->where('boolIsFeatured', '=', true);
   }
 
   /**

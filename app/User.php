@@ -11,6 +11,12 @@ class User extends Authenticatable {
   use Notifiable;
   use SoftDeletes;
 
+  const CREATED_AT = 'dateCreatedAt';
+
+  const DELETED_AT = 'dateDeletedAt';
+
+  const UPDATED_AT = 'dateUpdatedAt';
+
   /**
    * @var array
    */
@@ -44,6 +50,16 @@ class User extends Authenticatable {
     'stringPassword',
     'stringRememberToken',
   ];
+
+  /**
+   * @var string
+   */
+  protected $primaryKey = 'intId';
+
+  /**
+   * @var string
+   */
+  protected $table = 'User';
 
   /**
    * Get the value of dateBirthDate

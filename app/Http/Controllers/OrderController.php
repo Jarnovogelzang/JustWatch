@@ -10,24 +10,33 @@ use App\Http\Requests\Orders\StoreOrderRequest;
 use App\Http\Requests\Orders\UpdateOrderRequest;
 
 class OrderController extends Controller {
-  public function index() {
-    return view('orders.index')
-      ->with([
-        'arrayOrders' => Order::all(),
-      ]);
-  }
-
-  public function show(ShowOrderRequest $objRequest, Order $objOrder) {
-    return view('orders.show')
-      ->with([
-        'objOrder' => $objOrder,
-      ]);
-  }
-
+  /**
+   * @param CreateOrderRequest $objRequest
+   */
   public function create(CreateOrderRequest $objRequest) {
     return view('orders.create');
   }
 
+  /**
+   * @param DeleteOrderRequest $objRequest
+   * @param Order $objOrder
+   */
+  public function delete(DeleteOrderRequest $objRequest, Order $objOrder) {
+    $objOrder->delete();
+
+    return redirect()
+      ->back()
+      ->with($objOrder->delete() ? [
+        'stringSuccess' => 'Order succesvol verwijderd!',
+      ] : [
+        'stringError' => 'Order onsuccesvol verwijderd!',
+      ]);
+  }
+
+  /**
+   * @param EditOrderRequest $objRequest
+   * @param Order $objOrder
+   */
   public function edit(EditOrderRequest $objRequest, Order $objOrder) {
     return view('orders.edit')
       ->with([
@@ -35,17 +44,27 @@ class OrderController extends Controller {
       ]);
   }
 
-  public function update(UpdateOrderRequest $objRequest, Order $objOrder) {
-    $objOrder = $objOrder->update($objRequest->all());
-
-    return redirect()
-      ->back()
+  public function index() {
+    return view('orders.index')
       ->with([
-        'stringSuccess' => 'Bestelling succesvol aangepast!',
+        'arrayOrders' => Order::all(),
+      ]);
+  }
+
+  /**
+   * @param ShowOrderRequest $objRequest
+   * @param Order $objOrder
+   */
+  public function show(ShowOrderRequest $objRequest, Order $objOrder) {
+    return view('orders.show')
+      ->with([
         'objOrder' => $objOrder,
       ]);
   }
 
+  /**
+   * @param StoreOrderRequest $objRequest
+   */
   public function store(StoreOrderRequest $objRequest) {
     $objOrder = Order::create($objRequest->all());
 
@@ -56,13 +75,18 @@ class OrderController extends Controller {
       ]);
   }
 
-  public function delete(DeleteOrderRequest $objRequest, Order $objOrder) {
-    $objOrder->delete();
+  /**
+   * @param UpdateOrderRequest $objRequest
+   * @param Order $objOrder
+   */
+  public function update(UpdateOrderRequest $objRequest, Order $objOrder) {
+    $objOrder = $objOrder->update($objRequest->all());
 
     return redirect()
       ->back()
       ->with([
-        'stringSuccess' => 'Bestelling succesvol verwijderd!',
+        'stringSuccess' => 'Bestelling succesvol aangepast!',
+        'objOrder' => $objOrder,
       ]);
   }
 }

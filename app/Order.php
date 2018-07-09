@@ -9,6 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Order extends Model {
   use SoftDeletes;
 
+  const CREATED_AT = 'dateCreatedAt';
+
+  const DELETED_AT = 'dateDeletedAt';
+
+  const UPDATED_AT = 'dateUpdatedAt';
+
   /**
    * @var array
    */
@@ -32,6 +38,16 @@ class Order extends Model {
   protected $hidden = [
     //
   ];
+
+  /**
+   * @var string
+   */
+  protected $primaryKey = 'intId';
+
+  /**
+   * @var string
+   */
+  protected $table = 'Order';
 
   /**
    * Get the value of dateCreatedAt

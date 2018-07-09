@@ -2,32 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests\Products\CreateProductRequest;
 use App\Http\Requests\Products\DeleteProductRequest;
 use App\Http\Requests\Products\EditProductRequest;
 use App\Http\Requests\Products\ShowProductRequest;
 use App\Http\Requests\Products\StoreProductRequest;
 use App\Http\Requests\Products\UpdateProductRequest;
+use App\Product;
 
 class ProductController extends Controller {
-  public function index() {
-    return view('products.index')
-      ->with([
-        'arrayproducts' => Product::all(),
-      ]);
-  }
-
-  public function show(ShowProductRequest $objRequest, Product $objProduct) {
-    return view('products.show')
-      ->with([
-        'objProduct' => $objProduct,
-      ]);
-  }
-
+  /**
+   * @param CreateProductRequest $objRequest
+   */
   public function create(CreateProductRequest $objRequest) {
     return view('products.create');
   }
 
+  /**
+   * @param DeleteProductRequest $objRequest
+   * @param Product $objProduct
+   */
+  public function delete(DeleteProductRequest $objRequest, Product $objProduct) {
+    return redirect()
+      ->back()
+      ->with($objProduct->delete() ? [
+        'stringSuccess' => 'Product succesvol verwijderd!',
+      ] : [
+        'stringError' => 'Product onsuccesvol verwijderd!',
+      ]);
+  }
+
+  /**
+   * @param EditProductRequest $objRequest
+   * @param Product $objProduct
+   */
   public function edit(EditProductRequest $objRequest, Product $objProduct) {
     return view('products.edit')
       ->with([
@@ -35,17 +44,29 @@ class ProductController extends Controller {
       ]);
   }
 
-  public function update(UpdateProductRequest $objRequest, Product $objProduct) {
-    $objProduct = $objProduct->update($objRequest->all());
-
-    return redirect()
-      ->back()
+  public function index() {
+    return view('products.index')
       ->with([
-        'stringSuccess' => 'Product succesvol aangepast!',
+        'arrayFeaturedCategories' => Category::whereIsFeatured()->get(),
+        'arrayHottestProducts' => Product::orderByOrderAmount()->limit(3)->get(),
+        'arrayCategories' => Category::all(),
+      ]);
+  }
+
+  /**
+   * @param ShowProductRequest $objRequest
+   * @param Product $objProduct
+   */
+  public function show(ShowProductRequest $objRequest, Product $objProduct) {
+    return view('products.show')
+      ->with([
         'objProduct' => $objProduct,
       ]);
   }
 
+  /**
+   * @param StoreProductRequest $objRequest
+   */
   public function store(StoreProductRequest $objRequest) {
     $objProduct = Product::create($objRequest->all());
 
@@ -56,13 +77,18 @@ class ProductController extends Controller {
       ]);
   }
 
-  public function delete(DeleteProductRequest $objRequest, Product $objProduct) {
-    $objProduct->delete();
+  /**
+   * @param UpdateProductRequest $objRequest
+   * @param Product $objProduct
+   */
+  public function update(UpdateProductRequest $objRequest, Product $objProduct) {
+    $objProduct = $objProduct->update($objRequest->all());
 
     return redirect()
       ->back()
       ->with([
-        'stringSuccess' => 'Product succesvol verwijderd!',
+        'stringSuccess' => 'Product succesvol aangepast!',
+        'objProduct' => $objProduct,
       ]);
   }
 }

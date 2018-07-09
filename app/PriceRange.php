@@ -5,6 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class PriceRange extends Model {
+  const CREATED_AT = 'dateCreatedAt';
+
+  const DELETED_AT = 'dateDeletedAt';
+
+  const UPDATED_AT = 'dateUpdatedAt';
+
   /**
    * @var array
    */
@@ -30,6 +36,16 @@ class PriceRange extends Model {
   protected $hidden = [
     //
   ];
+
+  /**
+   * @var string
+   */
+  protected $primaryKey = 'intId';
+
+  /**
+   * @var string
+   */
+  protected $table = 'PriceRange';
 
   /**
    * Get the value of dateCreatedAt

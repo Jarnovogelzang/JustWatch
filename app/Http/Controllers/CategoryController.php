@@ -10,24 +10,31 @@ use App\Http\Requests\Categories\StoreCategoryRequest;
 use App\Http\Requests\Categories\UpdateCategoryRequest;
 
 class CategoryController extends Controller {
-  public function index() {
-    return view('categories.index')
-      ->with([
-        'arrayCategorys' => Category::all(),
-      ]);
-  }
-
-  public function show(ShowCategoryRequest $objRequest, Category $objCategory) {
-    return view('categories.show')
-      ->with([
-        'objCategory' => $objCategory,
-      ]);
-  }
-
+  /**
+   * @param CreateCategoryRequest $objRequest
+   */
   public function create(CreateCategoryRequest $objRequest) {
     return view('categories.create');
   }
 
+  /**
+   * @param DeleteCategoryRequest $objRequest
+   * @param Category $objCategory
+   */
+  public function delete(DeleteCategoryRequest $objRequest, Category $objCategory) {
+    return redirect()
+      ->back()
+      ->with($objCategory->delete() ? [
+        'stringSuccess' => 'Categorie succesvol verwijderd!',
+      ] : [
+        'stringError' => 'Categorie onsuccesvol verwijderd!',
+      ]);
+  }
+
+  /**
+   * @param EditCategoryRequest $objRequest
+   * @param Category $objCategory
+   */
   public function edit(EditCategoryRequest $objRequest, Category $objCategory) {
     return view('categories.edit')
       ->with([
@@ -35,17 +42,28 @@ class CategoryController extends Controller {
       ]);
   }
 
-  public function update(UpdateCategoryRequest $objRequest, Category $objCategory) {
-    $objCategory = $objCategory->update($objRequest->all());
-
-    return redirect()
-      ->back()
+  public function index() {
+    return view('categories.index')
       ->with([
-        'stringSuccess' => 'Categorie succesvol aangepast!',
-        'objCategory' => $objCategory,
+        'arrayCategorys' => Category::all(),
       ]);
   }
 
+  /**
+   * @param ShowCategoryRequest $objRequest
+   * @param Category $objCategory
+   */
+  public function show(ShowCategoryRequest $objRequest, Category $objCategory) {
+    return view('categories.show')
+      ->with([
+        'objCategory' => $objCategory,
+        'arrayProducts' => $objCategory->getProducts()->paginate(9),
+      ]);
+  }
+
+  /**
+   * @param StoreCategoryRequest $objRequest
+   */
   public function store(StoreCategoryRequest $objRequest) {
     $objCategory = Category::create($objRequest->all());
 
@@ -56,13 +74,18 @@ class CategoryController extends Controller {
       ]);
   }
 
-  public function delete(DeleteCategoryRequest $objRequest, Category $objCategory) {
-    $objCategory->delete();
+  /**
+   * @param UpdateCategoryRequest $objRequest
+   * @param Category $objCategory
+   */
+  public function update(UpdateCategoryRequest $objRequest, Category $objCategory) {
+    $objCategory = $objCategory->update($objRequest->all());
 
     return redirect()
       ->back()
       ->with([
-        'stringSuccess' => 'Categorie succesvol verwijderd!',
+        'stringSuccess' => 'Categorie succesvol aangepast!',
+        'objCategory' => $objCategory,
       ]);
   }
 }
