@@ -1,6 +1,8 @@
 <?php
 
-class OAuthCaller {
+use Includes\Callers\AuthCaller;
+
+class OAuthCaller extends AuthCaller {
   /**
    * @param $objGuzzleClient
    */

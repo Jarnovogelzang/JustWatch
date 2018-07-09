@@ -8,6 +8,7 @@ use App\Http\Requests\Orders\EditOrderRequest;
 use App\Http\Requests\Orders\ShowOrderRequest;
 use App\Http\Requests\Orders\StoreOrderRequest;
 use App\Http\Requests\Orders\UpdateOrderRequest;
+use App\Includes\Mollie\MollieDataMover;
 use App\Jobs\CreateOrder;
 use App\Jobs\NotifyUser;
 use App\Jobs\StoreOrder;
@@ -100,15 +101,11 @@ class OrderController extends Controller {
   public function store(StoreOrderRequest $objRequest) {
     Log::info('Storing a new order.');
 
-    StoreOrder::dispatch([
-      'teset' => 'test',
-    ])->delay(now());
+    $objOrder = new Order($objRequest->all());
+    StoreOrder::dispatch($objOrder)->delay(now());
 
     return redirect()
-      ->back()
-      ->with([
-        'stringSuccess' => 'Bestelling succesvol aangemaakt!',
-      ]);
+      ->to(MollieDataMover::getInstance()->postPayment($objOrder, [])->_links->self->href);
   }
 
   /**

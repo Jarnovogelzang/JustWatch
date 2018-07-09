@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -14,24 +15,22 @@ class StoreOrder implements ShouldQueue {
   /**
    * @var mixed
    */
-  protected $arrayData;
+  protected $objOrder;
 
   /**
-   * Create a new job instance.
-   *
-   * @return void
+   * @param Order $objOrder
    */
-  public function __construct(array $arrayData) {
+  public function __construct(Order $objOrder) {
     $this->arrayData = $arrayData;
   }
 
   /**
-   * Get the value of arrayData
+   * Get the value of objOrder
    *
    * @return  mixed
    */
-  public function getArrayData() {
-    return $this->arrayData;
+  public function getObjOrder() {
+    return $this->objOrder;
   }
 
   /**
@@ -40,18 +39,18 @@ class StoreOrder implements ShouldQueue {
    * @return void
    */
   public function handle() {
-    $objOrder = Order::create($this->getArrayData());
+    $objOrder = $this->getObjOrder()->save();
   }
 
   /**
-   * Set the value of arrayData
+   * Set the value of objOrder
    *
-   * @param  mixed  $arrayData
+   * @param  mixed  $objOrder
    *
    * @return  self
    */
-  public function setArrayData($arrayData) {
-    $this->arrayData = $arrayData;
+  public function setObjOrder($objOrder) {
+    $this->objOrder = $objOrder;
 
     return $this;
   }
