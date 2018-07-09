@@ -22,12 +22,10 @@ class CreateProductsTable extends Migration {
   public function up() {
     Schema::create('Product', function (Blueprint $table) {
       $table->increments('intId');
-      $table->integer('intAliId');
 
       $table->string('stringTitle');
       $table->text('stringDescription');
       $table->float('floatPrice');
-      $table->integer('intClicks');
 
       $table->date('dateCreatedAt')->nullable();
       $table->date('dateUpdatedAt')->nullable();
