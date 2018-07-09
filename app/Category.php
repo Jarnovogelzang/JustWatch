@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Product;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -58,6 +59,13 @@ class Category extends Model {
    */
   public function getIntId() {
     return $this->intId;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getProducts() {
+    return $this->belongsToMany(Product::class, 'ProductCategory', 'intCategoryId', 'intProductId');
   }
 
   /**

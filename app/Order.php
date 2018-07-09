@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -75,6 +76,13 @@ class Order extends Model {
    */
   public function getIntUserId() {
     return $this->intUserId;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getUser() {
+    return $this->belongsTo(User::class, 'intUserId', 'intId');
   }
 
   /**

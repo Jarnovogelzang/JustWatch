@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Order;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -84,6 +85,13 @@ class User extends Authenticatable {
    */
   public function getIntId() {
     return $this->intId;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getOrders() {
+    return $this->hasMany(Order::class, 'intId', 'intUserId');
   }
 
   /**

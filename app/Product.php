@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -33,6 +34,13 @@ class Product extends Model {
   protected $hidden = [
     //
   ];
+
+  /**
+   * @return mixed
+   */
+  public function getCategories() {
+    return $this->belongsToMany(Category::class, 'ProductCategory', 'intCategoryId', 'intProductId');
+  }
 
   /**
    * Get the value of dateCreatedAt
