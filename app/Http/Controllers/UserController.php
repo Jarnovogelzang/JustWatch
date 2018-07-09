@@ -14,6 +14,8 @@ class UserController extends Controller {
    * @param CreateUserRequest $objRequest
    */
   public function create(CreateUserRequest $objRequest) {
+    Log::info('Storing a new order.');
+
     return view('users.create');
   }
 
@@ -22,6 +24,8 @@ class UserController extends Controller {
    * @param User $objUser
    */
   public function delete(DeleteUserRequest $objRequest, User $objUser) {
+    Log::info('Storing a new order.');
+
     return redirect()
       ->back()
       ->with($objUser->delete() ? [
@@ -36,6 +40,8 @@ class UserController extends Controller {
    * @param User $objUser
    */
   public function edit(EditUserRequest $objRequest, User $objUser) {
+    Log::info('Storing a new order.');
+
     return view('users.edit')
       ->with([
         'objUser' => $objUser,
@@ -43,6 +49,8 @@ class UserController extends Controller {
   }
 
   public function index() {
+    Log::info('Storing a new order.');
+
     return view('users.index')
       ->with([
         'arrayUsers' => User::all(),
@@ -54,6 +62,8 @@ class UserController extends Controller {
    * @param User $objUser
    */
   public function show(ShowUserRequest $objRequest, User $objUser) {
+    Log::info('Storing a new order.');
+
     return view('users.show')
       ->with([
         'objUser' => $objUser,
@@ -64,6 +74,8 @@ class UserController extends Controller {
    * @param StoreUserRequest $objRequest
    */
   public function store(StoreUserRequest $objRequest) {
+    Log::info('Storing a new order.');
+
     $objUser = User::create($objRequest->all());
 
     return redirect()
@@ -78,6 +90,8 @@ class UserController extends Controller {
    * @param User $objUser
    */
   public function update(UpdateUserRequest $objRequest, User $objUser) {
+    Log::info('Storing a new order.');
+
     $objUser = $objUser->update($objRequest->all());
 
     return redirect()

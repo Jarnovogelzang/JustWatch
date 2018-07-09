@@ -14,6 +14,8 @@ class CategoryController extends Controller {
    * @param CreateCategoryRequest $objRequest
    */
   public function create(CreateCategoryRequest $objRequest) {
+    Log::info('Storing a new order.');
+
     return view('categories.create');
   }
 
@@ -22,6 +24,8 @@ class CategoryController extends Controller {
    * @param Category $objCategory
    */
   public function delete(DeleteCategoryRequest $objRequest, Category $objCategory) {
+    Log::info('Storing a new order.');
+
     return redirect()
       ->back()
       ->with($objCategory->delete() ? [
@@ -36,6 +40,8 @@ class CategoryController extends Controller {
    * @param Category $objCategory
    */
   public function edit(EditCategoryRequest $objRequest, Category $objCategory) {
+    Log::info('Storing a new order.');
+
     return view('categories.edit')
       ->with([
         'objCategory' => $objCategory,
@@ -43,6 +49,8 @@ class CategoryController extends Controller {
   }
 
   public function index() {
+    Log::info('Storing a new order.');
+
     return view('categories.index')
       ->with([
         'arrayCategorys' => Category::all(),
@@ -54,6 +62,8 @@ class CategoryController extends Controller {
    * @param Category $objCategory
    */
   public function show(ShowCategoryRequest $objRequest, Category $objCategory) {
+    Log::info('Storing a new order.');
+
     return view('categories.show')
       ->with([
         'objCategory' => $objCategory,
@@ -65,6 +75,8 @@ class CategoryController extends Controller {
    * @param StoreCategoryRequest $objRequest
    */
   public function store(StoreCategoryRequest $objRequest) {
+    Log::info('Storing a new order.');
+
     $objCategory = Category::create($objRequest->all());
 
     return redirect()
@@ -79,6 +91,8 @@ class CategoryController extends Controller {
    * @param Category $objCategory
    */
   public function update(UpdateCategoryRequest $objRequest, Category $objCategory) {
+    Log::info('Storing a new order.');
+
     $objCategory = $objCategory->update($objRequest->all());
 
     return redirect()

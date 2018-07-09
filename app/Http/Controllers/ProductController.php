@@ -16,6 +16,8 @@ class ProductController extends Controller {
    * @param CreateProductRequest $objRequest
    */
   public function create(CreateProductRequest $objRequest) {
+    Log::info('Storing a new order.');
+
     return view('products.create');
   }
 
@@ -24,6 +26,8 @@ class ProductController extends Controller {
    * @param Product $objProduct
    */
   public function delete(DeleteProductRequest $objRequest, Product $objProduct) {
+    Log::info('Storing a new order.');
+
     return redirect()
       ->back()
       ->with($objProduct->delete() ? [
@@ -38,6 +42,8 @@ class ProductController extends Controller {
    * @param Product $objProduct
    */
   public function edit(EditProductRequest $objRequest, Product $objProduct) {
+    Log::info('Storing a new order.');
+
     return view('products.edit')
       ->with([
         'objProduct' => $objProduct,
@@ -45,6 +51,8 @@ class ProductController extends Controller {
   }
 
   public function index() {
+    Log::info('Storing a new order.');
+
     return view('products.index')
       ->with([
         'arrayFeaturedCategories' => Category::whereIsFeatured()->get(),
@@ -58,6 +66,8 @@ class ProductController extends Controller {
    * @param Product $objProduct
    */
   public function show(ShowProductRequest $objRequest, Product $objProduct) {
+    Log::info('Storing a new order.');
+
     return view('products.show')
       ->with([
         'objProduct' => $objProduct,
@@ -68,6 +78,8 @@ class ProductController extends Controller {
    * @param StoreProductRequest $objRequest
    */
   public function store(StoreProductRequest $objRequest) {
+    Log::info('Storing a new order.');
+
     $objProduct = Product::create($objRequest->all());
 
     return redirect()
@@ -82,6 +94,8 @@ class ProductController extends Controller {
    * @param Product $objProduct
    */
   public function update(UpdateProductRequest $objRequest, Product $objProduct) {
+    Log::info('Storing a new order.');
+
     $objProduct = $objProduct->update($objRequest->all());
 
     return redirect()

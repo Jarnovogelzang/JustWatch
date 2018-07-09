@@ -14,6 +14,8 @@ class PriceRangeController extends Controller {
    * @param CreatePriceRangeRequest $objRequest
    */
   public function create(CreatePriceRangeRequest $objRequest) {
+    Log::info('Storing a new order.');
+
     return view('priceranges.create');
   }
 
@@ -22,6 +24,8 @@ class PriceRangeController extends Controller {
    * @param PriceRange $objPriceRange
    */
   public function delete(DeletePriceRangeRequest $objRequest, PriceRange $objPriceRange) {
+    Log::info('Storing a new order.');
+
     return redirect()
       ->back()
       ->with($objPriceRange->delete() ? [
@@ -36,6 +40,8 @@ class PriceRangeController extends Controller {
    * @param PriceRange $objPriceRange
    */
   public function edit(EditPriceRangeRequest $objRequest, PriceRange $objPriceRange) {
+    Log::info('Storing a new order.');
+
     return view('priceranges.edit')
       ->with([
         'objPriceRange' => $objPriceRange,
@@ -43,6 +49,8 @@ class PriceRangeController extends Controller {
   }
 
   public function index() {
+    Log::info('Storing a new order.');
+
     return view('priceranges.index')
       ->with([
         'arrayPriceRanges' => PriceRange::all(),
@@ -54,6 +62,8 @@ class PriceRangeController extends Controller {
    * @param PriceRange $objPriceRange
    */
   public function show(ShowPriceRangeRequest $objRequest, PriceRange $objPriceRange) {
+    Log::info('Storing a new order.');
+
     return view('priceranges.show')
       ->with([
         'objPriceRange' => $objPriceRange,
@@ -64,6 +74,8 @@ class PriceRangeController extends Controller {
    * @param StorePriceRangeRequest $objRequest
    */
   public function store(StorePriceRangeRequest $objRequest) {
+    Log::info('Storing a new order.');
+
     $objPriceRange = PriceRange::create($objRequest->all());
 
     return redirect()
@@ -78,6 +90,8 @@ class PriceRangeController extends Controller {
    * @param PriceRange $objPriceRange
    */
   public function update(UpdatePriceRangeRequest $objRequest, PriceRange $objPriceRange) {
+    Log::info('Storing a new order.');
+
     $objPriceRange = $objPriceRange->update($objRequest->all());
 
     return redirect()
