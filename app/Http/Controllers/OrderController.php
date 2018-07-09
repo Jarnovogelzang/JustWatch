@@ -8,6 +8,9 @@ use App\Http\Requests\Orders\EditOrderRequest;
 use App\Http\Requests\Orders\ShowOrderRequest;
 use App\Http\Requests\Orders\StoreOrderRequest;
 use App\Http\Requests\Orders\UpdateOrderRequest;
+use App\Jobs\CreateOrder;
+use App\Jobs\NotifyUser;
+use App\Jobs\StoreOrder;
 
 class OrderController extends Controller {
   /**
@@ -22,8 +25,6 @@ class OrderController extends Controller {
    * @param Order $objOrder
    */
   public function delete(DeleteOrderRequest $objRequest, Order $objOrder) {
-    $objOrder->delete();
-
     return redirect()
       ->back()
       ->with($objOrder->delete() ? [
@@ -52,6 +53,24 @@ class OrderController extends Controller {
   }
 
   /**
+   * @param PayOrderRequest $objRequest
+   * @param Order $objOrder
+   */
+  public function pay(PayOrderRequest $objRequest, Order $objOrder) {
+    UpdateOrder::dispatch($objOrder, [
+      'boolIsPaid' => true,
+    ])->delay(now());
+
+    NotifyUser::dispatch($objOrder->getUser(), new OrderPaid($objOrder));
+
+    return view('orders.show')
+      ->with([
+        'objOrder' => $objOrder,
+        'stringSucces' => 'Bestelling succesvol geplaatst! U ontvangt zo spoedig mogelijk een mail met informatie over de vervolgprocedure van ons! U kunt uw bestelling bekijken via Mijn Bestellingen!',
+      ]);
+  }
+
+  /**
    * @param ShowOrderRequest $objRequest
    * @param Order $objOrder
    */
@@ -66,7 +85,9 @@ class OrderController extends Controller {
    * @param StoreOrderRequest $objRequest
    */
   public function store(StoreOrderRequest $objRequest) {
-    $objOrder = Order::create($objRequest->all());
+    StoreOrder::dispatch([
+      'teset' => 'test',
+    ])->delay(now());
 
     return redirect()
       ->back()

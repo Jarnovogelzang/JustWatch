@@ -30,6 +30,7 @@ class Order extends Model {
   protected $fillable = [
     'intId',
     'intUserId',
+    'boolIsPaid',
   ];
 
   /**
@@ -48,6 +49,15 @@ class Order extends Model {
    * @var string
    */
   protected $table = 'Order';
+
+  /**
+   * Get the value of boolIsPaid
+   *
+   * @return  mixed
+   */
+  public function getBoolIsPaid() {
+    return $this->boolIsPaid;
+  }
 
   /**
    * Get the value of dateCreatedAt
@@ -99,6 +109,19 @@ class Order extends Model {
    */
   public function getUser() {
     return $this->belongsTo(User::class, 'intUserId', 'intId');
+  }
+
+  /**
+   * Set the value of boolIsPaid
+   *
+   * @param  mixed  $boolIsPaid
+   *
+   * @return  self
+   */
+  public function setBoolIsPaid($boolIsPaid) {
+    $this->boolIsPaid = $boolIsPaid;
+
+    return $this;
   }
 
   /**

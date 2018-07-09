@@ -22,7 +22,9 @@ class CreateOrdersTable extends Migration {
   public function up() {
     Schema::create('Order', function (Blueprint $table) {
       $table->increments('intId');
+
       $table->integer('intUserId');
+      $table->boolean('boolIsPaid');
 
       $table->date('dateCreatedAt')->nullable();
       $table->date('dateUpdatedAt')->nullable();

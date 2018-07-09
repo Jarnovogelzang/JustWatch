@@ -22,8 +22,6 @@ class UserController extends Controller {
    * @param User $objUser
    */
   public function delete(DeleteUserRequest $objRequest, User $objUser) {
-    $objUser->delete();
-
     return redirect()
       ->back()
       ->with($objUser->delete() ? [

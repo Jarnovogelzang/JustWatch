@@ -3,8 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Specification extends Model {
+  use SoftDeletes;
+
   const CREATED_AT = 'dateCreatedAt';
 
   const DELETED_AT = 'dateDeletedAt';
