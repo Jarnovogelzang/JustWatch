@@ -51,6 +51,15 @@ class MollieCaller extends OAuthCaller {
   }
 
   /**
+   * @param MollieCaller $objInstance
+   */
+  public static function setObjInstance(MollieCaller $objInstance) {
+    self::$objInstance = $objInstance;
+
+    return self;
+  }
+
+  /**
    * @param Order $objOrder
    * @param array $arrayData
    * @return mixed

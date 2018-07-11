@@ -3,7 +3,7 @@
 namespace Includes\Callers;
 use Includes\Callers\AuthCaller;
 
-class OAuthCaller extends AuthCaller {
+class BasisAuthCaller extends AuthCaller {
   /**
    * @param $objGuzzleClient
    */
