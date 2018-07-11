@@ -28,7 +28,8 @@ class UpdateOrder implements ShouldQueue {
    * @return void
    */
   public function __construct(Order $objOrder, array $arrayData) {
-    //
+    $this->objOrder = $objOrder;
+    $this->arrayData = $arrayData;
   }
 
   /**

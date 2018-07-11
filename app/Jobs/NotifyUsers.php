@@ -15,12 +15,12 @@ class NotifyUsers implements ShouldQueue {
   /**
    * @var mixed
    */
-  private $arrayUsers;
+  protected $arrayUsers;
 
   /**
    * @var mixed
    */
-  private $objNotification;
+  protected $objNotification;
 
   /**
    * Create a new job instance.
