@@ -8,15 +8,6 @@ class OrderPolicy {
   use HandlesAuthorization;
 
   /**
-   * Create a new policy instance.
-   *
-   * @return void
-   */
-  public function __construct() {
-    //
-  }
-
-  /**
    * @param User $objUser
    */
   public function create(User $objUser) {

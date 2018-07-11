@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Order;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,6 +11,24 @@ class User extends Authenticatable {
   use Notifiable;
   use SoftDeletes;
 
+  const CREATED_AT = 'dateCreatedAt';
+
+  const DELETED_AT = 'dateDeletedAt';
+
+  const UPDATED_AT = 'dateUpdatedAt';
+
+  /**
+   * @var array
+   */
+  protected $dates = [
+    'dateDeletedAt',
+    'dateCreatedAt',
+    'dateUpdatedAt',
+  ];
+
+  /**
+   * @var array
+   */
   protected $fillable = [
     'intId',
     'stringName',
@@ -24,16 +43,58 @@ class User extends Authenticatable {
     'dateUpdatedAt',
   ];
 
+  /**
+   * @var array
+   */
   protected $hidden = [
     'stringPassword',
     'stringRememberToken',
   ];
 
-  protected $dates = [
-    'dateDeletedAt',
-    'dateCreatedAt',
-    'dateUpdatedAt',
-  ];
+  /**
+   * @var string
+   */
+  protected $primaryKey = 'intId';
+
+  /**
+   * @var string
+   */
+  protected $table = 'User';
+
+  /**
+   * Get the value of dateBirthDate
+   */
+  public function getDateBirthDate() {
+    return $this->dateBirthDate;
+  }
+
+  /**
+   * Get the value of dateCreatedAt
+   */
+  public function getDateCreatedAt() {
+    return $this->dateCreatedAt;
+  }
+
+  /**
+   * Get the value of dateDeletedAt
+   */
+  public function getDateDeletedAt() {
+    return $this->dateDeletedAt;
+  }
+
+  /**
+   * Get the value of dateUpdatedAt
+   */
+  public function getDateUpdatedAt() {
+    return $this->dateUpdatedAt;
+  }
+
+  /**
+   * Get the value of intHouseNumber
+   */
+  public function getIntHouseNumber() {
+    return $this->intHouseNumber;
+  }
 
   /**
    * Get the value of intId
@@ -43,14 +104,17 @@ class User extends Authenticatable {
   }
 
   /**
-   * Set the value of intId
-   *
-   * @return  self
+   * @return mixed
    */
-  public function setIntId($intId) {
-    $this->intId = $intId;
+  public function getOrders() {
+    return $this->hasMany(Order::class, 'intId', 'intUserId');
+  }
 
-    return $this;
+  /**
+   * Get the value of stringCountry
+   */
+  public function getStringCountry() {
+    return $this->stringCountry;
   }
 
   /**
@@ -68,32 +132,17 @@ class User extends Authenticatable {
   }
 
   /**
-   * Set the value of stringPassword
-   *
-   * @return  self
+   * Get the value of stringRememberToken
    */
-  public function setStringPassword($stringPassword) {
-    $this->stringPassword = $stringPassword;
-
-    return $this;
+  public function getStringRememberToken() {
+    return $this->stringRememberToken;
   }
 
   /**
-   * Get the value of stringCountry
+   * Get the value of stringTelephoneNumber
    */
-  public function getStringCountry() {
-    return $this->stringCountry;
-  }
-
-  /**
-   * Set the value of stringCountry
-   *
-   * @return  self
-   */
-  public function setStringCountry($stringCountry) {
-    $this->stringCountry = $stringCountry;
-
-    return $this;
+  public function getStringTelephoneNumber() {
+    return $this->stringTelephoneNumber;
   }
 
   /**
@@ -101,42 +150,6 @@ class User extends Authenticatable {
    */
   public function getStringZipCode() {
     return $this->stringZipCode;
-  }
-
-  /**
-   * Set the value of stringZipCode
-   *
-   * @return  self
-   */
-  public function setStringZipCode($stringZipCode) {
-    $this->stringZipCode = $stringZipCode;
-
-    return $this;
-  }
-
-  /**
-   * Get the value of intHouseNumber
-   */
-  public function getIntHouseNumber() {
-    return $this->intHouseNumber;
-  }
-
-  /**
-   * Set the value of intHouseNumber
-   *
-   * @return  self
-   */
-  public function setIntHouseNumber($intHouseNumber) {
-    $this->intHouseNumber = $intHouseNumber;
-
-    return $this;
-  }
-
-  /**
-   * Get the value of dateBirthDate
-   */
-  public function getDateBirthDate() {
-    return $this->dateBirthDate;
   }
 
   /**
@@ -151,28 +164,14 @@ class User extends Authenticatable {
   }
 
   /**
-   * Get the value of stringTelephoneNumber
-   */
-  public function getStringTelephoneNumber() {
-    return $this->stringTelephoneNumber;
-  }
-
-  /**
-   * Set the value of stringTelephoneNumber
+   * Set the value of dateCreatedAt
    *
    * @return  self
    */
-  public function setStringTelephoneNumber($stringTelephoneNumber) {
-    $this->stringTelephoneNumber = $stringTelephoneNumber;
+  public function setDateCreatedAt($dateCreatedAt) {
+    $this->dateCreatedAt = $dateCreatedAt;
 
     return $this;
-  }
-
-  /**
-   * Get the value of dateDeletedAt
-   */
-  public function getDateDeletedAt() {
-    return $this->dateDeletedAt;
   }
 
   /**
@@ -187,31 +186,6 @@ class User extends Authenticatable {
   }
 
   /**
-   * Get the value of dateCreatedAt
-   */
-  public function getDateCreatedAt() {
-    return $this->dateCreatedAt;
-  }
-
-  /**
-   * Set the value of dateCreatedAt
-   *
-   * @return  self
-   */
-  public function setDateCreatedAt($dateCreatedAt) {
-    $this->dateCreatedAt = $dateCreatedAt;
-
-    return $this;
-  }
-
-  /**
-   * Get the value of dateUpdatedAt
-   */
-  public function getDateUpdatedAt() {
-    return $this->dateUpdatedAt;
-  }
-
-  /**
    * Set the value of dateUpdatedAt
    *
    * @return  self
@@ -223,10 +197,47 @@ class User extends Authenticatable {
   }
 
   /**
-   * Get the value of stringRememberToken
+   * Set the value of intHouseNumber
+   *
+   * @return  self
    */
-  public function getStringRememberToken() {
-    return $this->stringRememberToken;
+  public function setIntHouseNumber($intHouseNumber) {
+    $this->intHouseNumber = $intHouseNumber;
+
+    return $this;
+  }
+
+  /**
+   * Set the value of intId
+   *
+   * @return  self
+   */
+  public function setIntId($intId) {
+    $this->intId = $intId;
+
+    return $this;
+  }
+
+  /**
+   * Set the value of stringCountry
+   *
+   * @return  self
+   */
+  public function setStringCountry($stringCountry) {
+    $this->stringCountry = $stringCountry;
+
+    return $this;
+  }
+
+  /**
+   * Set the value of stringPassword
+   *
+   * @return  self
+   */
+  public function setStringPassword($stringPassword) {
+    $this->stringPassword = $stringPassword;
+
+    return $this;
   }
 
   /**
@@ -236,6 +247,28 @@ class User extends Authenticatable {
    */
   public function setStringRememberToken($stringRememberToken) {
     $this->stringRememberToken = $stringRememberToken;
+
+    return $this;
+  }
+
+  /**
+   * Set the value of stringTelephoneNumber
+   *
+   * @return  self
+   */
+  public function setStringTelephoneNumber($stringTelephoneNumber) {
+    $this->stringTelephoneNumber = $stringTelephoneNumber;
+
+    return $this;
+  }
+
+  /**
+   * Set the value of stringZipCode
+   *
+   * @return  self
+   */
+  public function setStringZipCode($stringZipCode) {
+    $this->stringZipCode = $stringZipCode;
 
     return $this;
   }

@@ -24,7 +24,7 @@ class CreateCategoriesTable extends Migration {
       $table->increments('intId');
 
       $table->string('stringTitle');
-      $table->integer('intClicks');
+      $table->boolean('boolIsFeatured')->nullable();
 
       $table->date('dateCreatedAt')->nullable();
       $table->date('dateUpdatedAt')->nullable();
