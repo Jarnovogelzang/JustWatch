@@ -28,7 +28,7 @@ class ZincCaller extends BasicAuthCaller {
    * @param $intProductId
    * @return mixed
    */
-  public function getAliProductById($intProductId) {
+  public function getAliProductByIntId($intProductId) {
     return $this->callUrl('GET', 'products/' . $intProductId, [
       'retailer' => 'aliexpress',
     ]);
@@ -38,7 +38,7 @@ class ZincCaller extends BasicAuthCaller {
    * @param $intProductId
    * @return mixed
    */
-  public function getAliProductPriceById($intProductId) {
+  public function getAliProductPriceByIntId($intProductId) {
     return $this->callUrl('GET', 'products/' . $intProductId . '/offers', [
       'retailer' => 'aliexpress',
     ]);
@@ -48,7 +48,7 @@ class ZincCaller extends BasicAuthCaller {
    * @param $stringQuery
    * @return mixed
    */
-  public function getAliProductsByQuery($stringQuery) {
+  public function getAliProductsByStringQuery($stringQuery) {
     return $this->callUrl('GET', 'search', [
       'query' => urlencode($stringQuery),
       'retailer' => 'aliexpress',
