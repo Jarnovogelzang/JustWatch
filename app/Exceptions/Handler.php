@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
+use App\Jobs\NotifyUsers;
+use App\User;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 

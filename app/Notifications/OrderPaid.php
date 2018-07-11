@@ -3,10 +3,11 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class OrderPaid extends Notification {
+class OrderPaid extends Notification implements ShouldQueue {
   use Queueable;
 
   /**
@@ -58,6 +59,14 @@ class OrderPaid extends Notification {
   }
 
   /**
+   * @param $notifiable
+   * @return mixed
+   */
+  public function toDatabase($notifiable) {
+    return $this->getObjOrder()->toArray();
+  }
+
+  /**
    * Get the mail representation of the notification.
    *
    * @param  mixed  $notifiable
@@ -77,6 +86,8 @@ class OrderPaid extends Notification {
    * @return array
    */
   public function via($notifiable) {
-    return ['mail'];
+    return [
+      'mail',
+    ];
   }
 }
