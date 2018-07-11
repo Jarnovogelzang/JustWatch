@@ -14,7 +14,7 @@ class UserController extends Controller {
    * @param CreateUserRequest $objRequest
    */
   public function create(CreateUserRequest $objRequest) {
-    Log::info('Storing a new order.');
+    Log::info('Creating an new User.');
 
     return view('users.create');
   }
@@ -24,7 +24,7 @@ class UserController extends Controller {
    * @param User $objUser
    */
   public function delete(DeleteUserRequest $objRequest, User $objUser) {
-    Log::info('Storing a new order.');
+    Log::critical('Deleting an User with ID as ' . $objUser->getIntId() . '.');
 
     return redirect()
       ->back()
@@ -40,7 +40,7 @@ class UserController extends Controller {
    * @param User $objUser
    */
   public function edit(EditUserRequest $objRequest, User $objUser) {
-    Log::info('Storing a new order.');
+    Log::info('Editing an User with ID as ' . $objUser->getIntId() . '.');
 
     return view('users.edit')
       ->with([
@@ -49,7 +49,7 @@ class UserController extends Controller {
   }
 
   public function index() {
-    Log::info('Storing a new order.');
+    Log::info('Showing all the Users.');
 
     return view('users.index')
       ->with([
@@ -62,7 +62,7 @@ class UserController extends Controller {
    * @param User $objUser
    */
   public function show(ShowUserRequest $objRequest, User $objUser) {
-    Log::info('Storing a new order.');
+    Log::info('Showing an User with ID as ' . $objUser->getIntId() . '.');
 
     return view('users.show')
       ->with([
@@ -74,7 +74,7 @@ class UserController extends Controller {
    * @param StoreUserRequest $objRequest
    */
   public function store(StoreUserRequest $objRequest) {
-    Log::info('Storing a new order.');
+    Log::info('Storing an new User.');
 
     $objUser = User::create($objRequest->all());
 
@@ -90,7 +90,7 @@ class UserController extends Controller {
    * @param User $objUser
    */
   public function update(UpdateUserRequest $objRequest, User $objUser) {
-    Log::info('Storing a new order.');
+    Log::info('Updating an User with ID as ' . $objUser->getIntId() . '.');
 
     $objUser = $objUser->update($objRequest->all());
 

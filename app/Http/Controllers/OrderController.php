@@ -19,7 +19,7 @@ class OrderController extends Controller {
    * @param CreateOrderRequest $objRequest
    */
   public function create(CreateOrderRequest $objRequest) {
-    Log::info('Showing the form for creating an order.');
+    Log::info('Creating an new Order.');
 
     return view('orders.create');
   }
@@ -29,7 +29,7 @@ class OrderController extends Controller {
    * @param Order $objOrder
    */
   public function delete(DeleteOrderRequest $objRequest, Order $objOrder) {
-    Log::critical('Deleting order with information as: ' . implode(', ', $objOrder->toArray()) . '.');
+    Log::critical('Deleting an Order with ID as ' . $objOrder->getIntId() . '.');
 
     return redirect()
       ->back()
@@ -45,7 +45,7 @@ class OrderController extends Controller {
    * @param Order $objOrder
    */
   public function edit(EditOrderRequest $objRequest, Order $objOrder) {
-    Log::info('Show edit-form for order with ID: ' . $objOrder->getIntId());
+    Log::info('Editing an Order with ID as ' . $objCategory->getIntId() . '.');
 
     return view('orders.edit')
       ->with([
@@ -54,7 +54,7 @@ class OrderController extends Controller {
   }
 
   public function index() {
-    Log::info('Show all orders for user with ID: ' . auth()->user()->getIntId() . '.');
+    Log::info('Showing all the Orders.');
 
     return view('orders.index')
       ->with([
@@ -67,7 +67,7 @@ class OrderController extends Controller {
    * @param Order $objOrder
    */
   public function pay(PayOrderRequest $objRequest, Order $objOrder) {
-    Log::critical('Paying order with ID: ' . $objOrder->getIntId() . '.');
+    Log::critical('Paying an Order with ID as ' . $objOrder->getIntId() . '.');
 
     UpdateOrder::dispatch($objOrder, [
       'boolIsPaid' => true,
@@ -87,7 +87,7 @@ class OrderController extends Controller {
    * @param Order $objOrder
    */
   public function show(ShowOrderRequest $objRequest, Order $objOrder) {
-    Log::info('Show order with ID: ' . $objOrder->getIntId() . '.');
+    Log::info('Showing an Order with ID as ' . $objOrder->getIntId() . '.');
 
     return view('orders.show')
       ->with([
@@ -99,7 +99,7 @@ class OrderController extends Controller {
    * @param StoreOrderRequest $objRequest
    */
   public function store(StoreOrderRequest $objRequest) {
-    Log::info('Storing a new order.');
+    Log::info('Storing an new Order.');
 
     $objOrder = new Order($objRequest->all());
     StoreOrder::dispatch($objOrder)->delay(now());
@@ -113,7 +113,7 @@ class OrderController extends Controller {
    * @param Order $objOrder
    */
   public function update(UpdateOrderRequest $objRequest, Order $objOrder) {
-    Log::info('Updating order with ID: ' . $objOrder->getIntId() . '.');
+    Log::info('Updating an Order with ID as ' . $objOrder->getIntId() . '.');
 
     $objOrder = $objOrder->update($objRequest->all());
 

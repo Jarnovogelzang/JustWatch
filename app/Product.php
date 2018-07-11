@@ -53,6 +53,15 @@ class Product extends Model {
    */
   protected $table = 'Product';
 
+  public function getActualPrice() {
+    $floatPrice = getAliDataMover()->fetchProductById($this->getIntAliId())['floatPrice'];
+
+    return PriceRange::where([
+      ['floatPriceLow', '<=', $floatPrice],
+      ['floatPriceHigh', '>=', $floatPrice],
+    ]);
+  }
+
   /**
    * @return mixed
    */

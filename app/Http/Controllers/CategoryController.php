@@ -14,7 +14,7 @@ class CategoryController extends Controller {
    * @param CreateCategoryRequest $objRequest
    */
   public function create(CreateCategoryRequest $objRequest) {
-    Log::info('Storing a new order.');
+    Log::info('Creating a new Category.');
 
     return view('categories.create');
   }
@@ -24,7 +24,7 @@ class CategoryController extends Controller {
    * @param Category $objCategory
    */
   public function delete(DeleteCategoryRequest $objRequest, Category $objCategory) {
-    Log::info('Storing a new order.');
+    Log::critical('Deleting a Category with ID as ' . $objCategory->getIntId() . '.');
 
     return redirect()
       ->back()
@@ -40,7 +40,7 @@ class CategoryController extends Controller {
    * @param Category $objCategory
    */
   public function edit(EditCategoryRequest $objRequest, Category $objCategory) {
-    Log::info('Storing a new order.');
+    Log::info('Editing a Category with ID as ' . $objCategory->getIntId() . '.');
 
     return view('categories.edit')
       ->with([
@@ -49,7 +49,7 @@ class CategoryController extends Controller {
   }
 
   public function index() {
-    Log::info('Storing a new order.');
+    Log::info('Showing all the Categories.');
 
     return view('categories.index')
       ->with([
@@ -62,7 +62,7 @@ class CategoryController extends Controller {
    * @param Category $objCategory
    */
   public function show(ShowCategoryRequest $objRequest, Category $objCategory) {
-    Log::info('Storing a new order.');
+    Log::info('Showing a Category with ID as ' . $objCategory->getIntId() . '.');
 
     return view('categories.show')
       ->with([
@@ -75,7 +75,7 @@ class CategoryController extends Controller {
    * @param StoreCategoryRequest $objRequest
    */
   public function store(StoreCategoryRequest $objRequest) {
-    Log::info('Storing a new order.');
+    Log::info('Storing a new Category.');
 
     $objCategory = Category::create($objRequest->all());
 
@@ -91,7 +91,7 @@ class CategoryController extends Controller {
    * @param Category $objCategory
    */
   public function update(UpdateCategoryRequest $objRequest, Category $objCategory) {
-    Log::info('Storing a new order.');
+    Log::info('Updating a Category with ID as ' . $objCategory->getIntId() . '.');
 
     $objCategory = $objCategory->update($objRequest->all());
 

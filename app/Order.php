@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Order extends Model {
   use SoftDeletes;
 
-  const CREATED_AT = 'datefCreatedAt';
+  const CREATED_AT = 'dateCreatedAt';
 
   const DELETED_AT = 'dateDeletedAt';
 

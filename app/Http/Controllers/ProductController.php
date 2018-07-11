@@ -17,7 +17,7 @@ class ProductController extends Controller {
    * @param CreateProductRequest $objRequest
    */
   public function create(CreateProductRequest $objRequest) {
-    Log::info('Storing a new order.');
+    Log::info('Creating a new Product.');
 
     return view('products.create');
   }
@@ -27,7 +27,7 @@ class ProductController extends Controller {
    * @param Product $objProduct
    */
   public function delete(DeleteProductRequest $objRequest, Product $objProduct) {
-    Log::info('Storing a new order.');
+    Log::critical('Deleting a Product with ID as ' . $objProduct->getIntId() . '.');
 
     return redirect()
       ->back()
@@ -43,7 +43,7 @@ class ProductController extends Controller {
    * @param Product $objProduct
    */
   public function edit(EditProductRequest $objRequest, Product $objProduct) {
-    Log::info('Storing a new order.');
+    Log::info('Storing a new Product.');
 
     return view('products.edit')
       ->with([
@@ -52,7 +52,7 @@ class ProductController extends Controller {
   }
 
   public function index() {
-    Log::info('Storing a new order.');
+    Log::info('Showing all the Products.');
 
     return view('products.index')
       ->with([
@@ -67,7 +67,7 @@ class ProductController extends Controller {
    * @param Product $objProduct
    */
   public function show(ShowProductRequest $objRequest, Product $objProduct) {
-    Log::info('Storing a new order.');
+    Log::info('Showing a Product with ID as ' . $objProduct->getIntId() . '.');
 
     return view('products.show')
       ->with([
@@ -79,7 +79,7 @@ class ProductController extends Controller {
    * @param StoreProductRequest $objRequest
    */
   public function store(StoreProductRequest $objRequest) {
-    Log::info('Storing a new order.');
+    Log::info('Storing a new Product.');
 
     $objProduct = Product::create($objRequest->all());
 
@@ -95,7 +95,7 @@ class ProductController extends Controller {
    * @param Product $objProduct
    */
   public function update(UpdateProductRequest $objRequest, Product $objProduct) {
-    Log::info('Storing a new order.');
+    Log::info('Updating a Product with ID as ' . $objProduct->getIntId() . '.');
 
     $objProduct = $objProduct->update($objRequest->all());
 
