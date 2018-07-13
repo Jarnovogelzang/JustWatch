@@ -17,14 +17,14 @@ class MollieDataMover {
    * @param Caller $objCaller
    */
   public function __construct($stringBaseUrl = MOLLIE_DEFAULT_BASE_URL, $stringToken = MOLLIE_DEFAULT_TOKEN) {
-    $this->objCaller = MollieCaller::getInstance($stringBaseUrl, $stringToken);
+    $this->objCaller = MollieCaller::getObjInstance($stringBaseUrl, $stringToken);
   }
 
   /**
    * @param $stringBaseUrl
    * @param MOLLIE_DEFAULT_BASE_URL $stringToken
    */
-  public function getInstance($stringBaseUrl = MOLLIE_DEFAULT_BASE_URL, $stringToken = MOLLIE_DEFAULT_TOKEN) {
+  public function getObjInstance($stringBaseUrl = MOLLIE_DEFAULT_BASE_URL, $stringToken = MOLLIE_DEFAULT_TOKEN) {
     if (!isset(self::$objInstance) && !self::$objInstance) {
       self::$objInstance = new self($stringBaseUrl, $stringToken);
     }

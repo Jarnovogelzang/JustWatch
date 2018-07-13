@@ -81,7 +81,12 @@ class ProductController extends Controller {
   public function store(StoreProductRequest $objRequest) {
     Log::info('Storing a new Product.');
 
-    $objProduct = Product::create($objRequest->all());
+    if ($objRequest->input('boolSetDefaultAliData')) {
+      $objProduct = new Product();
+      $objProduct = $objProduct->setIntId($objRequest->input('intAliId'))->setAliDefaultData();
+    } else {
+      $objProduct = Product::create($objRequest->all());
+    }
 
     return redirect()
       ->back()
@@ -97,13 +102,12 @@ class ProductController extends Controller {
   public function update(UpdateProductRequest $objRequest, Product $objProduct) {
     Log::info('Updating a Product with ID as ' . $objProduct->getIntId() . '.');
 
-    $objProduct = $objProduct->update($objRequest->all());
-
     return redirect()
       ->back()
-      ->with([
+      ->with($objProduct->update($objRequest->all()) ? [
         'stringSuccess' => 'Product succesvol aangepast!',
-        'objProduct' => $objProduct,
+      ] : [
+        'stringError' => 'Product onsuccesvol aangepast!',
       ]);
   }
 }

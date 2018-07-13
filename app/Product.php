@@ -54,12 +54,17 @@ class Product extends Model {
   protected $table = 'Product';
 
   public function getActualPrice() {
-    $floatPrice = getAliDataMover()->fetchProductById($this->getIntAliId())['floatPrice'];
+    $floatPrice = $this->getAliData()['floatPrice'];
 
     return PriceRange::where([
       ['floatPriceLow', '<=', $floatPrice],
       ['floatPriceHigh', '>=', $floatPrice],
-    ]);
+    ])->first()
+      ->getFloatPriceActual();
+  }
+
+  public function getAliData() {
+    return getAliDataMover()->fetchAliProductById($this->getIntAliId());
   }
 
   /**
@@ -117,6 +122,17 @@ class Product extends Model {
     return $this->belongsToMany(Order::class, 'ProductOrder', 'intProductId', 'intOrderId');
   }
 
+  public function getPriceRange() {
+    return PriceRange::where('floatPriceActual', '=', $this->getFloatPriceActual())->first();
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getSpecifications() {
+    return $this->belongsToMany(Specification::class, 'ProductSpecification', 'intSpecificationId', 'intProductId');
+  }
+
   /**
    * Get the value of stringDescription
    */
@@ -146,6 +162,21 @@ class Product extends Model {
    */
   public function scopeWhereHasMinAmountOfOrders(Builder $objBuilder, int $intMinOrders) {
     return $objBuilder->has('getOrders', '>=', $intMinOrders);
+  }
+
+  /**
+   * @return mixed
+   */
+  public function setAliDefaultData() {
+    $arrayData = $this->getAliData();
+
+    $this->getSpecifications()->sync(Specification::getSpecificationsByKeys($arrayData['arraySpecifications']['keys'])->pluck('intId'));
+    $this->update([
+      'stringTitle' => $arrayData['stringTitle'],
+      'stringDescription' => $arrayData['stringDescription'],
+    ])->save();
+
+    return $this;
   }
 
   /**

@@ -2,16 +2,18 @@
 
 namespace App;
 
-use App\User;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Order extends Model {
+class DiscountCode extends Model {
   use SoftDeletes;
 
   const CREATED_AT = 'dateCreatedAt';
 
   const DELETED_AT = 'dateDeletedAt';
+
+  const DISCOUNT_AMOUNT = 'DISCOUNT_AMOUNT';
+
+  const DISCOUNT_PERCENTAGE = 'DISCOUNT_PERCENTAGE';
 
   const UPDATED_AT = 'dateUpdatedAt';
 
@@ -29,47 +31,13 @@ class Order extends Model {
    */
   protected $fillable = [
     'intId',
-    'intUserId',
-    'boolIsPaid',
+    'stringDiscountCode',
+    'enumDiscountType',
+    'floatDiscount',
   ];
-
-  /**
-   * @var array
-   */
-  protected $hidden = [
-    //
-  ];
-
-  /**
-   * @var string
-   */
-  protected $primaryKey = 'intId';
-
-  /**
-   * @var string
-   */
-  protected $table = 'Order';
-
-  /**
-   * Get the value of boolIsPaid
-   *
-   * @return  mixed
-   */
-  public function getBoolIsPaid() {
-    return $this->boolIsPaid;
-  }
-
-  /**
-   * @return mixed
-   */
-  public function getCategories() {
-    return $this->hasManyThrough(Product::class);
-  }
 
   /**
    * Get the value of dateCreatedAt
-   *
-   * @return  mixed
    */
   public function getDateCreatedAt() {
     return $this->dateCreatedAt;
@@ -77,8 +45,6 @@ class Order extends Model {
 
   /**
    * Get the value of dateDeletedAt
-   *
-   * @return  mixed
    */
   public function getDateDeletedAt() {
     return $this->dateDeletedAt;
@@ -86,55 +52,51 @@ class Order extends Model {
 
   /**
    * Get the value of dateUpdatedAt
-   *
-   * @return  mixed
    */
   public function getDateUpdatedAt() {
     return $this->dateUpdatedAt;
   }
 
   /**
+   * Get the value of enumDiscountType
+   */
+  public function getEnumDiscountType() {
+    return $this->enumDiscountType;
+  }
+
+  /**
+   * Get the value of floatDiscount
+   */
+  public function getFloatDiscount() {
+    return $this->floatDiscount;
+  }
+
+  /**
+   * @param $floatPrice
+   * @return mixed
+   */
+  public function getFloatPriceWithDiscount($floatPrice) {
+    $floatPrice = $this->getEnumDiscountType() == DISCOUNT_AMOUNT ? $floatPrice - $this->getFloatDiscount() : $floatPrice * (1 - $this->getFloatDiscount() / 100);
+
+    return $floatPrice >= 0 ? floatval($floatPrice) : floatval(0);
+  }
+
+  /**
    * Get the value of intId
-   *
-   * @return  mixed
    */
   public function getIntId() {
     return $this->intId;
   }
 
   /**
-   * Get the value of intUserId
-   *
-   * @return  mixed
+   * Get the value of stringDiscountCode
    */
-  public function getIntUserId() {
-    return $this->intUserId;
-  }
-
-  /**
-   * @return mixed
-   */
-  public function getUser() {
-    return $this->belongsTo(User::class, 'intUserId', 'intId');
-  }
-
-  /**
-   * Set the value of boolIsPaid
-   *
-   * @param  mixed  $boolIsPaid
-   *
-   * @return  self
-   */
-  public function setBoolIsPaid($boolIsPaid) {
-    $this->boolIsPaid = $boolIsPaid;
-
-    return $this;
+  public function getStringDiscountCode() {
+    return $this->stringDiscountCode;
   }
 
   /**
    * Set the value of dateCreatedAt
-   *
-   * @param  mixed  $dateCreatedAt
    *
    * @return  self
    */
@@ -147,8 +109,6 @@ class Order extends Model {
   /**
    * Set the value of dateDeletedAt
    *
-   * @param  mixed  $dateDeletedAt
-   *
    * @return  self
    */
   public function setDateDeletedAt($dateDeletedAt) {
@@ -160,8 +120,6 @@ class Order extends Model {
   /**
    * Set the value of dateUpdatedAt
    *
-   * @param  mixed  $dateUpdatedAt
-   *
    * @return  self
    */
   public function setDateUpdatedAt($dateUpdatedAt) {
@@ -171,9 +129,29 @@ class Order extends Model {
   }
 
   /**
-   * Set the value of intId
+   * Set the value of enumDiscountType
    *
-   * @param  mixed  $intId
+   * @return  self
+   */
+  public function setEnumDiscountType($enumDiscountType) {
+    $this->enumDiscountType = $enumDiscountType;
+
+    return $this;
+  }
+
+  /**
+   * Set the value of floatDiscount
+   *
+   * @return  self
+   */
+  public function setFloatDiscount($floatDiscount) {
+    $this->floatDiscount = $floatDiscount;
+
+    return $this;
+  }
+
+  /**
+   * Set the value of intId
    *
    * @return  self
    */
@@ -184,14 +162,12 @@ class Order extends Model {
   }
 
   /**
-   * Set the value of intUserId
-   *
-   * @param  mixed  $intUserId
+   * Set the value of stringDiscountCode
    *
    * @return  self
    */
-  public function setIntUserId($intUserId) {
-    $this->intUserId = $intUserId;
+  public function setStringDiscountCode($stringDiscountCode) {
+    $this->stringDiscountCode = $stringDiscountCode;
 
     return $this;
   }

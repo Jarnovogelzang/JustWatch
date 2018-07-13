@@ -113,6 +113,18 @@ class PriceRange extends Model {
     return $this->intId;
   }
 
+  public function getProducts() {
+    $arrayProducts = Products::all();
+
+    foreach ($arrayProducts as $objProduct) {
+      if (!($objProduct->getFloatPriceActual() === $this->getFloatPriceActual())) {
+        unset($objProduct);
+      }
+    }
+
+    return array_filter($arrayProducts);
+  }
+
   /**
    * Set the value of dateCreatedAt
    *

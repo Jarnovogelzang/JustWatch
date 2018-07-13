@@ -76,12 +76,12 @@ class PriceRangeController extends Controller {
   public function store(StorePriceRangeRequest $objRequest) {
     Log::info('Storing a new PriceRange.');
 
-    $objPriceRange = PriceRange::create($objRequest->all());
-
     return redirect()
       ->back()
-      ->with([
+      ->with(PriceRange::create($objRequest->all()) ? [
         'stringSuccess' => 'Prijsinterval succesvol aangemaakt!',
+      ] : [
+        'stringError' => 'Prijsinteval onsuccesvol aangemaakt!',
       ]);
   }
 
@@ -92,13 +92,12 @@ class PriceRangeController extends Controller {
   public function update(UpdatePriceRangeRequest $objRequest, PriceRange $objPriceRange) {
     Log::info('Updating a PriceRange with ID as ' . $objPriceRange->getIntId() . '.');
 
-    $objPriceRange = $objPriceRange->update($objRequest->all());
-
     return redirect()
       ->back()
-      ->with([
+      ->with($objPriceRange->update($objRequest->all()) ? [
         'stringSuccess' => 'Prijsinterval succesvol aangepast!',
-        'objPriceRange' => $objPriceRange,
+      ] : [
+        'stringError' => 'Prijsinterval onsuccesvol aangepast!',
       ]);
   }
 }

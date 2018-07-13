@@ -77,12 +77,12 @@ class CategoryController extends Controller {
   public function store(StoreCategoryRequest $objRequest) {
     Log::info('Storing a new Category.');
 
-    $objCategory = Category::create($objRequest->all());
-
     return redirect()
       ->back()
-      ->with([
+      ->with(Category::create($objRequest->all()) ? [
         'stringSuccess' => 'Categorie succesvol aangemaakt!',
+      ] : [
+        'stringError' => 'Categorie onsuccesvol aangemaakt!',
       ]);
   }
 
@@ -97,9 +97,10 @@ class CategoryController extends Controller {
 
     return redirect()
       ->back()
-      ->with([
+      ->with($objCategory->update($objRequest->all()) ? [
         'stringSuccess' => 'Categorie succesvol aangepast!',
-        'objCategory' => $objCategory,
+      ] : [
+        'stringError' => 'Categorie onsuccesvol aangepast!',
       ]);
   }
 }

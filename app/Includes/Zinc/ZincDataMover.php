@@ -20,7 +20,15 @@ class ZincDataMover {
    * @param ZINC_DEFAULT_USERNAMEString $stringPassword
    */
   public function __construct(String $stringBaseUrl = ZINC_DEFAULT_BASE_URL, String $stringUsername = ZINC_DEFAULT_USERNAME, String $stringPassword = ZINC_DEFAULT_PASSWORD) {
-    $this->objCaller = ZincCaller::getInstance($stringBaseUrl, $stringUsername, $stringPassword);
+    $this->objCaller = ZincCaller::getObjInstance($stringBaseUrl, $stringUsername, $stringPassword);
+  }
+
+  /**
+   * @param $intOrderId
+   * @return mixed
+   */
+  public function getAliOrderById($intId) {
+    return $this->objCaller->getAliOrderByIntId($intId);
   }
 
   /**
@@ -48,24 +56,24 @@ class ZincDataMover {
   }
 
   /**
-   * @param $stringBaseUrl
-   * @param MOLLIE_DEFAULT_BASE_URL $stringToken
-   */
-  public function getInstance(String $stringBaseUrl = ZINC_DEFAULT_BASE_URL, String $stringUsername = ZINC_DEFAULT_USERNAME, String $stringPassword = ZINC_DEFAULT_PASSWORD) {
-    if (!isset(self::$objInstance) && !self::$objInstance) {
-      self::$objInstance = new self($stringBaseUrl, $stringUsername, $stringPassword);
-    }
-
-    return self::$objInstance;
-  }
-
-  /**
    * Get the value of objCaller
    *
    * @return  mixed
    */
   public function getObjCaller() {
     return $this->objCaller;
+  }
+
+  /**
+   * @param $stringBaseUrl
+   * @param MOLLIE_DEFAULT_BASE_URL $stringToken
+   */
+  public function getObjInstance(String $stringBaseUrl = ZINC_DEFAULT_BASE_URL, String $stringUsername = ZINC_DEFAULT_USERNAME, String $stringPassword = ZINC_DEFAULT_PASSWORD) {
+    if (!isset(self::$objInstance) && !self::$objInstance) {
+      self::$objInstance = new self($stringBaseUrl, $stringUsername, $stringPassword);
+    }
+
+    return self::$objInstance;
   }
 
   /**

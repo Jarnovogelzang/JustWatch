@@ -81,6 +81,13 @@ class Category extends Model {
   /**
    * @return mixed
    */
+  public function getOrders() {
+    return $this->hasManyThrough(Product::class);
+  }
+
+  /**
+   * @return mixed
+   */
   public function getProducts() {
     return $this->belongsToMany(Product::class, 'ProductCategory', 'intCategoryId', 'intProductId');
   }

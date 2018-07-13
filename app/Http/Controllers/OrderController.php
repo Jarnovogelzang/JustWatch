@@ -104,8 +104,16 @@ class OrderController extends Controller {
     $objOrder = new Order($objRequest->all());
     StoreOrder::dispatch($objOrder)->delay(now());
 
+    if (auth()->user()->isAdmin()) {
+      return view('orders.show')
+        ->with([
+          'objOrder' => $objOrder,
+          'stringSuccess' => 'Order succesfully stored!',
+        ]);
+    }
+
     return redirect()
-      ->to(MollieDataMover::getInstance()->postPayment($objOrder, [])->_links->self->href);
+      ->to(MollieDataMover::getInstance()->postPayment($objOrder, [])['_links']['self']['href']);
   }
 
   /**
@@ -115,13 +123,12 @@ class OrderController extends Controller {
   public function update(UpdateOrderRequest $objRequest, Order $objOrder) {
     Log::info('Updating an Order with ID as ' . $objOrder->getIntId() . '.');
 
-    $objOrder = $objOrder->update($objRequest->all());
-
     return redirect()
       ->back()
-      ->with([
+      ->with($objOrder->update($objRequest->all()) ? [
         'stringSuccess' => 'Bestelling succesvol aangepast!',
-        'objOrder' => $objOrder,
+      ] : [
+        'stringError' => 'Bestelling onsuccesvol aangepast!',
       ]);
   }
 }

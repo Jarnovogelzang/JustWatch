@@ -51,6 +51,13 @@ class Specification extends Model {
   /**
    * @return mixed
    */
+  public function getCategories() {
+    return $this->hasManyThrough(Product::class);
+  }
+
+  /**
+   * @return mixed
+   */
   public function getDateCreatedAt() {
     return $this->dateCreatedAt;
   }
@@ -74,6 +81,29 @@ class Specification extends Model {
    */
   public function getIntId() {
     return $this->intId;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getProducts() {
+    return $this->belongsToMany(Product::class, 'ProductSpecification', 'intSpecificationId', 'intProductId');
+  }
+
+  /**
+   * @param $arrayKeyValues
+   */
+  public static function getSpecificationsByKeys($arrayKeyValues) {
+    $arrayKnownKeys = self::all()->pluck('stringKey');
+
+    foreach (array_diff(array_keys($arrayKeyValues), $arrayKnownKeys) as $stringKey) {
+      self::create([
+        'stringKey' => $stringKey,
+        'stringValue' => $arrayKeyValues['stringKey'],
+      ]);
+    }
+
+    return self::all();
   }
 
   /**

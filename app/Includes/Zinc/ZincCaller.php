@@ -11,6 +11,11 @@ class ZincCaller extends BasicAuthCaller {
   private static $objInstance;
 
   /**
+   * @var mixed
+   */
+  private $stringRetailer;
+
+  /**
    * @param String $stringBaseUrl
    * @param String $stringUsername
    * @param nullString $stringPassword
@@ -24,13 +29,29 @@ class ZincCaller extends BasicAuthCaller {
     ]));
   }
 
+  public function checkStringRetailer() {
+    if (!(isset($this->stringRetailer) && $this->stringRetailer)) {
+      $this->stringRetailer = ZINC_DEFAULT_RETAILER;
+    }
+  }
+
+  /**
+   * @param $intId
+   * @return mixed
+   */
+  public function getAliOrderByIntId($intId) {
+    return $this->callUrl('GET', 'orders/' . $intId, []);
+  }
+
   /**
    * @param $intProductId
    * @return mixed
    */
   public function getAliProductByIntId($intProductId) {
+    $this->checkStringRetailer();
+
     return $this->callUrl('GET', 'products/' . $intProductId, [
-      'retailer' => 'aliexpress',
+      'retailer' => $this->getStringRetailer(),
     ]);
   }
 
@@ -39,8 +60,10 @@ class ZincCaller extends BasicAuthCaller {
    * @return mixed
    */
   public function getAliProductPriceByIntId($intProductId) {
+    $this->checkStringRetailer();
+
     return $this->callUrl('GET', 'products/' . $intProductId . '/offers', [
-      'retailer' => 'aliexpress',
+      'retailer' => $this->getStringRetailer(),
     ]);
   }
 
@@ -49,9 +72,11 @@ class ZincCaller extends BasicAuthCaller {
    * @return mixed
    */
   public function getAliProductsByStringQuery($stringQuery) {
+    $this->checkStringRetailer();
+
     return $this->callUrl('GET', 'search', [
       'query' => urlencode($stringQuery),
-      'retailer' => 'aliexpress',
+      'retailer' => $this->getStringRetailer(),
     ]);
   }
 
@@ -60,12 +85,19 @@ class ZincCaller extends BasicAuthCaller {
    * @param ZINC_DEFAULT_BASE_URLString $stringUsername
    * @param ZINC_DEFAULT_USERNAMEString $stringPassword
    */
-  public function getInstance(String $stringBaseUrl = ZINC_DEFAULT_BASE_URL, String $stringUsername = ZINC_DEFAULT_USERNAME, String $stringPassword = ZINC_DEFAULT_PASSWORD) {
+  public function getObjInstance(String $stringBaseUrl = ZINC_DEFAULT_BASE_URL, String $stringUsername = ZINC_DEFAULT_USERNAME, String $stringPassword = ZINC_DEFAULT_PASSWORD) {
     if (!isset(self::$objInstance) && !self::$objInstance) {
       self::$objInstance = new self($stringBaseUrl, $stringUsername, $stringPassword);
     }
 
     return self::$objInstance;
+  }
+
+  /**
+   * Get the value of stringRetailer
+   */
+  public function getStringRetailer() {
+    return $this->stringRetailer;
   }
 
   /**
@@ -75,5 +107,16 @@ class ZincCaller extends BasicAuthCaller {
     self::$objInstance = $objInstance;
 
     return self;
+  }
+
+  /**
+   * Set the value of stringRetailer
+   *
+   * @return  self
+   */
+  public function setStringRetailer($stringRetailer) {
+    $this->stringRetailer = $stringRetailer;
+
+    return $this;
   }
 }

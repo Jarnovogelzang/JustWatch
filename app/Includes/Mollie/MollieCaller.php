@@ -27,7 +27,7 @@ class MollieCaller extends OAuthCaller {
    * @param $stringBaseUrl
    * @param MOLLIE_DEFAULT_BASE_URL $stringToken
    */
-  public function getInstance($stringBaseUrl = MOLLIE_DEFAULT_BASE_URL, $stringToken = MOLLIE_DEFAULT_TOKEN) {
+  public function getObjInstance($stringBaseUrl = MOLLIE_DEFAULT_BASE_URL, $stringToken = MOLLIE_DEFAULT_TOKEN) {
     if (!isset(self::$objInstance) && !self::$objInstance) {
       self::$objInstance = new self($stringBaseUrl, $stringToken);
     }

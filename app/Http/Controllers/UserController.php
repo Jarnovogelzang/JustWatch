@@ -76,12 +76,12 @@ class UserController extends Controller {
   public function store(StoreUserRequest $objRequest) {
     Log::info('Storing an new User.');
 
-    $objUser = User::create($objRequest->all());
-
     return redirect()
       ->back()
-      ->with([
+      ->with(User::create($objRequest->all()) ? [
         'stringSuccess' => 'Gebruiker succesvol aangemaakt!',
+      ] : [
+        'stringError' => 'Gebruiker onsuccesvol aangemaakt!',
       ]);
   }
 
@@ -92,13 +92,12 @@ class UserController extends Controller {
   public function update(UpdateUserRequest $objRequest, User $objUser) {
     Log::info('Updating an User with ID as ' . $objUser->getIntId() . '.');
 
-    $objUser = $objUser->update($objRequest->all());
-
     return redirect()
       ->back()
-      ->with([
+      ->with($objUser->update($objRequest->all()) ? [
         'stringSuccess' => 'Gebruiker succesvol aangepast!',
-        'objUser' => $objUser,
+      ] : [
+        'stringError' => 'Gebruiker onsuccesvol aangepast!',
       ]);
   }
 }

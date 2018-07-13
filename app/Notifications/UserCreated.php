@@ -3,45 +3,40 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class OrderPaid extends Notification implements ShouldQueue {
+class UserCreated extends Notification {
   use Queueable;
 
   /**
    * @var mixed
    */
-  protected $objOrder;
+  protected $objUser;
 
   /**
    * Create a new notification instance.
    *
    * @return void
    */
-  public function __construct(Order $objOrder) {
-    $this->objOrder = $objOder;
+  public function __construct(User $objUser) {
+    $this->objUser = $objUser;
   }
 
   /**
-   * Get the value of objOrder
-   *
-   * @return  mixed
+   * Get the value of objUser
    */
-  public function getObjOrder() {
-    return $this->objOrder;
+  public function getObjUser() {
+    return $this->objUser;
   }
 
   /**
-   * Set the value of objOrder
-   *
-   * @param  mixed  $objOrder
+   * Set the value of objUser
    *
    * @return  self
    */
-  public function setObjOrder($objOrder) {
-    $this->objOrder = $objOrder;
+  public function setObjUser($objUser) {
+    $this->objUser = $objUser;
 
     return $this;
   }
@@ -53,15 +48,7 @@ class OrderPaid extends Notification implements ShouldQueue {
    * @return array
    */
   public function toArray($notifiable) {
-    return $this->getObjOrder()->toArray();
-  }
-
-  /**
-   * @param $notifiable
-   * @return mixed
-   */
-  public function toDatabase($notifiable) {
-    return $this->getObjOrder()->toArray();
+    return $this->getObjUser()->toArray();
   }
 
   /**
@@ -84,8 +71,6 @@ class OrderPaid extends Notification implements ShouldQueue {
    * @return array
    */
   public function via($notifiable) {
-    return [
-      'mail',
-    ];
+    return ['mail'];
   }
 }

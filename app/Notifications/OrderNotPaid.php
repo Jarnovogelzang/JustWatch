@@ -3,11 +3,10 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class OrderPaid extends Notification implements ShouldQueue {
+class OrderNotPaid extends Notification {
   use Queueable;
 
   /**
@@ -21,7 +20,7 @@ class OrderPaid extends Notification implements ShouldQueue {
    * @return void
    */
   public function __construct(Order $objOrder) {
-    $this->objOrder = $objOder;
+    $this->objOrder = $objOrder;
   }
 
   /**
@@ -53,15 +52,9 @@ class OrderPaid extends Notification implements ShouldQueue {
    * @return array
    */
   public function toArray($notifiable) {
-    return $this->getObjOrder()->toArray();
-  }
-
-  /**
-   * @param $notifiable
-   * @return mixed
-   */
-  public function toDatabase($notifiable) {
-    return $this->getObjOrder()->toArray();
+    return [
+      //
+    ];
   }
 
   /**
@@ -84,8 +77,6 @@ class OrderPaid extends Notification implements ShouldQueue {
    * @return array
    */
   public function via($notifiable) {
-    return [
-      'mail',
-    ];
+    return ['mail'];
   }
 }

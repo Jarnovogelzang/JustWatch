@@ -62,6 +62,13 @@ class User extends Authenticatable {
   protected $table = 'User';
 
   /**
+   * @return mixed
+   */
+  public function getCategories() {
+    return $this->hasManyThrough(Product::class);
+  }
+
+  /**
    * Get the value of dateBirthDate
    */
   public function getDateBirthDate() {
@@ -108,6 +115,13 @@ class User extends Authenticatable {
    */
   public function getOrders() {
     return $this->hasMany(Order::class, 'intId', 'intUserId');
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getProducts() {
+    return $this->hasManyThrough(Order::class);
   }
 
   /**
