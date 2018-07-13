@@ -28,7 +28,8 @@ class Specification extends Model {
    */
   protected $fillable = [
     'intId',
-    'stringName',
+    'stringKey',
+    'stringValue',
   ];
 
   /**
@@ -87,7 +88,7 @@ class Specification extends Model {
    * @return mixed
    */
   public function getProducts() {
-    return $this->belongsToMany(Product::class, 'ProductSpecification', 'intSpecificationId', 'intProductId');
+    return $this->belongsTo(Product::class, 'intId', 'intProductId');
   }
 
   /**
@@ -107,10 +108,17 @@ class Specification extends Model {
   }
 
   /**
-   * @return mixed
+   * Get the value of stringKey
    */
-  public function getStringName() {
-    return $this->stringName;
+  public function getStringKey() {
+    return $this->stringKey;
+  }
+
+  /**
+   * Get the value of stringValue
+   */
+  public function getStringValue() {
+    return $this->stringValue;
   }
 
   /**
@@ -154,11 +162,23 @@ class Specification extends Model {
   }
 
   /**
-   * @param $stringName
-   * @return mixed
+   * Set the value of stringKey
+   *
+   * @return  self
    */
-  public function setStringName($stringName) {
-    $this->stringName = $stringName;
+  public function setStringKey($stringKey) {
+    $this->stringKey = $stringKey;
+
+    return $this;
+  }
+
+  /**
+   * Set the value of stringValue
+   *
+   * @return  self
+   */
+  public function setStringValue($stringValue) {
+    $this->stringValue = $stringValue;
 
     return $this;
   }

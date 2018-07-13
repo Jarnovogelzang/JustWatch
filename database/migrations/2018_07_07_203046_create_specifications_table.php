@@ -22,7 +22,10 @@ class CreateSpecificationsTable extends Migration {
   public function up() {
     Schema::create('Specification', function (Blueprint $table) {
       $table->increments('intId');
-      $table->string('stringDescription');
+      $table->integer('intProductId');
+
+      $table->string('stringKey');
+      $table->string('stringValue');
 
       $table->date('dateCreatedAt')->nullable();
       $table->date('dateUpdatedAt')->nullable();

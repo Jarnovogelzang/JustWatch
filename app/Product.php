@@ -130,7 +130,7 @@ class Product extends Model {
    * @return mixed
    */
   public function getSpecifications() {
-    return $this->belongsToMany(Specification::class, 'ProductSpecification', 'intSpecificationId', 'intProductId');
+    return $this->hasMany(Specification::class, 'intId', 'intProductId');
   }
 
   /**
@@ -170,7 +170,10 @@ class Product extends Model {
   public function setAliDefaultData() {
     $arrayData = $this->getAliData();
 
-    $this->getSpecifications()->sync(Specification::getSpecificationsByKeys($arrayData['arraySpecifications']['keys'])->pluck('intId'));
+    $this->getSpecifications()->sync(array_map(function ($objSpecification) {
+      return (new Specification())->setStringKey($objSpecification['stringKey'])->setStringValue($objSpecification['stringValue'])->getIntId();
+    }, $arrayData));
+
     $this->update([
       'stringTitle' => $arrayData['stringTitle'],
       'stringDescription' => $arrayData['stringDescription'],
