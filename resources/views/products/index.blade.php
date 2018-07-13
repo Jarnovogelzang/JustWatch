@@ -8,4 +8,4 @@
       </div>
     <?php endforeach;?>
 </div>
-@endsection
+@endsections
