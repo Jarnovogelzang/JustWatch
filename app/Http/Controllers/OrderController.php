@@ -10,7 +10,6 @@ use App\Http\Requests\Orders\StoreOrderRequest;
 use App\Http\Requests\Orders\UpdateOrderRequest;
 use App\Includes\Mollie\MollieDataMover;
 use App\Jobs\CreateOrder;
-use App\Jobs\NotifyUser;
 use App\Jobs\StoreOrder;
 use Illuminate\Support\Facades\Log;
 
@@ -63,11 +62,13 @@ class OrderController extends Controller {
   public function pay(PayOrderRequest $objRequest, Order $objOrder) {
     Log::critical('Paying an Order with ID as ' . $objOrder->getIntId() . '.');
 
-    UpdateOrder::dispatch($objOrder, [
+    $objOrder = $objOrder->update([
       'boolIsPaid' => true,
-    ])->delay(now());
+    ]);
 
-    NotifyUser::dispatch($objOrder->getUser(), new OrderPaid($objOrder));
+    NotifyUsers::dispatch([
+      $objOrder->getUser(),
+    ], new OrderPaid($objOrder));
 
     return view('orders.show')
       ->with([
@@ -102,7 +103,7 @@ class OrderController extends Controller {
     }
 
     return redirect()
-      ->to(MollieDataMover::getInstance()->postPayment($objOrder, [])['_links']['self']['href']);
+      ->to(MollieDataMover::getInstance()->postPayment(Order::create($objRequest->all()), [])['_links']['self']['href']);
   }
 
   /**
