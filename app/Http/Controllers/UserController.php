@@ -28,7 +28,7 @@ class UserController extends Controller {
 
     return redirect()
       ->back()
-      ->with($objUser->delete() ? [
+      ->with(DeleteModel::dispatch($objUser) ? [
         'stringSuccess' => 'Gebruiker succesvol verwijderd!',
       ] : [
         'stringError' => 'Gebruiker onsuccesvol verwijderd!',

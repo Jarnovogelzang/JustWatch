@@ -32,11 +32,11 @@ class Kernel extends ConsoleKernel {
    * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
    * @return void
    */
-  protected function schedule(Schedule $schedule) {
-    $schedule->command('queue:work --daemon')->everyMinute()->withoutOverlapping()
+  protected function schedule(Schedule $objSchedule) {
+    $objSchedule->command('queue:work')->everyMinute()->withoutOverlapping()
       ->emailOutputTo('info@milliseconde.nl');
 
-    $schedule->command('emails:send')->everyMinute()->withoutOverlapping()
+    $objSchedule->command('emails:send')->everyMinute()->withoutOverlapping()
       ->emailOutputTo('info@milliseconde.nl');
   }
 }

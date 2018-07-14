@@ -28,7 +28,7 @@ class CategoryController extends Controller {
 
     return redirect()
       ->back()
-      ->with($objCategory->delete() ? [
+      ->with(DeleteModel::dispatch($objCategory) ? [
         'stringSuccess' => 'Categorie succesvol verwijderd!',
       ] : [
         'stringError' => 'Categorie onsuccesvol verwijderd!',

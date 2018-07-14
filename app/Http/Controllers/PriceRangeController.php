@@ -28,7 +28,7 @@ class PriceRangeController extends Controller {
 
     return redirect()
       ->back()
-      ->with($objPriceRange->delete() ? [
+      ->with(DeleteModel::dispatch($objPriceRange) ? [
         'stringSuccess' => 'PrijsInterval succesvol verwijderd!',
       ] : [
         'stringError' => 'PrijsInterval onsuccesvol verwijderd!',

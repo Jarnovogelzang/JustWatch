@@ -32,7 +32,7 @@ class OrderController extends Controller {
 
     return redirect()
       ->back()
-      ->with($objOrder->delete() ? [
+      ->with(DeleteModel::dispatch($objOrder) ? [
         'stringSuccess' => 'Order succesvol verwijderd!',
       ] : [
         'stringError' => 'Order onsuccesvol verwijderd!',

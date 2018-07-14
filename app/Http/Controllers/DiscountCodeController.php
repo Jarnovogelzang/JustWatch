@@ -23,7 +23,7 @@ class DiscountCodeController extends Controller {
 
     return redirect()
       ->back()
-      ->with($objDiscountCode->delete() ? [
+      ->with(DeleteModel::dispatch($objDiscountCode) ? [
         'stringSuccess' => 'Kortingscode succesvol verwijderd!',
       ] : [
         'stringError' => 'Kortingscode onsuccesvol verwijderd!',

@@ -30,7 +30,7 @@ class ProductController extends Controller {
 
     return redirect()
       ->back()
-      ->with($objProduct->delete() ? [
+      ->with(DeleteModel::dispatch($objProduct) ? [
         'stringSuccess' => 'Product succesvol verwijderd!',
       ] : [
         'stringError' => 'Product onsuccesvol verwijderd!',
