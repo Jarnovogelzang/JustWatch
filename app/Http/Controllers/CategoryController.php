@@ -51,10 +51,7 @@ class CategoryController extends Controller {
   public function index() {
     Log::info('Showing all the Categories.');
 
-    return view('categories.index')
-      ->with([
-        'arrayCategorys' => Category::all(),
-      ]);
+    return view('categories.index');
   }
 
   /**

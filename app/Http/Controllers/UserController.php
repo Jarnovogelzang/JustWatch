@@ -51,10 +51,7 @@ class UserController extends Controller {
   public function index() {
     Log::info('Showing all the Users.');
 
-    return view('users.index')
-      ->with([
-        'arrayUsers' => User::all(),
-      ]);
+    return view('users.index');
   }
 
   /**

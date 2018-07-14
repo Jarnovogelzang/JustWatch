@@ -51,10 +51,7 @@ class PriceRangeController extends Controller {
   public function index() {
     Log::info('Showing all the PriceRanges.');
 
-    return view('priceranges.index')
-      ->with([
-        'arrayPriceRanges' => PriceRange::all(),
-      ]);
+    return view('priceranges.index');
   }
 
   /**

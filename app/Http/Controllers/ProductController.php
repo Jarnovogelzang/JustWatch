@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Http\Requests\Products\CreateProductRequest;
 use App\Http\Requests\Products\DeleteProductRequest;
 use App\Http\Requests\Products\EditProductRequest;
@@ -54,12 +53,7 @@ class ProductController extends Controller {
   public function index() {
     Log::info('Showing all the Products.');
 
-    return view('products.index')
-      ->with([
-        'arrayFeaturedCategories' => Category::whereIsFeatured()->get(),
-        'arrayHottestProducts' => Product::orderByOrderAmount()->limit(3)->get(),
-        'arrayCategories' => Category::all(),
-      ]);
+    return view('products.index');
   }
 
   /**

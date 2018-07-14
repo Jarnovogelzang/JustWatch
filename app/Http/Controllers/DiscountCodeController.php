@@ -46,10 +46,7 @@ class DiscountCodeController extends Controller {
   public function index() {
     Log::info('Showing all the DiscountCodes.');
 
-    return view('discountcodes.index')
-      ->with([
-        'arrayDiscountCodes' => DiscountCode::all(),
-      ]);
+    return view('discountcodes.index');
   }
 
   /**

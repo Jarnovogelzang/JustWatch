@@ -56,10 +56,7 @@ class OrderController extends Controller {
   public function index() {
     Log::info('Showing all the Orders.');
 
-    return view('orders.index')
-      ->with([
-        'arrayOrders' => Order::all(),
-      ]);
+    return view('orders.index');
   }
 
   /**
