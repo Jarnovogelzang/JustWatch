@@ -92,14 +92,12 @@ class OrderController extends Controller {
   public function store(StoreOrderRequest $objRequest) {
     Log::info('Storing an new Order.');
 
-    $objOrder = new Order($objRequest->all());
-    StoreOrder::dispatch($objOrder)->delay(now());
-
     if (auth()->user()->isAdmin()) {
       return view('orders.show')
-        ->with([
-          'objOrder' => $objOrder,
+        ->with(CreateModel::dispatch(Order::class, $objRequest->all()) ? [
           'stringSuccess' => 'Order succesfully stored!',
+        ] : [
+          'stringError' => 'Order unsuccesfully stored!',
         ]);
     }
 

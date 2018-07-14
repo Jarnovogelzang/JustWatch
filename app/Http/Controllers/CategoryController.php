@@ -69,7 +69,7 @@ class CategoryController extends Controller {
 
     return redirect()
       ->back()
-      ->with(Category::create($objRequest->all()) ? [
+      ->with(CreateModel::dispatch(Category::class, $objRequest->all()) ? [
         'stringSuccess' => 'Categorie succesvol aangemaakt!',
       ] : [
         'stringError' => 'Categorie onsuccesvol aangemaakt!',

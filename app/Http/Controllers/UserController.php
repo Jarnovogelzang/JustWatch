@@ -69,7 +69,7 @@ class UserController extends Controller {
 
     return redirect()
       ->back()
-      ->with(User::create($objRequest->all()) ? [
+      ->with(CreateModel::dispatch(User::class, $objRequest->all()) ? [
         'stringSuccess' => 'Gebruiker succesvol aangemaakt!',
       ] : [
         'stringError' => 'Gebruiker onsuccesvol aangemaakt!',

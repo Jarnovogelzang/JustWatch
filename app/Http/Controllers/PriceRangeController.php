@@ -69,7 +69,7 @@ class PriceRangeController extends Controller {
 
     return redirect()
       ->back()
-      ->with(PriceRange::create($objRequest->all()) ? [
+      ->with(CreateModel::dispatch(PriceRange::class, $objRequest->all()) ? [
         'stringSuccess' => 'Prijsinterval succesvol aangemaakt!',
       ] : [
         'stringError' => 'Prijsinteval onsuccesvol aangemaakt!',
