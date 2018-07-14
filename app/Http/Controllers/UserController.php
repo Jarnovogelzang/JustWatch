@@ -85,7 +85,7 @@ class UserController extends Controller {
 
     return redirect()
       ->back()
-      ->with($objUser->update($objRequest->all()) ? [
+      ->with(UpdateModel::dispatch($objUser, $objRequest->all()) ? [
         'stringSuccess' => 'Gebruiker succesvol aangepast!',
       ] : [
         'stringError' => 'Gebruiker onsuccesvol aangepast!',

@@ -85,7 +85,7 @@ class PriceRangeController extends Controller {
 
     return redirect()
       ->back()
-      ->with($objPriceRange->update($objRequest->all()) ? [
+      ->with(UpdateModel::dispatch($objPriceRange, $objRequest->all()) ? [
         'stringSuccess' => 'Prijsinterval succesvol aangepast!',
       ] : [
         'stringError' => 'Prijsinterval onsuccesvol aangepast!',

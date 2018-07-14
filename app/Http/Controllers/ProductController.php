@@ -92,7 +92,7 @@ class ProductController extends Controller {
 
     return redirect()
       ->back()
-      ->with($objProduct->update($objRequest->all()) ? [
+      ->with(UpdateModel::dispatch($objProduct, $objRequest->all()) ? [
         'stringSuccess' => 'Product succesvol aangepast!',
       ] : [
         'stringError' => 'Product onsuccesvol aangepast!',

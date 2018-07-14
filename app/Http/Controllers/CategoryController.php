@@ -83,11 +83,9 @@ class CategoryController extends Controller {
   public function update(UpdateCategoryRequest $objRequest, Category $objCategory) {
     Log::info('Updating a Category with ID as ' . $objCategory->getIntId() . '.');
 
-    $objCategory = $objCategory->update($objRequest->all());
-
     return redirect()
       ->back()
-      ->with($objCategory->update($objRequest->all()) ? [
+      ->with(UpdateModel::dispatch($objCategory, $objRequest->all()) ? [
         'stringSuccess' => 'Categorie succesvol aangepast!',
       ] : [
         'stringError' => 'Categorie onsuccesvol aangepast!',

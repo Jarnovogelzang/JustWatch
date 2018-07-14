@@ -64,7 +64,7 @@ class DiscountCodeController extends Controller {
 
     return redirect()
       ->back()
-      ->with(CreateModel::dispatch(DiscountCode::class, $objRequest->all())  ? [
+      ->with(CreateModel::dispatch(DiscountCode::class, $objRequest->all()) ? [
         'stringSuccess' => 'KortingsCode succesvol aangemaakt!',
       ] : [
         'stringError' => 'KortingsCode onsuccesvol aangemaakt!',
@@ -80,7 +80,7 @@ class DiscountCodeController extends Controller {
 
     return redirect()
       ->back()
-      ->with($objDiscountCode->update($objRequest->all()) ? [
+      ->with(UpdateModel::dispatch($objDiscountCode, $objRequest->all()) ? [
         'stringSuccess' => 'KortingsCode succesvol aangepast!',
       ] : [
         'stringError' => 'KortingsCode onsuccesvol aangepast!',

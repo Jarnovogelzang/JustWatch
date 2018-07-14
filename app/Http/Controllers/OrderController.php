@@ -114,7 +114,7 @@ class OrderController extends Controller {
 
     return redirect()
       ->back()
-      ->with($objOrder->update($objRequest->all()) ? [
+      ->with(UpdateModel::dispatch($objOrder, $objRequest->all()) ? [
         'stringSuccess' => 'Bestelling succesvol aangepast!',
       ] : [
         'stringError' => 'Bestelling onsuccesvol aangepast!',
