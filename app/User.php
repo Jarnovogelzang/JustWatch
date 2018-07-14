@@ -38,9 +38,6 @@ class User extends Authenticatable {
     'stringAdress',
     'intHouseNumber',
     'stringTelephoneNumber',
-    'dateDeletedAt',
-    'dateCreatedAt',
-    'dateUpdatedAt',
   ];
 
   /**
@@ -50,11 +47,6 @@ class User extends Authenticatable {
     'stringPassword',
     'stringRememberToken',
   ];
-
-  /**
-   * @var string
-   */
-  protected $primaryKey = 'intId';
 
   /**
    * @var string

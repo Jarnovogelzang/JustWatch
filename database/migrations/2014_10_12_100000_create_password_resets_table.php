@@ -25,8 +25,8 @@ class CreatePasswordResetsTable extends Migration {
       $table->string('stringToken');
 
       $table->date('dateCreatedAt')->nullable();
-      $table->date('dateUpdatedAt')->nullable();
-      $table->date('dateDeletedAt');
+$table->date('dateUpdatedAt')->nullable();
+$table->date('dateDeletedAt')->nullable();
     });
   }
 }

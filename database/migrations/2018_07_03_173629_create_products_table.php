@@ -28,8 +28,8 @@ class CreateProductsTable extends Migration {
       $table->float('floatPrice');
 
       $table->date('dateCreatedAt')->nullable();
-      $table->date('dateUpdatedAt')->nullable();
-      $table->date('dateDeletedAt');
+$table->date('dateUpdatedAt')->nullable();
+$table->date('dateDeletedAt')->nullable();
     });
   }
 }

@@ -3,28 +3,10 @@
 namespace App;
 
 use App\Product;
+use App\SystemModel;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Model {
-  use SoftDeletes;
-
-  const CREATED_AT = 'dateCreatedAt';
-
-  const DELETED_AT = 'dateDeletedAt';
-
-  const UPDATED_AT = 'dateUpdatedAt';
-
-  /**
-   * @var array
-   */
-  protected $dates = [
-    'dateDeletedAt',
-    'dateCreatedAt',
-    'dateUpdatedAt',
-  ];
-
+class Category extends SystemModel {
   /**
    * @var array
    */
@@ -49,27 +31,6 @@ class Category extends Model {
    * @var string
    */
   protected $table = 'Category';
-
-  /**
-   * Get the value of dateCreatedAt
-   */
-  public function getDateCreatedAt() {
-    return $this->dateCreatedAt;
-  }
-
-  /**
-   * Get the value of dateDeletedAt
-   */
-  public function getDateDeletedAt() {
-    return $this->dateDeletedAt;
-  }
-
-  /**
-   * Get the value of dateUpdatedAt
-   */
-  public function getDateUpdatedAt() {
-    return $this->dateUpdatedAt;
-  }
 
   /**
    * Get the value of intId
@@ -105,39 +66,6 @@ class Category extends Model {
    */
   public function scopeWhereIsFeatured(Builder $objBuilder) {
     return $objBuilder->where('boolIsFeatured', '=', true);
-  }
-
-  /**
-   * Set the value of dateCreatedAt
-   *
-   * @return  self
-   */
-  public function setDateCreatedAt($dateCreatedAt) {
-    $this->dateCreatedAt = $dateCreatedAt;
-
-    return $this;
-  }
-
-  /**
-   * Set the value of dateDeletedAt
-   *
-   * @return  self
-   */
-  public function setDateDeletedAt($dateDeletedAt) {
-    $this->dateDeletedAt = $dateDeletedAt;
-
-    return $this;
-  }
-
-  /**
-   * Set the value of dateUpdatedAt
-   *
-   * @return  self
-   */
-  public function setDateUpdatedAt($dateUpdatedAt) {
-    $this->dateUpdatedAt = $dateUpdatedAt;
-
-    return $this;
   }
 
   /**

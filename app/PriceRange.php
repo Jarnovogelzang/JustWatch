@@ -2,27 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\SystemModel;
 
-class PriceRange extends Model {
-  use SoftDeletes;
-
-  const CREATED_AT = 'dateCreatedAt';
-
-  const DELETED_AT = 'dateDeletedAt';
-
-  const UPDATED_AT = 'dateUpdatedAt';
-
-  /**
-   * @var array
-   */
-  protected $dates = [
-    'dateDeletedAt',
-    'dateCreatedAt',
-    'dateUpdatedAt',
-  ];
-
+class PriceRange extends SystemModel {
   /**
    * @var array
    */
@@ -49,33 +31,6 @@ class PriceRange extends Model {
    * @var string
    */
   protected $table = 'PriceRange';
-
-  /**
-   * Get the value of dateCreatedAt
-   *
-   * @return  mixed
-   */
-  public function getDateCreatedAt() {
-    return $this->dateCreatedAt;
-  }
-
-  /**
-   * Get the value of dateDeletedAt
-   *
-   * @return  mixed
-   */
-  public function getDateDeletedAt() {
-    return $this->dateDeletedAt;
-  }
-
-  /**
-   * Get the value of dateUpdatedAt
-   *
-   * @return  mixed
-   */
-  public function getDateUpdatedAt() {
-    return $this->dateUpdatedAt;
-  }
 
   /**
    * Get the value of floatPriceActual
@@ -123,45 +78,6 @@ class PriceRange extends Model {
     }
 
     return array_filter($arrayProducts);
-  }
-
-  /**
-   * Set the value of dateCreatedAt
-   *
-   * @param  mixed  $dateCreatedAt
-   *
-   * @return  self
-   */
-  public function setDateCreatedAt($dateCreatedAt) {
-    $this->dateCreatedAt = $dateCreatedAt;
-
-    return $this;
-  }
-
-  /**
-   * Set the value of dateDeletedAt
-   *
-   * @param  mixed  $dateDeletedAt
-   *
-   * @return  self
-   */
-  public function setDateDeletedAt($dateDeletedAt) {
-    $this->dateDeletedAt = $dateDeletedAt;
-
-    return $this;
-  }
-
-  /**
-   * Set the value of dateUpdatedAt
-   *
-   * @param  mixed  $dateUpdatedAt
-   *
-   * @return  self
-   */
-  public function setDateUpdatedAt($dateUpdatedAt) {
-    $this->dateUpdatedAt = $dateUpdatedAt;
-
-    return $this;
   }
 
   /**

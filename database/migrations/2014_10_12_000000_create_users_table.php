@@ -39,8 +39,8 @@ class CreateUsersTable extends Migration {
       $table->string('stringTelephoneNumber');
 
       $table->date('dateCreatedAt')->nullable();
-      $table->date('dateUpdatedAt')->nullable();
-      $table->date('dateDeletedAt');
+$table->date('dateUpdatedAt')->nullable();
+$table->date('dateDeletedAt')->nullable();
     });
   }
 }

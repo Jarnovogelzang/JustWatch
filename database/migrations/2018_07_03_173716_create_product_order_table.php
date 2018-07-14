@@ -28,7 +28,7 @@ class CreateProductOrderTable extends Migration {
 
       $table->date('dateCreatedAt')->nullable();
       $table->date('dateUpdatedAt')->nullable();
-      $table->date('dateDeletedAt');
+      $table->date('dateDeletedAt')->nullable();
     });
   }
 }

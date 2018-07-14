@@ -27,8 +27,8 @@ class CreateCategoriesTable extends Migration {
       $table->boolean('boolIsFeatured')->nullable();
 
       $table->date('dateCreatedAt')->nullable();
-      $table->date('dateUpdatedAt')->nullable();
-      $table->date('dateDeletedAt');
+$table->date('dateUpdatedAt')->nullable();
+$table->date('dateDeletedAt')->nullable();
     });
   }
 }

@@ -2,27 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\SystemModel;
 
-class Specification extends Model {
-  use SoftDeletes;
-
-  const CREATED_AT = 'dateCreatedAt';
-
-  const DELETED_AT = 'dateDeletedAt';
-
-  const UPDATED_AT = 'dateUpdatedAt';
-
-  /**
-   * @var array
-   */
-  protected $dates = [
-    'dateDeletedAt',
-    'dateCreatedAt',
-    'dateUpdatedAt',
-  ];
-
+class Specification extends SystemModel {
   /**
    * @var array
    */
@@ -54,27 +36,6 @@ class Specification extends Model {
    */
   public function getCategories() {
     return $this->hasManyThrough(Product::class);
-  }
-
-  /**
-   * @return mixed
-   */
-  public function getDateCreatedAt() {
-    return $this->dateCreatedAt;
-  }
-
-  /**
-   * @return mixed
-   */
-  public function getDateDeletedAt() {
-    return $this->dateDeletedAt;
-  }
-
-  /**
-   * @return mixed
-   */
-  public function getDateUpdatedAt() {
-    return $this->dateUpdatedAt;
   }
 
   /**
@@ -119,36 +80,6 @@ class Specification extends Model {
    */
   public function getStringValue() {
     return $this->stringValue;
-  }
-
-  /**
-   * @param $dateCreatedAt
-   * @return mixed
-   */
-  public function setDateCreatedAt($dateCreatedAt) {
-    $this->dateCreatedAt = $dateCreatedAt;
-
-    return $this;
-  }
-
-  /**
-   * @param $dateDeletedAt
-   * @return mixed
-   */
-  public function setDateDeletedAt($dateDeletedAt) {
-    $this->dateDeletedAt = $dateDeletedAt;
-
-    return $this;
-  }
-
-  /**
-   * @param $dateUpdatedAt
-   * @return mixed
-   */
-  public function setDateUpdatedAt($dateUpdatedAt) {
-    $this->dateUpdatedAt = $dateUpdatedAt;
-
-    return $this;
   }
 
   /**

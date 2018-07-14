@@ -27,8 +27,8 @@ class CreateOrdersTable extends Migration {
       $table->boolean('boolIsPaid');
 
       $table->date('dateCreatedAt')->nullable();
-      $table->date('dateUpdatedAt')->nullable();
-      $table->date('dateDeletedAt');
+$table->date('dateUpdatedAt')->nullable();
+$table->date('dateDeletedAt')->nullable();
     });
   }
 }

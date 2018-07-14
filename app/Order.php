@@ -2,28 +2,10 @@
 
 namespace App;
 
+use App\SystemModel;
 use App\User;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Order extends Model {
-  use SoftDeletes;
-
-  const CREATED_AT = 'dateCreatedAt';
-
-  const DELETED_AT = 'dateDeletedAt';
-
-  const UPDATED_AT = 'dateUpdatedAt';
-
-  /**
-   * @var array
-   */
-  protected $dates = [
-    'dateDeletedAt',
-    'dateCreatedAt',
-    'dateUpdatedAt',
-  ];
-
+class Order extends SystemModel {
   /**
    * @var array
    */
@@ -67,33 +49,6 @@ class Order extends Model {
   }
 
   /**
-   * Get the value of dateCreatedAt
-   *
-   * @return  mixed
-   */
-  public function getDateCreatedAt() {
-    return $this->dateCreatedAt;
-  }
-
-  /**
-   * Get the value of dateDeletedAt
-   *
-   * @return  mixed
-   */
-  public function getDateDeletedAt() {
-    return $this->dateDeletedAt;
-  }
-
-  /**
-   * Get the value of dateUpdatedAt
-   *
-   * @return  mixed
-   */
-  public function getDateUpdatedAt() {
-    return $this->dateUpdatedAt;
-  }
-
-  /**
    * Get the value of intId
    *
    * @return  mixed
@@ -127,45 +82,6 @@ class Order extends Model {
    */
   public function setBoolIsPaid($boolIsPaid) {
     $this->boolIsPaid = $boolIsPaid;
-
-    return $this;
-  }
-
-  /**
-   * Set the value of dateCreatedAt
-   *
-   * @param  mixed  $dateCreatedAt
-   *
-   * @return  self
-   */
-  public function setDateCreatedAt($dateCreatedAt) {
-    $this->dateCreatedAt = $dateCreatedAt;
-
-    return $this;
-  }
-
-  /**
-   * Set the value of dateDeletedAt
-   *
-   * @param  mixed  $dateDeletedAt
-   *
-   * @return  self
-   */
-  public function setDateDeletedAt($dateDeletedAt) {
-    $this->dateDeletedAt = $dateDeletedAt;
-
-    return $this;
-  }
-
-  /**
-   * Set the value of dateUpdatedAt
-   *
-   * @param  mixed  $dateUpdatedAt
-   *
-   * @return  self
-   */
-  public function setDateUpdatedAt($dateUpdatedAt) {
-    $this->dateUpdatedAt = $dateUpdatedAt;
 
     return $this;
   }

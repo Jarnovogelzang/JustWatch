@@ -28,9 +28,9 @@ class CreateDiscountCodesTable extends Migration {
       $table->enum('enumDiscountType', ['DISCOUNT_AMOUNT', 'DISCOUNT_PERCENTAGE']);
       $table->float('floatDiscount');
 
-      $table->date('dateCreatedAt');
-      $table->date('dateUpdatedAt');
-      $table->date('dateDeletedAt');
+      $table->date('dateCreatedAt')->nullable();
+      $table->date('dateUpdatedAt')->nullable();
+      $table->date('dateDeletedAt')->nullable();
     });
   }
 }
