@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SystemModel extends Model {
+abstract class SystemModel extends Model {
   use SoftDeletes;
 
   const CREATED_AT = 'dateCreatedAt';

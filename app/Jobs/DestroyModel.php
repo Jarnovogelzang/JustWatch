@@ -2,35 +2,36 @@
 
 namespace App\Jobs;
 
-use App\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class StoreOrder implements ShouldQueue {
+class DestroyModel implements ShouldQueue {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
   /**
    * @var mixed
    */
-  protected $objOrder;
+  protected $objModel;
 
   /**
-   * @param Order $objOrder
+   * Create a new job instance.
+   *
+   * @return void
    */
-  public function __construct(Order $objOrder) {
-    $this->arrayData = $arrayData;
+  public function __construct(Model $objModel) {
+    $this->objModel = $objModel;
   }
 
   /**
-   * Get the value of objOrder
+   * Get the value of objModel
    *
    * @return  mixed
    */
-  public function getObjOrder() {
-    return $this->objOrder;
+  public function getObjModel() {
+    return $this->objModel;
   }
 
   /**
@@ -39,18 +40,18 @@ class StoreOrder implements ShouldQueue {
    * @return void
    */
   public function handle() {
-    $objOrder = $this->getObjOrder()->save();
+    $this->getObjModel()->delete();
   }
 
   /**
-   * Set the value of objOrder
+   * Set the value of objModel
    *
-   * @param  mixed  $objOrder
+   * @param  mixed  $objModel
    *
    * @return  self
    */
-  public function setObjOrder($objOrder) {
-    $this->objOrder = $objOrder;
+  public function setObjModel($objModel) {
+    $this->objModel = $objModel;
 
     return $this;
   }

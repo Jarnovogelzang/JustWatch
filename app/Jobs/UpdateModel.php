@@ -2,14 +2,13 @@
 
 namespace App\Jobs;
 
-use App\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class UpdateOrder implements ShouldQueue {
+class UpdateModel implements ShouldQueue {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
   /**
@@ -20,15 +19,15 @@ class UpdateOrder implements ShouldQueue {
   /**
    * @var mixed
    */
-  protected $objOrder;
+  protected $objModel;
 
   /**
    * Create a new job instance.
    *
    * @return void
    */
-  public function __construct(Order $objOrder, array $arrayData) {
-    $this->objOrder = $objOrder;
+  public function __construct(Model $objModel, array $arrayData) {
+    $this->objModel = $objModel;
     $this->arrayData = $arrayData;
   }
 
@@ -42,12 +41,12 @@ class UpdateOrder implements ShouldQueue {
   }
 
   /**
-   * Get the value of objOrder
+   * Get the value of objModel
    *
    * @return  mixed
    */
-  public function getObjOrder() {
-    return $this->objOrder;
+  public function getObjModel() {
+    return $this->objModel;
   }
 
   /**
@@ -56,7 +55,7 @@ class UpdateOrder implements ShouldQueue {
    * @return void
    */
   public function handle() {
-    $this->getObjOrder()->update($this->getArrayData())->save();
+    $this->getObjModel()->update($this->getArrayData())->save();
   }
 
   /**
@@ -73,14 +72,14 @@ class UpdateOrder implements ShouldQueue {
   }
 
   /**
-   * Set the value of objOrder
+   * Set the value of objModel
    *
-   * @param  mixed  $objOrder
+   * @param  mixed  $objModel
    *
    * @return  self
    */
-  public function setObjOrder($objOrder) {
-    $this->objOrder = $objOrder;
+  public function setObjModel($objModel) {
+    $this->objModel = $objModel;
 
     return $this;
   }

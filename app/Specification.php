@@ -48,24 +48,8 @@ class Specification extends SystemModel {
   /**
    * @return mixed
    */
-  public function getProducts() {
+  public function getProduct() {
     return $this->belongsTo(Product::class, 'intId', 'intProductId');
-  }
-
-  /**
-   * @param $arrayKeyValues
-   */
-  public static function getSpecificationsByKeys($arrayKeyValues) {
-    $arrayKnownKeys = self::all()->pluck('stringKey');
-
-    foreach (array_diff(array_keys($arrayKeyValues), $arrayKnownKeys) as $stringKey) {
-      self::create([
-        'stringKey' => $stringKey,
-        'stringValue' => $arrayKeyValues['stringKey'],
-      ]);
-    }
-
-    return self::all();
   }
 
   /**
