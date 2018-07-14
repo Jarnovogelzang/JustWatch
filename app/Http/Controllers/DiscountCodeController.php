@@ -37,10 +37,7 @@ class DiscountCodeController extends Controller {
   public function edit(EditDiscountCodeRequest $objRequest, DiscountCode $objDiscountCode) {
     Log::info('Editing an DiscountCode with ID as ' . $objDiscountCode->getIntId() . '.');
 
-    return view('discountcodes.edit')
-      ->with([
-        'objDiscountCode' => $objDiscountCode,
-      ]);
+    return view('discountcodes.edit');
   }
 
   public function index() {
@@ -56,10 +53,7 @@ class DiscountCodeController extends Controller {
   public function show(ShowDiscountCodeRequest $objRequest, DiscountCode $objDiscountCode) {
     Log::info('Showing an DiscountCode with ID as ' . $objDiscountCode->getIntId() . '.');
 
-    return view('orders.show')
-      ->with([
-        'objDiscountCode' => $objDiscountCode,
-      ]);
+    return view('orders.show');
   }
 
   /**

@@ -42,10 +42,7 @@ class PriceRangeController extends Controller {
   public function edit(EditPriceRangeRequest $objRequest, PriceRange $objPriceRange) {
     Log::info('Editing a PriceRange with ID as ' . $objPriceRange->getIntId() . '.');
 
-    return view('priceranges.edit')
-      ->with([
-        'objPriceRange' => $objPriceRange,
-      ]);
+    return view('priceranges.edit');
   }
 
   public function index() {
@@ -61,10 +58,7 @@ class PriceRangeController extends Controller {
   public function show(ShowPriceRangeRequest $objRequest, PriceRange $objPriceRange) {
     Log::info('Showing a PriceRange with ID as ' . $objPriceRange->getIntId() . '.');
 
-    return view('priceranges.show')
-      ->with([
-        'objPriceRange' => $objPriceRange,
-      ]);
+    return view('priceranges.show');
   }
 
   /**

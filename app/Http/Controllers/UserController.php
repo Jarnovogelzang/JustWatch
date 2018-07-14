@@ -42,10 +42,7 @@ class UserController extends Controller {
   public function edit(EditUserRequest $objRequest, User $objUser) {
     Log::info('Editing an User with ID as ' . $objUser->getIntId() . '.');
 
-    return view('users.edit')
-      ->with([
-        'objUser' => $objUser,
-      ]);
+    return view('users.edit');
   }
 
   public function index() {
@@ -61,10 +58,7 @@ class UserController extends Controller {
   public function show(ShowUserRequest $objRequest, User $objUser) {
     Log::info('Showing an User with ID as ' . $objUser->getIntId() . '.');
 
-    return view('users.show')
-      ->with([
-        'objUser' => $objUser,
-      ]);
+    return view('users.show');
   }
 
   /**

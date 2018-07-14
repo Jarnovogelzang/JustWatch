@@ -47,10 +47,7 @@ class OrderController extends Controller {
   public function edit(EditOrderRequest $objRequest, Order $objOrder) {
     Log::info('Editing an Order with ID as ' . $objCategory->getIntId() . '.');
 
-    return view('orders.edit')
-      ->with([
-        'objOrder' => $objOrder,
-      ]);
+    return view('orders.edit');
   }
 
   public function index() {
@@ -86,10 +83,7 @@ class OrderController extends Controller {
   public function show(ShowOrderRequest $objRequest, Order $objOrder) {
     Log::info('Showing an Order with ID as ' . $objOrder->getIntId() . '.');
 
-    return view('orders.show')
-      ->with([
-        'objOrder' => $objOrder,
-      ]);
+    return view('orders.show');
   }
 
   /**

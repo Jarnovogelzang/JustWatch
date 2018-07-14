@@ -44,10 +44,7 @@ class ProductController extends Controller {
   public function edit(EditProductRequest $objRequest, Product $objProduct) {
     Log::info('Storing a new Product.');
 
-    return view('products.edit')
-      ->with([
-        'objProduct' => $objProduct,
-      ]);
+    return view('products.edit');
   }
 
   public function index() {
@@ -63,10 +60,7 @@ class ProductController extends Controller {
   public function show(ShowProductRequest $objRequest, Product $objProduct) {
     Log::info('Showing a Product with ID as ' . $objProduct->getIntId() . '.');
 
-    return view('products.show')
-      ->with([
-        'objProduct' => $objProduct,
-      ]);
+    return view('products.show');
   }
 
   /**

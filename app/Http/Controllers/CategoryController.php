@@ -42,10 +42,7 @@ class CategoryController extends Controller {
   public function edit(EditCategoryRequest $objRequest, Category $objCategory) {
     Log::info('Editing a Category with ID as ' . $objCategory->getIntId() . '.');
 
-    return view('categories.edit')
-      ->with([
-        'objCategory' => $objCategory,
-      ]);
+    return view('categories.edit');
   }
 
   public function index() {
@@ -61,11 +58,7 @@ class CategoryController extends Controller {
   public function show(ShowCategoryRequest $objRequest, Category $objCategory) {
     Log::info('Showing a Category with ID as ' . $objCategory->getIntId() . '.');
 
-    return view('categories.show')
-      ->with([
-        'objCategory' => $objCategory,
-        'arrayProducts' => $objCategory->getProducts()->paginate(9),
-      ]);
+    return view('categories.show');
   }
 
   /**
