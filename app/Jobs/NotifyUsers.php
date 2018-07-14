@@ -33,6 +33,16 @@ class NotifyUsers implements ShouldQueue {
   }
 
   /**
+   * The job failed to process.
+   *
+   * @param  Exception  $objException
+   * @return void
+   */
+  public function failed(Exception $objException) {
+    Notification::send(User::whereIsAdmin()->get(), new ErrorException($objException));
+  }
+
+  /**
    * Get the value of arrayUsers
    */
   public function getArrayUsers() {
