@@ -11,6 +11,11 @@ class Product extends SystemModel {
   use SoftDeletes;
 
   /**
+   * @var mixed
+   */
+  protected $arrayAliDefaultData;
+
+  /**
    * @var array
    */
   protected $fillable = [
@@ -38,25 +43,28 @@ class Product extends SystemModel {
   protected $table = 'Product';
 
   public function getActualPrice() {
-    $floatPrice = $this->getAliData()['floatPrice'];
+    $floatPrice = $this->getArrayAliDefaultData()['floatPrice'];
 
-    return PriceRange::where([
-      ['floatPriceLow', '<=', $floatPrice],
-      ['floatPriceHigh', '>=', $floatPrice],
-    ])->first()
+    return PriceRange::wherePriceIntervalBetween($floatPrice)
+      ->first()
       ->getFloatPriceActual();
   }
 
   /**
-   * @param ZincDataMover $objZincDataMover
-   * @return mixed
+   * Get the value of arrayAliDefaultData
+   *
+   * @return  mixed
    */
-  public function getAliData(ZincDataMover $objZincDataMover) {
-    $intAliId = $this->getIntAliId();
+  public function getArrayAliDefaultData() {
+    if (!isset($this->arrayAliDefaultData) && !$this->arrayAliDefaultData) {
+      $intAliId = $this->getIntAliId();
 
-    return $this->makeResponse(Cache::remember('fetchAliDataByAliId', 15, function ($objZincDataMover, $intAliId) {
-      return $objZincDataMover->fetchAliProductById($intAliId);
-    }));
+      $this->arrayAliDefaultData = $this->makeResponse(Cache::remember('fetchAliDataByAliId', 15, function ($objZincDataMover, $intAliId) {
+        return $objZincDataMover->fetchAliProductById($intAliId);
+      }));
+    }
+
+    return $this->arrayAliDefaultData;
   }
 
   /**
@@ -88,7 +96,7 @@ class Product extends SystemModel {
   }
 
   public function getPriceRange() {
-    return PriceRange::where('floatPriceActual', '=', $this->getFloatPriceActual())->first();
+    return PriceRange::wherePriceIntervalBetween($this->getPriceActual())->first();
   }
 
   /**
@@ -133,16 +141,27 @@ class Product extends SystemModel {
    * @return mixed
    */
   public function setAliDefaultData() {
-    $arrayData = $this->getAliData();
-
-    $this->getSpecifications()->sync(array_map(function ($objSpecification) {
+    $this->getSpecifications()->associative(array_map(function ($objSpecification) {
       return (new Specification())->setStringKey($objSpecification['stringKey'])->setStringValue($objSpecification['stringValue'])->getIntId();
-    }, $arrayData));
+    }, $this->getArrayAliDefaultData()));
 
     $this->update([
-      'stringTitle' => $arrayData['stringTitle'],
-      'stringDescription' => $arrayData['stringDescription'],
+      'stringTitle' => $this->getArrayAliDefaultData()['stringTitle'],
+      'stringDescription' => $this->getArrayAliDefaultData()['stringDescription'],
     ])->save();
+
+    return $this;
+  }
+
+  /**
+   * Set the value of arrayAliDefaultData
+   *
+   * @param  mixed  $arrayAliDefaultData
+   *
+   * @return  self
+   */
+  public function setArrayAliDefaultData($arrayAliDefaultData) {
+    $this->arrayAliDefaultData = $arrayAliDefaultData;
 
     return $this;
   }

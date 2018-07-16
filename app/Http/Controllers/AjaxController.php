@@ -10,10 +10,22 @@ use App\Http\Requests\Ajax\FetchProductsRequest;
 
 class AjaxController extends Controller {
   /**
+   * @var mixed
+   */
+  private $floatCacheDurationInMinutes;
+
+  /**
+   * @param $floatCacheDurationInMinutes
+   */
+  public function __construct($floatCacheDurationInMinutes = 15) {
+    $this->floatCacheDurationInMinutes = app()->environment('production') ? $floatCacheDurationInMinutes : 0;
+  }
+
+  /**
    * @param FetchCategories $objRequests
    */
   public function fetchCategories(FetchCategoriesRequest $objRequest) {
-    return $this->makeResponse(Cache::remember('fetchCategories', 15, function () {
+    return $this->makeResponse(Cache::remember('fetchCategories', $this->floatcacheDurationInMinutes, function () {
       return Category::all()->toArray();
     }));
   }
@@ -23,7 +35,7 @@ class AjaxController extends Controller {
    * @param Category $objCategory
    */
   public function fetchCategoryByCategoryId(FetchCategoryByCategoryIdRequest $objRequest, Category $objCategory) {
-    return $this->makeResponse(Cache::remember('fetchCategoryByCategoryId', 15, function ($objCategory) {
+    return $this->makeResponse(Cache::remember('fetchCategoryByCategoryId', $this->floatcacheDurationInMinutes, function ($objCategory) {
       $objCategory->toArray();
     }));
   }
@@ -33,7 +45,7 @@ class AjaxController extends Controller {
    * @param Category $objCategory
    */
   public function fetchCategoryProductsByCategoryId(fetchCategoryProductsByCategoryId $objRequest, Category $objCategory) {
-    return $this->makeResponse(Cache::remember('fetchCategoryProductsByCategoryId', 15, function ($objCategory) {
+    return $this->makeResponse(Cache::remember('fetchCategoryProductsByCategoryId', $this->floatcacheDurationInMinutes, function ($objCategory) {
       $objCategory->getProducts->toArray();
     }));
   }
@@ -42,7 +54,7 @@ class AjaxController extends Controller {
    * @param FetchDiscountCodesRequest $objRequest
    */
   public function fetchDiscountCodes(FetchDiscountCodesRequest $objRequest) {
-    return $this->makeResponse(Cache::remember('fetchDiscountCodes', 15, function () {
+    return $this->makeResponse(Cache::remember('fetchDiscountCodes', $this->floatcacheDurationInMinutes, function () {
       DiscountCode::all()->toArray();
     }));
   }
@@ -51,7 +63,7 @@ class AjaxController extends Controller {
    * @return mixed
    */
   public function fetchFeaturedCategories() {
-    return $this->makeResponse(Cache::remember('fetchFeaturedCategories', 15, function () {
+    return $this->makeResponse(Cache::remember('fetchFeaturedCategories', $this->floatcacheDurationInMinutes, function () {
       return Category::whereIsFeatured()->get();
     }));
   }
@@ -60,7 +72,7 @@ class AjaxController extends Controller {
    * @return mixed
    */
   public function fetchHottestProducts() {
-    return $this->makeResponse(Cache::remember('fetchHottestProducts', 15, function () {
+    return $this->makeResponse(Cache::remember('fetchHottestProducts', $this->floatcacheDurationInMinutes, function () {
       return Product::orderByOrderAmount()->paginate(3)->get();
     }));
   }
@@ -69,7 +81,7 @@ class AjaxController extends Controller {
    * @param fetchOrderByOrderId $objRequest
    */
   public function fetchOrderByOrderId(FetchOrderByOrderIdRequest $objRequest, Order $objOrder) {
-    return $this->makeResponse(Cache::remember('fetchOrderByOrderId', 15, function ($objOrder) {
+    return $this->makeResponse(Cache::remember('fetchOrderByOrderId', $this->floatcacheDurationInMinutes, function ($objOrder) {
       return $objOrder->toArray();
     }));
   }
@@ -78,7 +90,7 @@ class AjaxController extends Controller {
    * @param FetchOrderRequest $objRequest
    */
   public function fetchOrders(FetchOrderRequest $objRequest) {
-    return $this->makeResponse(Cache::remember('fetchOrders', 15, function () {
+    return $this->makeResponse(Cache::remember('fetchOrders', $this->floatcacheDurationInMinutes, function () {
       return Order::all()->toArray();
     }));
   }
@@ -89,7 +101,7 @@ class AjaxController extends Controller {
    * @return mixed
    */
   public function fetchPriceRangeByPriceRangeId(FetchPriceRangeByPriceRangeIdRequest $objRequest, PriceRange $objPriceRange) {
-    return $this->makeResponse(Cache::remember('fetchPriceRangeByPriceRangeId', 15, function ($objPriceRange) {
+    return $this->makeResponse(Cache::remember('fetchPriceRangeByPriceRangeId', $this->floatcacheDurationInMinutes, function ($objPriceRange) {
       return $objPriceRange->toArray();
     }));
   }
@@ -98,7 +110,7 @@ class AjaxController extends Controller {
    * @param FetchPriceRangesRequest $objRequest
    */
   public function fetchPriceRanges(FetchPriceRangesRequest $objRequest) {
-    return $this->makeResponse(Cache::remember('fetchPriceRanges', 15, function () {
+    return $this->makeResponse(Cache::remember('fetchPriceRanges', $this->floatcacheDurationInMinutes, function () {
       return PriceRange::all()->toArray();
     }));
   }
@@ -107,7 +119,7 @@ class AjaxController extends Controller {
    * @param FetchProductByIdRequest $objRequest
    */
   public function fetchProductByProductId(FetchProductByIdRequest $objRequest, Product $objProduct) {
-    return $this->makeResponse(Cache::remember('fetchProductByProductId', 15, function ($objProduct) {
+    return $this->makeResponse(Cache::remember('fetchProductByProductId', $this->floatcacheDurationInMinutes, function ($objProduct) {
       return $objProduct->toArray();
     }));
   }
@@ -116,7 +128,7 @@ class AjaxController extends Controller {
    * @param FetchProductSpecificationsByProductId $objRequest
    */
   public function fetchProductSpecificationsByProductId(FetchProductSpecificationsByProductId $objRequest, Product $objProduct) {
-    return $this->makeResponse(Cache::remember('fetchProductSpecificationsByProductId', 15, function ($objProduct) {
+    return $this->makeResponse(Cache::remember('fetchProductSpecificationsByProductId', $this->floatcacheDurationInMinutes, function ($objProduct) {
       return Product::find($objProduct->getSpecifications->toArray());
     }));
   }
@@ -125,7 +137,7 @@ class AjaxController extends Controller {
    * @param FetchProducts $objRequest
    */
   public function fetchProducts(FetchProductsRequest $objRequest) {
-    return $this->makeResponse(Cache::remember('fetchProducts', 15, function () {
+    return $this->makeResponse(Cache::remember('fetchProducts', $this->floatcacheDurationInMinutes, function () {
       return Product::all()->toArray();
     }));
   }
@@ -134,7 +146,7 @@ class AjaxController extends Controller {
    * @param FetchProductsByCategoryIdrequest $objRequest
    */
   public function fetchProductsByCategoryId(FetchProductsByCategoryIdRequest $objRequest, Category $objCategory) {
-    return $this->makeResponse(Cache::remember('fetchProductsByCategoryId', 15, function ($objCategory) {
+    return $this->makeResponse(Cache::remember('fetchProductsByCategoryId', $this->floatcacheDurationInMinutes, function ($objCategory) {
       return $objCategory->getProducts->toArray();
     }));
   }
@@ -145,7 +157,7 @@ class AjaxController extends Controller {
    * @return mixed
    */
   public function fetchUserByUserId(FetchUserByUserIdRequest $objRequest, User $objUser) {
-    return $this->makeResponse(Cache::remember('fetchUserByUserId', 15, function ($objUser) {
+    return $this->makeResponse(Cache::remember('fetchUserByUserId', $this->floatcacheDurationInMinutes, function ($objUser) {
       return $objUser->toArray();
     }));
   }
@@ -154,7 +166,7 @@ class AjaxController extends Controller {
    * @param FetchUserRequest $objRequest
    */
   public function fetchUsers(FetchUserRequest $objRequest) {
-    return $this->makeResponse(Cache::remember('fetchUsers', 15, function () {
+    return $this->makeResponse(Cache::remember('fetchUsers', $this->floatcacheDurationInMinutes, function () {
       return Order::all()->toArray();
     }));
   }

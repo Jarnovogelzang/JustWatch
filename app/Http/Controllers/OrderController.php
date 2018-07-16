@@ -77,7 +77,6 @@ class OrderController extends Controller {
 
     return view('orders.show')
       ->with([
-        'objOrder' => $objOrder,
         'stringSucces' => 'Bestelling succesvol geplaatst! U ontvangt zo spoedig mogelijk een mail met informatie over de vervolgprocedure van ons! U kunt uw bestelling bekijken via Mijn Bestellingen!',
       ]);
   }

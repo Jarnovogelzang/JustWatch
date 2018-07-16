@@ -81,6 +81,17 @@ class PriceRange extends SystemModel {
   }
 
   /**
+   * @param float $floatPrice
+   * @return mixed
+   */
+  public function scopeWherePriceIntervalBetween(Builder $objBuilder, float $floatPrice) {
+    return $objBuilder->where([
+      ['floatPriceLow', '<=', $floatPrice],
+      ['floatPriceHigh', '>=', $floatPrice],
+    ]);
+  }
+
+  /**
    * Set the value of floatPriceActual
    *
    * @param  mixed  $floatPriceActual
