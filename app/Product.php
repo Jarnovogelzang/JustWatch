@@ -47,8 +47,16 @@ class Product extends SystemModel {
       ->getFloatPriceActual();
   }
 
-  public function getAliData() {
-    return getAliDataMover()->fetchAliProductById($this->getIntAliId());
+  /**
+   * @param ZincDataMover $objZincDataMover
+   * @return mixed
+   */
+  public function getAliData(ZincDataMover $objZincDataMover) {
+    $intAliId = $this->getIntAliId();
+
+    return $this->makeResponse(Cache::remember('fetchAliDataByAliId', 15, function ($objZincDataMover, $intAliId) {
+      return $objZincDataMover->fetchAliProductById($intAliId);
+    }));
   }
 
   /**

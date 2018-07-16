@@ -20,7 +20,7 @@ class OrderPublicChannel {
    * @param  \App\User  $user
    * @return array|bool
    */
-  public function join(User $objUser) {
+  public function join(User $objUser, Order $objOrder) {
     return true;
   }
 }

@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider {
    */
   public $singletons = [
     MollieDataMover::class => MollieDataMover::class,
+    ZincDataMover::class => ZincDataMover::class,
   ];
 
   /**
