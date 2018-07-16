@@ -6,41 +6,37 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class OrderNotPaid extends Notification {
+class UserCreated extends Notification {
   use Queueable;
 
   /**
    * @var mixed
    */
-  protected $objOrder;
+  protected $objUser;
 
   /**
    * Create a new notification instance.
    *
    * @return void
    */
-  public function __construct(Order $objOrder) {
-    $this->objOrder = $objOrder;
+  public function __construct(User $objUser) {
+    $this->objUser = $objUser;
   }
 
   /**
-   * Get the value of objOrder
-   *
-   * @return  mixed
+   * Get the value of objUser
    */
-  public function getObjOrder() {
-    return $this->objOrder;
+  public function getObjUser() {
+    return $this->objUser;
   }
 
   /**
-   * Set the value of objOrder
-   *
-   * @param  mixed  $objOrder
+   * Set the value of objUser
    *
    * @return  self
    */
-  public function setObjOrder($objOrder) {
-    $this->objOrder = $objOrder;
+  public function setObjUser($objUser) {
+    $this->objUser = $objUser;
 
     return $this;
   }
@@ -52,8 +48,16 @@ class OrderNotPaid extends Notification {
    * @return array
    */
   public function toArray($notifiable) {
+    return $this->getObjUser()->toArray();
+  }
+
+  /**
+   * @param $notifiable
+   * @return mixed
+   */
+  public function toDatabase($notifiable) {
     return [
-      //
+      'intId' => $this->getObjUser()->getIntId(),
     ];
   }
 

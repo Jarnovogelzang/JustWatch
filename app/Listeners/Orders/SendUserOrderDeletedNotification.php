@@ -2,10 +2,7 @@
 
 namespace App\Listeners\Orders;
 
-use App\Events\Orders\OrderPaid;
-use Illuminate\Contracts\Queue\ShouldQueue;
-
-class SendAdminOrderPaidNotification implements ShouldQueue {
+class SendUserOrderDeletedNotification {
   /**
    * Handle a job failure.
    *
@@ -13,7 +10,7 @@ class SendAdminOrderPaidNotification implements ShouldQueue {
    * @param  \Exception  $exception
    * @return void
    */
-  public function failed(OrderPaid $objEvent, Exception $objException) {
+  public function failed(OrderDeleted $objEvent, Exception $objException) {
     Notification::send(User::whereIsAdmin()->get(), new ErrorException($objException));
   }
 
@@ -23,7 +20,7 @@ class SendAdminOrderPaidNotification implements ShouldQueue {
    * @param  OrderStored  $event
    * @return void
    */
-  public function handle(OrderPaid $objEvent) {
-    Notification::send(User::whereIsAdmin()->get(), new OrderDeletedToAdmin($objEvent->getObjOrder()));
+  public function handle(OrderDeleted $objEvent) {
+    $objEvent->getObjOrder()->getUser()->notify(new OrderDeletedToUser($objEvent->getObjOrder()));
   }
 }

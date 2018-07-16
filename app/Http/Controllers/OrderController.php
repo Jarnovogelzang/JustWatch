@@ -14,6 +14,16 @@ use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller {
   /**
+   * @param CheckOutOrderRequest $objRequest
+   * @param Order $objOrder
+   * @param MollieDataMover $objDataMover
+   */
+  public function checkout(CheckOutOrderRequest $objRequest, Order $objOrder, MollieDataMover $objDataMover) {
+    return redirect()
+      ->to($objDataMover->storePayment($objOrder)['self']['_links']['href']);
+  }
+
+  /**
    * @param CreateOrderRequest $objRequest
    */
   public function create(CreateOrderRequest $objRequest) {
@@ -61,13 +71,9 @@ class OrderController extends Controller {
   public function pay(PayOrderRequest $objRequest, Order $objOrder) {
     Log::critical('Paying an Order with ID as ' . $objOrder->getIntId() . '.');
 
-    $objOrder = $objOrder->update([
+    event(new OrderPaid($objOrder->update([
       'boolIsPaid' => true,
-    ]);
-
-    NotifyUsers::dispatch([
-      $objOrder->getUser(),
-    ], new OrderPaid($objOrder));
+    ])->save()));
 
     return view('orders.show')
       ->with([

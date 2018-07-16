@@ -6,37 +6,41 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UserCreated extends Notification {
+class OrderStored extends Notification {
   use Queueable;
 
   /**
    * @var mixed
    */
-  protected $objUser;
+  protected $objOrder;
 
   /**
    * Create a new notification instance.
    *
    * @return void
    */
-  public function __construct(User $objUser) {
-    $this->objUser = $objUser;
+  public function __construct(Order $objOrder) {
+    $this->objOrder = $objOrder;
   }
 
   /**
-   * Get the value of objUser
+   * Get the value of objOrder
+   *
+   * @return  mixed
    */
-  public function getObjUser() {
-    return $this->objUser;
+  public function getObjOrder() {
+    return $this->objOrder;
   }
 
   /**
-   * Set the value of objUser
+   * Set the value of objOrder
+   *
+   * @param  mixed  $objOrder
    *
    * @return  self
    */
-  public function setObjUser($objUser) {
-    $this->objUser = $objUser;
+  public function setObjOrder($objOrder) {
+    $this->objOrder = $objOrder;
 
     return $this;
   }
@@ -48,7 +52,17 @@ class UserCreated extends Notification {
    * @return array
    */
   public function toArray($notifiable) {
-    return $this->getObjUser()->toArray();
+    return [
+      //
+    ];
+  }
+
+  /**
+   * @param $notifiable
+   * @return mixed
+   */
+  public function toDatabase($notifiable) {
+    return $this->getObjOrder()->toArray();
   }
 
   /**
@@ -71,6 +85,8 @@ class UserCreated extends Notification {
    * @return array
    */
   public function via($notifiable) {
-    return ['mail'];
+    return [
+      'mail',
+    ];
   }
 }

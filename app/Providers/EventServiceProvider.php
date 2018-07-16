@@ -20,6 +20,10 @@ class EventServiceProvider extends ServiceProvider {
       'App\Listeners\Orders\SendUserOrderPaidNotification',
       'App\Listeners\Orders\SendAdminOrderPaidNotification',
     ],
+    'App\Events\Orders\OrderDeleted' => [
+      'App\Listeners\Orders\SendUserOrderDeletedNotification',
+      'App\Listeners\Orders\SendAdminOrderDeletedNotification',
+    ],
   ];
 
   /**
