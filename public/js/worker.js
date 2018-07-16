@@ -22,7 +22,7 @@ self.addEventListener('fetch', function (objEvent) {
         objCache.put(objEvent.request, objResponseCloned);
       });
 
-      return objResponse;
+      return objResponseCloned;
     });
   }));
 });
