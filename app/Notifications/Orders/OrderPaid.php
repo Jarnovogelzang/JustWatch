@@ -58,6 +58,13 @@ class OrderPaid extends Notification implements ShouldQueue {
 
   /**
    * @param $notifiable
+   */
+  public function toBroadcast($notifiable) {
+    return new BroadcastMessage($this->getObjOrder()->toArray());
+  }
+
+  /**
+   * @param $notifiable
    * @return mixed
    */
   public function toDatabase($notifiable) {

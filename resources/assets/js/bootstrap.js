@@ -9,10 +9,10 @@ window.Popper = require('popper.js').default;
  */
 
 try {
-    window.$ = window.jQuery = require('jquery');
+  window.$ = window.jQuery = require('jquery');
 
-    require('bootstrap');
-} catch (e) {}
+  require('bootstrap');
+} catch (e) { }
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -33,9 +33,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 let token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
 /**
@@ -44,13 +44,40 @@ if (token) {
  * allows your team to easily build robust real-time web applications.
  */
 
-// import Echo from 'laravel-echo'
+import Echo from 'laravel-echo'
 
-// window.Pusher = require('pusher-js');
+window.Pusher = require('pusher-js');
 
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     encrypted: true
-// });
+window.Echo = new Echo({
+  broadcaster: 'pusher',
+  key: 'your-pusher-key',
+  encrypted: true
+});
+
+window.Toastr = require('toastr-js');
+window.Toastr.options.closeButton = true;
+window.Toastr.options.preventDuplicates = true;
+
+window.Toastr.options.onShown = function () {
+  console.log('hello');
+};
+
+window.Toastr.options.onHidden = function () {
+  console.log('goodbye');
+};
+
+window.Toastr.options.onclick = function () {
+  console.log('clicked');
+};
+
+window.Toastr.options.onCloseClick = function () {
+  console.log('close button clicked');
+};
+
+window.Echo.private('OrderChannel').listen('Order.Deleted', function (objEvent) {
+  window.Toastr.warning('Succesfully deleted your order!', 'Order - Deleted');
+}).listen('Order.Stored', function (objEvent) {
+  window.Toastr.success('Succesfully stored your order!', 'Order - Stored');
+}).listen('Order.Paid', function (objEvent) {
+  window.Toastr.success('Succesfully paid your order!', 'Order - Paid');
+});

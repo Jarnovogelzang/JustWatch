@@ -5,10 +5,11 @@ namespace App\Events\Orders;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class OrderPaid {
+class OrderPaid implements ShouldBroadcast {
   use Dispatchable, InteractsWithSockets, SerializesModels;
 
   /**
@@ -25,13 +26,33 @@ class OrderPaid {
     $this->objOrder = $objOrder;
   }
 
+  public function broadcastAs() {
+    return 'Order.Paid';
+  }
+
   /**
    * Get the channels the event should broadcast on.
    *
    * @return \Illuminate\Broadcasting\Channel|array
    */
   public function broadcastOn() {
-    return new PrivateChannel('channel-name');
+    return new PrivateChannel('OrderChannel.' . $this->getObjOrder()->getIntId());
+  }
+
+  /**
+   * Determine if this event should broadcast.
+   *
+   * @return bool
+   */
+  public function broadcastWhen() {
+    return $this->getObjOrder()->isPaid();
+  }
+
+  /**
+   * @return mixed
+   */
+  public function broadcastWith() {
+    return $this->getObjOrder()->toArray();
   }
 
   /**
