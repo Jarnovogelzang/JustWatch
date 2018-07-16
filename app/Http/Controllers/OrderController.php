@@ -8,7 +8,6 @@ use App\Http\Requests\Orders\EditOrderRequest;
 use App\Http\Requests\Orders\ShowOrderRequest;
 use App\Http\Requests\Orders\StoreOrderRequest;
 use App\Http\Requests\Orders\UpdateOrderRequest;
-use App\Includes\Mollie\MollieDataMover;
 use App\Jobs\CreateOrder;
 use App\Jobs\StoreOrder;
 use Illuminate\Support\Facades\Log;
@@ -32,7 +31,7 @@ class OrderController extends Controller {
 
     return redirect()
       ->back()
-      ->with(DeleteModel::dispatch($objOrder) ? [
+      ->with($objOrder->delete() ? [
         'stringSuccess' => 'Order succesvol verwijderd!',
       ] : [
         'stringError' => 'Order onsuccesvol verwijderd!',
@@ -93,17 +92,13 @@ class OrderController extends Controller {
   public function store(StoreOrderRequest $objRequest) {
     Log::info('Storing an new Order.');
 
-    if (auth()->user()->isAdmin()) {
-      return view('orders.show')
-        ->with(CreateModel::dispatch(Order::class, $objRequest->all()) ? [
-          'stringSuccess' => 'Order succesfully stored!',
-        ] : [
-          'stringError' => 'Order unsuccesfully stored!',
-        ]);
-    }
+    event(new OrderStored($objOrder = Order::create($objRequest->all())));
 
     return redirect()
-      ->to(MollieDataMover::getInstance()->postPayment(Order::create($objRequest->all()), [])['_links']['self']['href']);
+      ->back()
+      ->with([
+        'stringSucces' => 'Order succesfully stored!',
+      ]);
   }
 
   /**
@@ -115,7 +110,7 @@ class OrderController extends Controller {
 
     return redirect()
       ->back()
-      ->with(UpdateModel::dispatch($objOrder, $objRequest->all()) ? [
+      ->with($objOrder->update($objRequest->all()) ? [
         'stringSuccess' => 'Bestelling succesvol aangepast!',
       ] : [
         'stringError' => 'Bestelling onsuccesvol aangepast!',

@@ -30,7 +30,7 @@ class ProductController extends Controller {
 
     return redirect()
       ->back()
-      ->with(DeleteModel::dispatch($objProduct) ? [
+      ->with($objProduct->delete() ? [
         'stringSuccess' => 'Product succesvol verwijderd!',
       ] : [
         'stringError' => 'Product onsuccesvol verwijderd!',
@@ -69,11 +69,9 @@ class ProductController extends Controller {
   public function store(StoreProductRequest $objRequest) {
     Log::info('Storing a new Product.');
 
+    $objProduct = Product::create($objRequest->all());
     if ($objRequest->input('boolSetDefaultAliData')) {
-      $objProduct = new Product();
-      $objProduct = $objProduct->setIntId($objRequest->input('intAliId'))->setAliDefaultData();
-    } else {
-      $objProduct = Product::create($objRequest->all());
+      $objProduct->setIntAliId($objRequest->input('intAliId'))->setAliDefaultData()->save();
     }
 
     return redirect()
@@ -92,7 +90,7 @@ class ProductController extends Controller {
 
     return redirect()
       ->back()
-      ->with(UpdateModel::dispatch($objProduct, $objRequest->all()) ? [
+      ->with($objProduct->update($objRequest->all()) ? [
         'stringSuccess' => 'Product succesvol aangepast!',
       ] : [
         'stringError' => 'Product onsuccesvol aangepast!',

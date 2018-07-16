@@ -28,7 +28,7 @@ class PriceRangeController extends Controller {
 
     return redirect()
       ->back()
-      ->with(DeleteModel::dispatch($objPriceRange) ? [
+      ->with($objPriceRange->delete() ? [
         'stringSuccess' => 'PrijsInterval succesvol verwijderd!',
       ] : [
         'stringError' => 'PrijsInterval onsuccesvol verwijderd!',
@@ -69,7 +69,7 @@ class PriceRangeController extends Controller {
 
     return redirect()
       ->back()
-      ->with(CreateModel::dispatch(PriceRange::class, $objRequest->all()) ? [
+      ->with(PriceRange::create($objRequest->all()) ? [
         'stringSuccess' => 'Prijsinterval succesvol aangemaakt!',
       ] : [
         'stringError' => 'Prijsinteval onsuccesvol aangemaakt!',
@@ -85,7 +85,7 @@ class PriceRangeController extends Controller {
 
     return redirect()
       ->back()
-      ->with(UpdateModel::dispatch($objPriceRange, $objRequest->all()) ? [
+      ->with($objPriceRange->update($objRequest->all()) ? [
         'stringSuccess' => 'Prijsinterval succesvol aangepast!',
       ] : [
         'stringError' => 'Prijsinterval onsuccesvol aangepast!',

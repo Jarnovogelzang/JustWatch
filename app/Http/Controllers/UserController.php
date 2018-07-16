@@ -28,7 +28,7 @@ class UserController extends Controller {
 
     return redirect()
       ->back()
-      ->with(DeleteModel::dispatch($objUser) ? [
+      ->with($objUser->delete() ? [
         'stringSuccess' => 'Gebruiker succesvol verwijderd!',
       ] : [
         'stringError' => 'Gebruiker onsuccesvol verwijderd!',
@@ -69,7 +69,7 @@ class UserController extends Controller {
 
     return redirect()
       ->back()
-      ->with(CreateModel::dispatch(User::class, $objRequest->all()) ? [
+      ->with(User::create($objRequest->all()) ? [
         'stringSuccess' => 'Gebruiker succesvol aangemaakt!',
       ] : [
         'stringError' => 'Gebruiker onsuccesvol aangemaakt!',
@@ -85,7 +85,7 @@ class UserController extends Controller {
 
     return redirect()
       ->back()
-      ->with(UpdateModel::dispatch($objUser, $objRequest->all()) ? [
+      ->with($objUser->update($objRequest->all()) ? [
         'stringSuccess' => 'Gebruiker succesvol aangepast!',
       ] : [
         'stringError' => 'Gebruiker onsuccesvol aangepast!',

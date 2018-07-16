@@ -28,7 +28,7 @@ class CategoryController extends Controller {
 
     return redirect()
       ->back()
-      ->with(DeleteModel::dispatch($objCategory) ? [
+      ->with($objCategory->delete() ? [
         'stringSuccess' => 'Categorie succesvol verwijderd!',
       ] : [
         'stringError' => 'Categorie onsuccesvol verwijderd!',
@@ -69,7 +69,7 @@ class CategoryController extends Controller {
 
     return redirect()
       ->back()
-      ->with(CreateModel::dispatch(Category::class, $objRequest->all()) ? [
+      ->with(Category::create($objRequest->all()) ? [
         'stringSuccess' => 'Categorie succesvol aangemaakt!',
       ] : [
         'stringError' => 'Categorie onsuccesvol aangemaakt!',
@@ -85,7 +85,7 @@ class CategoryController extends Controller {
 
     return redirect()
       ->back()
-      ->with(UpdateModel::dispatch($objCategory, $objRequest->all()) ? [
+      ->with($objCategory->update($objRequest->all()) ? [
         'stringSuccess' => 'Categorie succesvol aangepast!',
       ] : [
         'stringError' => 'Categorie onsuccesvol aangepast!',
