@@ -11,4 +11,5 @@
 |
  */
 
-Broadcast::channel('OrderChannel.{objOrder}', OrderChannel::class);
+Broadcast::channel('OrderPrivateChannel.{objOrder}', OrderPrivateChannel::class);
+Broadcast::channel('OrderPublicChannel.{objOrder}', OrderPublicChannel::class);

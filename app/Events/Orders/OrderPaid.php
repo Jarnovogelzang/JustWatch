@@ -36,7 +36,10 @@ class OrderPaid implements ShouldBroadcast {
    * @return \Illuminate\Broadcasting\Channel|array
    */
   public function broadcastOn() {
-    return new PrivateChannel('OrderChannel.' . $this->getObjOrder()->getIntId());
+    return [
+      new PrivateChannel('OrderPrivateChannel.' . $this->getObjOrder()->getIntId()),
+      new PublicChannel('OrderPublicChannel.' . $this->getObjOrder()->getIntId()),
+    ];
   }
 
   /**
@@ -52,7 +55,10 @@ class OrderPaid implements ShouldBroadcast {
    * @return mixed
    */
   public function broadcastWith() {
-    return $this->getObjOrder()->toArray();
+    return [
+      'objOrder' => $this->getObjOrder()->toArray(),
+      'objUser' => $this->getObjOrder()->getUser->toArray(),
+    ];
   }
 
   /**

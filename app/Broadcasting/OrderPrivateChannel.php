@@ -4,7 +4,7 @@ namespace App\Broadcasting;
 
 use App\User;
 
-class OrderChannel {
+class OrderPrivateChannel {
   /**
    * Create a new channel instance.
    *

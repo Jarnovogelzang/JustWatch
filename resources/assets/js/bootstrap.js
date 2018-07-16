@@ -66,7 +66,7 @@ window.Toastr.options.onHidden = function () {
   console.log('goodbye');
 };
 
-window.Toastr.options.onclick = function () {
+window.Toastr.options.onClick = function () {
   console.log('clicked');
 };
 
@@ -80,4 +80,8 @@ window.Echo.private('OrderChannel').listen('Order.Deleted', function (objEvent) 
   window.Toastr.success('Succesfully stored your order!', 'Order - Stored');
 }).listen('Order.Paid', function (objEvent) {
   window.Toastr.success('Succesfully paid your order!', 'Order - Paid');
+});
+
+window.Echo.channel('OrderPublicChannel').listen('Order.Paid', function (objEvent) {
+  window.Toastr.success('Another order was placed by ' + objEvent.objUser.stringName + '!', 'Order - Placed');
 });

@@ -36,7 +36,9 @@ class OrderDeleted implements ShouldBroadcast {
    * @return \Illuminate\Broadcasting\Channel|array
    */
   public function broadcastOn() {
-    return new PrivateChannel('OrderChannel.' . $this->getObjOrder()->getIntId());
+    return [
+      new PrivateChannel('OrderPrivateChannel.' . $this->getObjOrder()->getIntId()),
+    ];
   }
 
   /**
@@ -52,7 +54,9 @@ class OrderDeleted implements ShouldBroadcast {
    * @return mixed
    */
   public function broadcastWith() {
-    return $this->getObjOrder()->toArray();
+    return [
+      'objOrder' => $this->getObjOrder()->toArray(),
+    ];
   }
 
   /**
