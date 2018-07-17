@@ -2,11 +2,23 @@
 
 @section('content')
 <div class="container">
-  <?=Form::open(['action' => ['DiscountController@update', $objDiscountCode], 'method' => 'PUT']);?>
+  <?=Form::open(['action' => ['DiscountCodeController@update', $objDiscountCode], 'method' => 'POST']);?>
     <div class="form-group">
-      <label>Titel: </label>
+      <label>KortingsCode: </label>
       <div class="col-md-12">
-        <?=Form::text('stringTitle', $objDiscountCode->getStringTitle(), ['class' => 'form-control']);?>
+        <?=Form::text('stringDiscountCode', $objDiscountCode->getStringDiscountCode(), ['class' => 'form-control', 'required' => 'required']);?>
+      </div>
+    </div>
+     <div class="form-group">
+      <label>DiscountType: </label>
+      <div class="col-md-12">
+        <?=Form::select('enumDiscountType', ['DISCOUNT_AMOUNT' => 'Vast Bedrag', 'DISCOUNT_PERCENTAGE' => 'Percentage'], $objDiscountCode->getEnumDiscountType(), ['class' => 'form-control', 'required' => 'required']);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Hoeveelheid Korting: </label>
+      <div class="col-md-12">
+        <?=Form::number('floatDiscount', $objDiscountCode->getFloatDiscount(), ['class' => 'form-control', 'required' => 'required']);?>
       </div>
     </div>
     <div class="form-group">

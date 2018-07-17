@@ -26,10 +26,11 @@ class CreateProductsTable extends Migration {
       $table->string('stringTitle');
       $table->text('stringDescription');
       $table->float('floatPrice');
+      $table->integer('intAliId')->nullable();
 
       $table->date('dateCreatedAt')->nullable();
-$table->date('dateUpdatedAt')->nullable();
-$table->date('dateDeletedAt')->nullable();
+      $table->date('dateUpdatedAt')->nullable();
+      $table->date('dateDeletedAt')->nullable();
     });
   }
 }

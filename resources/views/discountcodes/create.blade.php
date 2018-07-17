@@ -4,9 +4,21 @@
 <div class="container">
   <?=Form::open(['action' => ['DiscountCodeController@store'], 'method' => 'POST']);?>
     <div class="form-group">
-      <label>Titel: </label>
+      <label>KortingsCode: </label>
       <div class="col-md-12">
-        <?=Form::text('stringTitle', null, ['class' => 'form-control']);?>
+        <?=Form::text('stringDiscountCode', null, ['class' => 'form-control']);?>
+      </div>
+    </div>
+     <div class="form-group">
+      <label>DiscountType: </label>
+      <div class="col-md-12">
+        <?=Form::select('enumDiscountType', ['DISCOUNT_AMOUNT' => 'Vast Bedrag', 'DISCOUNT_PERCENTAGE' => 'Percentage'], 'DISCOUNT_AMOUNT', ['class' => 'form-control']);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Hoeveelheid Korting: </label>
+      <div class="col-md-12">
+        <?=Form::number('floatDiscount', null, ['class' => 'form-control']);?>
       </div>
     </div>
     <div class="form-group">

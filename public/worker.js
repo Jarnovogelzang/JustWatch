@@ -11,14 +11,13 @@ self.addEventListener('fetch', function (objEvent) {
     }
 
     var objRequestCloned = objEvent.request.clone();
-
     return fetch(objRequestCloned).then(function (objResponse) {
       if (!objResponse || objResponse.status !== 200 || objResponse.type !== 'basic') {
         return objResponse;
       }
 
       var objResponseCloned = objResponse.clone();
-      caches.open('MilliSeconde').then(function (objCache) {
+      caches.open('MilliSeconde').then(function (objCache, objResponseCloned) {
         objCache.put(objEvent.request, objResponseCloned);
       });
 

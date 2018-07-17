@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="container">
-  <?=Form::open(['action' => ['DiscountCodeController@store'], 'method' => 'POST']);?>
+  <?=Form::open(['action' => ['OrderController@update', $objOrder], 'method' => 'POST']);?>
     <div class="form-group">
       <label>Titel: </label>
       <div class="col-md-12">
-        <?=Form::text('stringTitle', null, ['class' => 'form-control']);?>
+        <?=Form::number('intUserId', $objOrder->getIntUserId(), ['class' => 'form-control', 'required' => 'required']);?>
       </div>
     </div>
     <div class="form-group">
