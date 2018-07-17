@@ -28,7 +28,7 @@ window.Echo = new Echo({
   encrypted: true
 });
 
-window.Toastr = require('toastr-js');
+window.Toastr = require('toastr');
 window.Toastr.options.closeButton = true;
 window.Toastr.options.preventDuplicates = true;
 
