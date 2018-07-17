@@ -1,24 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div>
-  <?=$objProduct->getStringTitle();?>
-  <?=$objProduct->getStringDescription();?>
-  <table>
-    <thead>
-      <tr>
-        <th>Specificatie</th>
-        <th>Beschrijving</th>
-      </tr>
-    </thead>
-      <tbody>
-        <?php foreach ($objProduct->getSpecifications() as $objSpecification): ?>
-          <tr>
-            <td><?=$objSpecification->getStringKey();?></td>
-            <td><?=$objSpecification->getStringValue();?></td>
-          </tr>
-        <?php endforeach;?>
-      </tbody>
-  </table>
+<div class="container">
+  <div class="form-group">
+    <label>Titel: </label>
+    <div class="col-md-12">
+      <?=Form::text('stringTitle', null, ['class' => 'form-control']);?>
+    </div>
+  </div>
 </div>
 @endsection

@@ -2,8 +2,6 @@
 
 namespace App\Exceptions;
 
-use App\Jobs\NotifyUsers;
-use App\User;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -35,11 +33,13 @@ class Handler extends ExceptionHandler {
    * @return \Illuminate\Http\Response
    */
   public function render($request, Exception $exception) {
-    return view('pages.exception')
-      ->with([
-        'stringMessage' => 'Er is een onverwachte fout opgetreden!',
-        'stringTitle' => 'Onverwachte Fout!',
-      ]);
+    /*return view('pages.exception')
+    ->with([
+    'stringMessage' => 'Er is een onverwachte fout opgetreden!',
+    'stringTitle' => 'Onverwachte Fout!',
+    ]);*/
+
+    return parent::render($request, $exception);
   }
 
   /**
@@ -49,7 +49,7 @@ class Handler extends ExceptionHandler {
    * @return void
    */
   public function report(Exception $exception) {
-    NotifyUsers::dispatch(User::whereIsAdminEquals(true)->get(), new ErrorException($objException));
+    //NotifyUsers::dispatch(User::whereIsAdminEquals(true)->get(), new ErrorException($objException));
 
     parent::report($exception);
   }
