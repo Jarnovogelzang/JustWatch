@@ -12,6 +12,6 @@ $(document).ready(function () {
       $('input[name=' + stringKey + ']').val(arrayData[stringKey]);
     })
   }).error(function (objError) {
-
+    console.log(objError);
   });
 });
