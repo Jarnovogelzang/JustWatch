@@ -15,7 +15,7 @@
         <?=Form::text('floatPriceHigh', $objPriceRange->getFloatPriceHigh(), ['class' => 'form-control', 'required' => 'required']);?>
       </div>
     </div>
-    <<div class="form-group">
+    <div class="form-group">
       <label>Prijs - Eigenlijk: </label>
       <div class="col-md-12">
         <?=Form::text('floatPriceActual', $objPriceRange->getFloatPriceActual(), ['class' => 'form-control', 'required' => 'required']);?>
@@ -29,4 +29,8 @@
     </div>
   <?=Form::close();?>
 </div>
+@endsection
+
+@section('script')
+<script async defer src="<?=asset('/js/priceranges/logic.js');?>"></script>
 @endsection

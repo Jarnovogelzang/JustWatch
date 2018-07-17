@@ -18,3 +18,7 @@
   <?=Form::close();?>
 </div>
 @endsection
+
+@section('script')
+<script async defer src="<?=asset('/js/users/edit.js');?>"></script>
+@endsection

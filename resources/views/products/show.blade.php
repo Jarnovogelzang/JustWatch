@@ -28,3 +28,7 @@
   </div>
 </div>
 @endsection
+
+@section('script')
+<script async defer src="<?=asset('/js/products/logic.js');?>"></script>
+@endsection

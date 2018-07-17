@@ -26,5 +26,5 @@
 @endsection
 
 @section('script')
-
+<script async defer src="<?=asset('/js/categories/logic.js');?>"></script>
 @endsection

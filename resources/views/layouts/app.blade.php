@@ -12,7 +12,6 @@
 
     <!-- Scripts -->
     <script src="<?=asset('js/register.js');?>"></script>
-    <script async defer src="<?=asset('js/app.js');?>"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" media="false" onload="if(media!='all')media='all'">
