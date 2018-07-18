@@ -22,6 +22,8 @@ class UpdateOrderRequest extends FormRequest {
   public function rules() {
     return [
       'intUserId' => 'required|integer|exists:User,intId',
+      'intDiscountCodeId' => 'nullable|integer|exists:DiscountCode,intId',
+      'arrayProducts' => 'nullable|array|exists:Product,intId',
     ];
   }
 }

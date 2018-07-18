@@ -23,6 +23,7 @@ class UpdateCategoryRequest extends FormRequest {
     return [
       'stringTitle' => 'required|string',
       'boolIsFeatured' => 'nullable|integer',
+      'arrayProducts' => 'nullable|array|exists:Product,intId',
     ];
   }
 }
