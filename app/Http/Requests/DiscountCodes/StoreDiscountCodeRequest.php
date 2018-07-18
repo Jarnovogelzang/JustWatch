@@ -21,7 +21,9 @@ class StoreDiscountCodeRequest extends FormRequest {
    */
   public function rules() {
     return [
-      //
+      'stringDiscountCode' => 'required|string',
+      'enumDiscountType' => 'required|in:DISCOUNT_AMOUNT,DISCOUNT_PERCENTAGE',
+      'floatDiscount' => 'required|numeric',
     ];
   }
 }

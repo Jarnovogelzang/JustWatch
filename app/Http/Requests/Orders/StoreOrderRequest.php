@@ -21,7 +21,7 @@ class StoreOrderRequest extends FormRequest {
    */
   public function rules() {
     return [
-      'intUserId' => 'nullable|sometimes|exists:User,intId',
+      'intUserId' => 'required|integer|exists:User,intId',
     ];
   }
 }

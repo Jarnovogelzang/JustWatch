@@ -21,7 +21,8 @@ class StoreCategoryRequest extends FormRequest {
    */
   public function rules() {
     return [
-      //
+      'stringTitle' => 'required|string',
+      'boolIsFeatured' => 'nullable|integer',
     ];
   }
 }

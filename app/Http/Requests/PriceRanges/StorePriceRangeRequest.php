@@ -21,9 +21,9 @@ class StorePriceRangeRequest extends FormRequest {
    */
   public function rules() {
     return [
-      'floatPriceLow' => 'required|float',
-      'floatPriceHigh' => 'required|float',
-      'floatPriceActual' => 'required|float',
+      'floatPriceLow' => 'required|numeric|lte:floatPriceHigh',
+      'floatPriceHigh' => 'required|numeric|gte:floatPriceLow',
+      'floatPriceActual' => 'required|numeric|gte:floatPriceLow|lte:floatPriceHigh',
     ];
   }
 }

@@ -23,9 +23,9 @@ class StoreProductRequest extends FormRequest {
     return [
       'stringTitle' => 'required|string',
       'stringDescription' => 'required|string',
-      'floatPrice' => 'required',
-      'intAliId' => 'nullable|sometimes|integer',
-      'arraySpecifications' => 'nullable|sometimes|array',
+      'floatPrice' => 'required|numeric',
+      'intAliId' => 'nullable|numeric|integer',
+      'arraySpecifications' => 'nullable|array',
     ];
   }
 }
