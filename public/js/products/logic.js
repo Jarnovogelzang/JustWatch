@@ -60,23 +60,23 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 17:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(18);
-
-
-/***/ }),
-
-/***/ 18:
+/***/ 10:
 /***/ (function(module, exports) {
 
 throw new Error("Module build failed: SyntaxError: C:/Users/Profity-JanVogelzang/Desktop/MilliSeconde/JustWatch/resources/assets/js/custom/products/logic.js: Unexpected token, expected ; (29:6)\n\n\u001b[0m \u001b[90m 27 | \u001b[39m\n \u001b[90m 28 | \u001b[39m      \u001b[36mreturn\u001b[39m arrayData\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 29 | \u001b[39m    }))\u001b[33m.\u001b[39mthen(\u001b[36mfunction\u001b[39m (arrayData) {\n \u001b[90m    | \u001b[39m      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 30 | \u001b[39m      \u001b[36mreturn\u001b[39m window\u001b[33m.\u001b[39mobjIndexedDB\u001b[33m.\u001b[39mthen(\u001b[36mfunction\u001b[39m (objDb) {\n \u001b[90m 31 | \u001b[39m        \u001b[36mvar\u001b[39m objTransaction \u001b[33m=\u001b[39m objDB\u001b[33m.\u001b[39mtransaction(\u001b[32m'store'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'readwrite'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 32 | \u001b[39m        objTransaction\u001b[33m.\u001b[39mobjectStore(\u001b[32m'Product'\u001b[39m)\u001b[33m.\u001b[39mput(arrayData)\u001b[33m;\u001b[39m\u001b[0m\n");
+
+/***/ }),
+
+/***/ 9:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(10);
+
 
 /***/ })
 

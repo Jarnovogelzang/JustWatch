@@ -26,15 +26,15 @@ $(document).ready(function () {
       arrayData.loadArrayIntoJqueryObj();
 
       return arrayData;
-    })).then(function (arrayData) {
-      return window.objIndexedDB.then(function (objDb) {
-        var objTransaction = objDB.transaction('store', 'readwrite');
-        objTransaction.objectStore('Category').put(arrayData);
+    });
+  }).then(function (arrayData) {
+    return window.objIndexedDB.then(function (objDb) {
+      var objTransaction = objDB.transaction('store', 'readwrite');
+      objTransaction.objectStore('Category').put(arrayData);
 
-        return objTransaction.complete;
-      });
-    })
-}).catch(function (objError) {
-  console.log('Something went wrong with the Error as ' + objError);
-});
+      return objTransaction.complete;
+    });
+  }).catch(function (objError) {
+    console.log('Something went wrong with the Error as ' + objError);
+  });
 });

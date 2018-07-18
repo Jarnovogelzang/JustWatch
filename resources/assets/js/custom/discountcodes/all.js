@@ -27,18 +27,18 @@ $(document).ready(function () {
       });
 
       return arrayDiscountCodes;
-    })).then(function (arrayDiscountCodes) {
-      return window.objIndexedDB.then(function (objDb) {
-        var objTransaction = objDB.transaction('store', 'readwrite');
-        var objStore = objTransaction.objectStore('DiscountCode');
+    });
+  }).then(function (arrayDiscountCodes) {
+    return window.objIndexedDB.then(function (objDb) {
+      var objTransaction = objDB.transaction('store', 'readwrite');
+      var objStore = objTransaction.objectStore('DiscountCode');
 
-        objStore.clear();
-        objStore.put(arrayDiscountCodes);
+      objStore.clear();
+      objStore.put(arrayDiscountCodes);
 
-        return objTransaction.complete;
-      });
-    })
-}).catch(function (objError) {
-  console.log('Something went wrong with the Error as ' + objError);
-});
+      return objTransaction.complete;
+    });
+  }).catch(function (objError) {
+    console.log('Something went wrong with the Error as ' + objError);
+  });
 });

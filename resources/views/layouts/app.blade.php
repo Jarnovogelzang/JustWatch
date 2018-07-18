@@ -19,7 +19,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="<?=ENV('APP_URL');?>/favicon.ico" media="false" onload="if(media!='all')media='all'">
 
     <!-- Styles -->
-    <link href="<?=asset('css/app.css');?>" rel="stylesheet">
+    <link href="<?=asset('css/app.css');?>" rel="stylesheet" media="false" onload="if(media!='all')media='all'">
 
     <!-- Manifests -->
     <link rel="manifest" href="manifest.json" media="false" onload="if(media!='all')media='all'">

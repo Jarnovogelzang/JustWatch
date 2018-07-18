@@ -2,9 +2,9 @@
  * Load all the required modules
  */
 window.jQuery = window.$ = jQuery = $ = require('jquery');
-window.Popper = require('popper.js');
-window.Echo = require('laravel-echo');
 window.Bootstrap = require('bootstrap');
+window.Popper = require('popper.js').default;
+window.Echo = require('laravel-echo');
 window.Pusher = require('pusher-js');
 window.Toastr = require('toastr');
 

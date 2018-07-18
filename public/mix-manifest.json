@@ -1,10 +1,11 @@
 {
-    "/js/users/logic.js": "/js/users/logic.js",
-    "/js/products/logic.js": "/js/products/logic.js",
-    "/js/priceranges/logic.js": "/js/priceranges/logic.js",
-    "/js/orders/logic.js": "/js/orders/logic.js",
-    "/js/discountcodes/logic.js": "/js/discountcodes/logic.js",
-    "/js/categories/logic.js": "/js/categories/logic.js",
-    "/js/register.js": "/js/register.js",
-    "/css/app.css": "/css/app.css"
+    "/js/users/all.js": "/js/users/all.js",
+    "/js/products/all.js": "/js/products/all.js",
+    "/js/priceranges/all.js": "/js/priceranges/all.js",
+    "/js/orders/all.js": "/js/orders/all.js",
+    "/js/discountcodes/all.js": "/js/discountcodes/all.js",
+    "/js/categories/all.js": "/js/categories/all.js",
+    "/js/bootstrap.js": "/js/bootstrap.js",
+    "/css/app.css": "/css/app.css",
+    "/js/register.js": "/js/register.js"
 }

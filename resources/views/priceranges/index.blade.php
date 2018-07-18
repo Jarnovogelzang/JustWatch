@@ -11,3 +11,7 @@
   </table>
 </div>
 @endsection
+
+@section('scripts')
+<script async defer src="<?=asset('js/orders/all.js');?>"></script>
+@endsection

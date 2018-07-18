@@ -27,18 +27,18 @@ $(document).ready(function () {
       });
 
       return arrayOrders;
-    })).then(function (arrayOrders) {
-      return window.objIndexedDB.then(function (objDb) {
-        var objTransaction = objDB.transaction('store', 'readwrite');
-        var objStore = objTransaction.objectStore('Order');
+    });
+  }).then(function (arrayOrders) {
+    return window.objIndexedDB.then(function (objDb) {
+      var objTransaction = objDB.transaction('store', 'readwrite');
+      var objStore = objTransaction.objectStore('Order');
 
-        objStore.clear();
-        objStore.put(arrayOrders);
+      objStore.clear();
+      objStore.put(arrayOrders);
 
-        return objTransaction.complete;
-      });
-    })
-}).catch(function (objError) {
-  console.log('Something went wrong with the Error as ' + objError);
-});
+      return objTransaction.complete;
+    });
+  }).catch(function (objError) {
+    console.log('Something went wrong with the Error as ' + objError);
+  });
 });

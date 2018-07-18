@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -22643,111 +22643,18 @@ module.exports = function() {
 
 
 /***/ }),
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(15);
-module.exports = __webpack_require__(16);
-
-
-/***/ }),
-/* 15 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(2);
+module.exports = __webpack_require__(10);
 
-$(document).ready(function () {
-  function fetchCategories() {
-    var objPromise = new Promise(function (callBackResolve, callBackReject) {
-      $.post('/AjaxController/fetchCategories', {
-        success: function success(arrayCategories) {
-          callBackResolve(arrayCategories);
-        },
-        error: function error(objError) {
-          callBackReject(objError);
-        }
-      });
-    });
-
-    return objPromise;
-  }
-
-  window.objIndexedDB.then(function (objDb) {
-    return objDb.transaction('store', 'readonly').objectStore('Category').getAll().each(function (objCategory) {
-      objCategory.addToTableAsRow();
-    });
-  }).then(function () {
-    return fetchCategories().then(function (arrayCategories) {
-      arrayCategories.each(function (objCategory) {
-        objCategory.loadArrayIntoJqueryObj();
-      });
-
-      return arrayCategories;
-    });
-  }).then(function (arrayCategories) {
-    return window.objIndexedDB.then(function (objDb) {
-      var objTransaction = objDB.transaction('store', 'readwrite');
-      var objStore = objTransaction.objectStore('Category');
-
-      objStore.clear();
-      objStore.put(arrayCategories);
-
-      return objTransaction.complete;
-    });
-  }).catch(function (objError) {
-    console.log('Something went wrong with the Error as ' + objError);
-  });
-});
 
 /***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 10 */
+/***/ (function(module, exports) {
 
-__webpack_require__(2);
-
-$(document).ready(function () {
-  function getCategoryByCategoryId() {
-    var objPromise = new Promise(function (callBackResolve, callBackReject) {
-      $.post('/AjaxController/getCategoryByCategoryId', {
-        data: {
-          intCategoryId: intCategoryId
-        },
-        success: function success(objCategory) {
-          callBackResolve(objCategory);
-        },
-        error: function error(objError) {
-          callBackReject(objError);
-        }
-      });
-    });
-
-    return objPromise;
-  }
-
-  window.objIndexedDB.then(function (objDb) {
-    return objDb.transaction('store', 'readonly').objectStore('Category').get(1).loadArrayIntoJqueryObj();
-  }).then(function () {
-    return getCategoryByCategoryId().then(function (arrayData) {
-      arrayData.loadArrayIntoJqueryObj();
-
-      return arrayData;
-    });
-  }).then(function (arrayData) {
-    return window.objIndexedDB.then(function (objDb) {
-      var objTransaction = objDB.transaction('store', 'readwrite');
-      objTransaction.objectStore('Category').put(arrayData);
-
-      return objTransaction.complete;
-    });
-  }).catch(function (objError) {
-    console.log('Something went wrong with the Error as ' + objError);
-  });
-});
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
