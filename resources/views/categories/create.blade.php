@@ -24,3 +24,7 @@
   <?=Form::close();?>
 </div>
 @endsection
+
+@section('script')
+<script async defer src="<?=asset('js/categories/create.js');?>"></script>
+@endsection

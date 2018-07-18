@@ -12,6 +12,7 @@ class Specification extends SystemModel {
     'intId',
     'stringKey',
     'stringValue',
+    'intProductId',
   ];
 
   /**
@@ -46,6 +47,13 @@ class Specification extends SystemModel {
   }
 
   /**
+   * Get the value of intProductId
+   */
+  public function getIntProductId() {
+    return $this->intProductId;
+  }
+
+  /**
    * @return mixed
    */
   public function getProduct() {
@@ -72,6 +80,17 @@ class Specification extends SystemModel {
    */
   public function setIntId($intId) {
     $this->intId = $intId;
+
+    return $this;
+  }
+
+  /**
+   * Set the value of intProductId
+   *
+   * @return  self
+   */
+  public function setIntProductId($intProductId) {
+    $this->intProductId = $intProductId;
 
     return $this;
   }

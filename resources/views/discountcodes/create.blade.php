@@ -30,3 +30,7 @@
   <?=Form::close();?>
 </div>
 @endsection
+
+@section('script')
+<script async defer src="<?=asset('js/discountcodes/create.js');?>"></script>
+@endsection

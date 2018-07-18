@@ -2,17 +2,65 @@
 
 @section('content')
 <div class="container">
-  <?=Form::open(['action' => ['DiscountCodeController@store'], 'method' => 'POST']);?>
+  <?=Form::open(['action' => ['UserController@update', null], 'method' => 'POST']);?>
     <div class="form-group">
       <label>Titel: </label>
       <div class="col-md-12">
-        <?=Form::text('stringTitle', null, ['class' => 'form-control']);?>
+        <?=Form::text('stringName', null, ['class' => 'form-control']);?>
       </div>
     </div>
     <div class="form-group">
-      <label>Opslaan: </label>
+      <label>Titel: </label>
       <div class="col-md-12">
-        <?=Form::submit('Opslaan', ['class' => 'btn btn-default', 'style' => 'width:100%;']);?>
+        <?=Form::text('stringEmail', null, ['class' => 'form-control']);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Titel: </label>
+      <div class="col-md-12">
+        <?=Form::text('stringPassword', null, ['class' => 'form-control']);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Titel: </label>
+      <div class="col-md-12">
+        <?=Form::text('stringCountry', null, ['class' => 'form-control']);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Titel: </label>
+      <div class="col-md-12">
+        <?=Form::text('stringZipCode', null, ['class' => 'form-control']);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Titel: </label>
+      <div class="col-md-12">
+        <?=Form::text('stringLivingPlace', null, ['class' => 'form-control']);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Titel: </label>
+      <div class="col-md-12">
+        <?=Form::text('stringAdress', null, ['class' => 'form-control']);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Titel: </label>
+      <div class="col-md-12">
+        <?=Form::number('intHouseNumber', null, ['class' => 'form-control']);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Titel: </label>
+      <div class="col-md-12">
+        <?=Form::text('dateBirthDate', null, ['class' => 'form-control']);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Titel: </label>
+      <div class="col-md-12">
+        <?=Form::text('stringTelephoneNumber', null, ['class' => 'form-control']);?>
       </div>
     </div>
   <?=Form::close();?>
@@ -20,5 +68,5 @@
 @endsection
 
 @section('script')
-<script async defer src="<?=asset('/js/users/edit.js');?>"></script>
+<script async defer src="<?=asset('/js/users/logic.js');?>"></script>
 @endsection
