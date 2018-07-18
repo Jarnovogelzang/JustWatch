@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 29);
+/******/ 	return __webpack_require__(__webpack_require__.s = 34);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -10436,6 +10436,96 @@ return jQuery;
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Load all the required modules
+ */
+window.jQuery = window.$ = jQuery = $ = __webpack_require__(0);
+window.Bootstrap = __webpack_require__(3);
+window.Popper = __webpack_require__(2).default;
+window.Echo = __webpack_require__(5);
+window.Pusher = __webpack_require__(6);
+window.Toastr = __webpack_require__(7);
+
+/**
+ * Setup an AJAX-default requestsetup for requesting the Server
+ */
+$(document).ready(function () {
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    async: true,
+    cache: true
+  });
+});
+
+/**
+ * Make a global function to load data into an input field
+ * @param {jQuery} objJQuery 
+ */
+Array.prototype.loadArrayIntoJqueryObj = function (objJQuery) {
+  Object.keys(this).each(function (stringKey) {
+    $('input[name=' + stringKey + ']').val(arrayData[stringKey]);
+  });
+};
+
+/**
+ * Make a global function to load data into a table row
+ * @param {jQuery} objJQuery 
+ */
+Array.prototype.addToTableAsRow = function (objJQuery) {
+  objJQuery.append('<tr></tr>').append(this.each(function (stringKey) {
+    return '<td>' + this[stringKey] + '</td>';
+  }));
+};
+
+/**
+ * Setup some Toastr-object with the desired configuration
+ */
+window.Toastr.options.closeButton = true;
+window.Toastr.options.preventDuplicates = true;
+
+window.Toastr.options.onShown = function () {
+  console.log('hello');
+};
+
+window.Toastr.options.onHidden = function () {
+  console.log('goodbye');
+};
+
+window.Toastr.options.onClick = function () {
+  console.log('clicked');
+};
+
+window.Toastr.options.onCloseClick = function () {
+  console.log('close button clicked');
+};
+
+/**
+ * Setup some Echo-object with the desired configuration
+ */
+window.Echo = new Echo({
+  broadcaster: 'pusher',
+  key: 'your-pusher-key',
+  encrypted: true
+});
+
+window.Echo.private('OrderChannel').listen('Order.Deleted', function (objEvent) {
+  window.Toastr.warning('Succesfully deleted your order!', 'Order - Deleted');
+}).listen('Order.Stored', function (objEvent) {
+  window.Toastr.success('Succesfully stored your order!', 'Order - Stored');
+}).listen('Order.Paid', function (objEvent) {
+  window.Toastr.success('Succesfully paid your order!', 'Order - Paid');
+});
+
+window.Echo.channel('OrderPublicChannel').listen('Order.Paid', function (objEvent) {
+  window.Toastr.success('Another order was placed by ' + objEvent.objUser.stringName + '!', 'Order - Placed');
+});
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12964,96 +13054,6 @@ Popper.Defaults = Defaults;
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * Load all the required modules
- */
-window.jQuery = window.$ = jQuery = $ = __webpack_require__(0);
-window.Bootstrap = __webpack_require__(3);
-window.Popper = __webpack_require__(1).default;
-window.Echo = __webpack_require__(5);
-window.Pusher = __webpack_require__(6);
-window.Toastr = __webpack_require__(7);
-
-/**
- * Setup an AJAX-default requestsetup for requesting the Server
- */
-$(document).ready(function () {
-  $.ajaxSetup({
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    },
-    async: true,
-    cache: true
-  });
-});
-
-/**
- * Make a global function to load data into an input field
- * @param {jQuery} objJQuery 
- */
-Array.prototype.loadArrayIntoJqueryObj = function (objJQuery) {
-  Object.keys(this).each(function (stringKey) {
-    $('input[name=' + stringKey + ']').val(arrayData[stringKey]);
-  });
-};
-
-/**
- * Make a global function to load data into a table row
- * @param {jQuery} objJQuery 
- */
-Array.prototype.addToTableAsRow = function (objJQuery) {
-  objJQuery.append('<tr></tr>').append(this.each(function (stringKey) {
-    return '<td>' + this[stringKey] + '</td>';
-  }));
-};
-
-/**
- * Setup some Toastr-object with the desired configuration
- */
-window.Toastr.options.closeButton = true;
-window.Toastr.options.preventDuplicates = true;
-
-window.Toastr.options.onShown = function () {
-  console.log('hello');
-};
-
-window.Toastr.options.onHidden = function () {
-  console.log('goodbye');
-};
-
-window.Toastr.options.onClick = function () {
-  console.log('clicked');
-};
-
-window.Toastr.options.onCloseClick = function () {
-  console.log('close button clicked');
-};
-
-/**
- * Setup some Echo-object with the desired configuration
- */
-window.Echo = new Echo({
-  broadcaster: 'pusher',
-  key: 'your-pusher-key',
-  encrypted: true
-});
-
-window.Echo.private('OrderChannel').listen('Order.Deleted', function (objEvent) {
-  window.Toastr.warning('Succesfully deleted your order!', 'Order - Deleted');
-}).listen('Order.Stored', function (objEvent) {
-  window.Toastr.success('Succesfully stored your order!', 'Order - Stored');
-}).listen('Order.Paid', function (objEvent) {
-  window.Toastr.success('Succesfully paid your order!', 'Order - Paid');
-});
-
-window.Echo.channel('OrderPublicChannel').listen('Order.Paid', function (objEvent) {
-  window.Toastr.success('Another order was placed by ' + objEvent.objUser.stringName + '!', 'Order - Placed');
-});
-
-/***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13063,7 +13063,7 @@ window.Echo.channel('OrderPublicChannel').listen('Order.Paid', function (objEven
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
 (function (global, factory) {
-   true ? factory(exports, __webpack_require__(0), __webpack_require__(1)) :
+   true ? factory(exports, __webpack_require__(0), __webpack_require__(2)) :
   typeof define === 'function' && define.amd ? define(['exports', 'jquery', 'popper.js'], factory) :
   (factory((global.bootstrap = {}),global.jQuery,global.Popper));
 }(this, (function (exports,$,Popper) { 'use strict';
@@ -22663,18 +22663,24 @@ module.exports = function() {
 /* 26 */,
 /* 27 */,
 /* 28 */,
-/* 29 */
+/* 29 */,
+/* 30 */,
+/* 31 */,
+/* 32 */,
+/* 33 */,
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(30);
-module.exports = __webpack_require__(31);
+__webpack_require__(35);
+__webpack_require__(36);
+module.exports = __webpack_require__(37);
 
 
 /***/ }),
-/* 30 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(2);
+__webpack_require__(1);
 
 $(document).ready(function () {
   function fetchUsers() {
@@ -22720,10 +22726,20 @@ $(document).ready(function () {
 });
 
 /***/ }),
-/* 31 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(2);
+__webpack_require__(1);
+
+$(document).ready(function () {
+  return;
+});
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(1);
 
 $(document).ready(function () {
   function getUserByUserId() {

@@ -1,5 +1,5 @@
-require('../bootstrap');
+require('../../bootstrap.js');
 
 $(document).ready(function () {
-
+  return;
 });
