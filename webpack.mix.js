@@ -10,43 +10,22 @@ let mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-
-var arrayScripts = [
-  'orders/',
-  'discountcodes/',
-  'priceranges/',
-  'products/',
-  'categories/',
-  'users/'
-];
-
-mix.browserSync(process.env.MIX_BROWSER_SYNC_URL)
+/*
+browserSync(process.env.MIX_BROWSER_SYNC_URL)
   .options({
     extractVueStyles: false,
     processCssUrls: true,
     purifyCss: true
   })
-  .js('resources/assets/js/app.js', 'public/js')
-  .js('resources/assets/js/custom/ajax.js', 'public/js/')
-  .extract([
-    'jquery',
-    'laravel-echo',
-    'toastr',
-    'pusher-js'
-  ])
-  .scripts([
-    'public/js/app.js',
-    'public/js/ajax.js'
-  ], 'public/js/logic.js')
-  .sass('resources/assets/sass/app.scss', 'public/css');
-
-for (var intCounter = 0; intCounter < arrayScripts.length; intCounter++) {
-  mix.scripts([
-    'public/js/logic.js',
-    'resources/assets/js/custom' + arrayScripts[intCounter]
-  ], 'public/js' + arrayScripts[intCounter]);
-}
-
-if (mix.inProduction()) {
-  mix.version();
-}
+  */
+mix.options({
+  purifyCss: true,
+  processCssUrls: true
+})
+.js('resources/assets/js/custom/orders/logic.js', 'public/js/orders')
+.js('resources/assets/js/custom/discountcodes/logic.js', 'public/js/discountcodes')
+.js('resources/assets/js/custom/products/logic.js', 'public/js/products')
+.js('resources/assets/js/custom/categories/logic.js', 'public/js/categories')
+.js('resources/assets/js/custom/priceranges/logic.js', 'public/js/priceranges')
+.js('resources/assets/js/custom/users/logic.js', 'public/js/users')
+.sass('resources/assets/sass/app.scss', 'public/css');

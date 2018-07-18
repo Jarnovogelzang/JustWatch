@@ -1,3 +1,5 @@
+require('../../bootstrap.js');
+
 $(document).ready(function () {
   function getProductByProductId(intProductId) {
     return $.post('/AjaxController/getProductByProductId', {
@@ -10,7 +12,7 @@ $(document).ready(function () {
   getProductByProductId().done(function (arrayData) {
     Object.keys(arrayData).each(function (stringKey) {
       $('input[name=' + stringKey + ']').val(arrayData[stringKey]);
-    })
+    });
   }).error(function (objError) {
     console.log(objError);
   });

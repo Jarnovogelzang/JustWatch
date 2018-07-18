@@ -17,11 +17,11 @@ self.addEventListener('fetch', function (objEvent) {
       }
 
       var objResponseCloned = objResponse.clone();
-      caches.open('MilliSeconde').then(function (objCache, objResponseCloned) {
+      caches.open('MilliSeconde').then(function (objCache) {
         objCache.put(objEvent.request, objResponseCloned);
+      }).then(function () {
+        return objResponseCloned;
       });
-
-      return objResponseCloned;
     });
   }));
 });

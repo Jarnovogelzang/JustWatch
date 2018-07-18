@@ -1,34 +1,29 @@
 /**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
+ * Load all the required modules
  */
-
-try {
-  window.$ = window.jQuery = require('jquery');
-
-  require('bootstrap');
-} catch (objException) {
-  console.log(objException);
-}
+window.jQuery = window.$ = jQuery = $ = require('jquery');
+window.Popper = require('popper.js');
+window.Echo = require('laravel-echo');
+window.Bootstrap = require('bootstrap');
+window.Pusher = require('pusher-js');
+window.Toastr = require('toastr');
 
 /**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
+ * Setup an AJAX-default requestsetup for requesting the Server
  */
-
-import Echo from 'laravel-echo'
-
-window.Pusher = require('pusher-js');
-
-window.Echo = new Echo({
-  broadcaster: 'pusher',
-  key: 'your-pusher-key',
-  encrypted: true
+$(document).ready(function () {
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    async: true,
+    cache: true
+  });
 });
 
-window.Toastr = require('toastr');
+/**
+ * Setup some Toastr-object with the desired configuration
+ */
 window.Toastr.options.closeButton = true;
 window.Toastr.options.preventDuplicates = true;
 
@@ -47,6 +42,15 @@ window.Toastr.options.onClick = function () {
 window.Toastr.options.onCloseClick = function () {
   console.log('close button clicked');
 };
+
+/**
+ * Setup some Echo-object with the desired configuration
+ */
+window.Echo = new Echo({
+  broadcaster: 'pusher',
+  key: 'your-pusher-key',
+  encrypted: true
+});
 
 window.Echo.private('OrderChannel').listen('Order.Deleted', function (objEvent) {
   window.Toastr.warning('Succesfully deleted your order!', 'Order - Deleted');

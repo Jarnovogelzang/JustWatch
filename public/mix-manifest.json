@@ -1,12 +1,9 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
-    "/js/vendor.js": "/js/vendor.js",
-    "/js/manifest.js": "/js/manifest.js",
     "/js/orders/logic.js": "/js/orders/logic.js",
-    "/js/discountcodes/logic.js": "/js/discountcodes/logic.js",
-    "/js/priceranges/logic.js": "/js/priceranges/logic.js",
-    "/js/products/logic.js": "/js/products/logic.js",
+    "/css/app.css": "/css/app.css",
     "/js/users/logic.js": "/js/users/logic.js",
+    "/js/products/logic.js": "/js/products/logic.js",
+    "/js/priceranges/logic.js": "/js/priceranges/logic.js",
+    "/js/discountcodes/logic.js": "/js/discountcodes/logic.js",
     "/js/categories/logic.js": "/js/categories/logic.js"
 }

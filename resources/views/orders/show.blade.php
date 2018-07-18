@@ -5,7 +5,7 @@
   <div class="form-group">
     <label>Titel: </label>
     <div class="col-md-12">
-      <?=Form::number('intUserId', $objOrder->getIntUserId(), ['class' => 'form-control']);?>
+      <?=Form::select('intUserId', null, null, ['class' => 'form-control', 'readonly' => 'readonly']);?>
     </div>
   </div>
   <div class="form-group">

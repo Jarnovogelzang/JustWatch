@@ -11,13 +11,25 @@
 |
  */
 
-Route::resources([
-  'User' => 'UserController',
-  'Order' => 'OrderController',
-  'Product' => 'ProductController',
-  'PriceRange' => 'PriceRangeController',
-  'Category' => 'CategoryController',
-]);
+Route::middleware(['auth:admin'])->group(function () {
+  Route::resources([
+    'User' => 'UserController',
+    'Order' => 'OrderController',
+    'Product' => 'ProductController',
+    'PriceRange' => 'PriceRangeController',
+    'Category' => 'CategoryController',
+  ], [
+    'User' => 'objUser',
+    'Order' => 'objOrder',
+    'Product' => 'objProduct',
+    'PriceRange' => 'objPriceRange',
+    'Category' => 'objCategory',
+  ]);
+});
+
+Route::get('/test', function () {
+  return view('products.show');
+});
 
 Route::get('/', 'ProductController@index');
 Auth::routes();

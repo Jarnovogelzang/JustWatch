@@ -5,19 +5,19 @@
   <div class="form-group">
     <label>Titel: </label>
     <div class="col-md-12">
-      <?=Form::text('stringTitle', $objProduct->getStringTitle(), ['class' => 'form-control', 'readonly' => 'readonly']);?>
+      <?=Form::text('stringTitle', null, ['class' => 'form-control', 'readonly' => 'readonly']);?>
     </div>
   </div>
   <div class="form-group">
     <label>Prijs: </label>
     <div class="col-md-12">
-      <?=Form::number('floatPrice', $objProduct->getFloatPrice(), ['class' => 'form-control', 'readonly' => 'readonly']);?>
+      <?=Form::number('floatPrice', null, ['class' => 'form-control', 'readonly' => 'readonly']);?>
     </div>
   </div>
   <div class="form-group">
     <label>Beschrijving: </label>
     <div class="col-md-12">
-      <?=Form::text('stringDescription', $objProduct->getStringDescription(), ['class' => 'form-control', 'readonly' => 'readonly']);?>
+      <?=Form::text('stringDescription', null, ['class' => 'form-control', 'readonly' => 'readonly']);?>
     </div>
   </div>
   <div class="form-group">

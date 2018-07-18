@@ -12,6 +12,7 @@
 
     <!-- Scripts -->
     <script src="<?=asset('js/register.js');?>"></script>
+    <script src="worker.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" media="false" onload="if(media!='all')media='all'">
@@ -21,7 +22,7 @@
     <link href="<?=asset('css/app.css');?>" rel="stylesheet">
 
     <!-- Manifests -->
-    <link rel="manifest" href="/manifest.json" media="false" onload="if(media!='all')media='all'">
+    <link rel="manifest" href="manifest.json" media="false" onload="if(media!='all')media='all'">
 </head>
 <body>
     <div id="app">

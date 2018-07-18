@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="container">
-  <?=Form::open(['action' => ['OrderController@update', $objOrder], 'method' => 'POST']);?>
+  <?=Form::open(['action' => ['OrderController@update', null], 'method' => 'POST']);?>
     <div class="form-group">
       <label>Titel: </label>
       <div class="col-md-12">
-        <?=Form::number('intUserId', $objOrder->getIntUserId(), ['class' => 'form-control', 'required' => 'required']);?>
+        <?=Form::select('intUserId', null, null, ['class' => 'form-control', 'required' => 'required']);?>
       </div>
     </div>
     <div class="form-group">

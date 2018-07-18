@@ -5,19 +5,19 @@
   <div class="form-group">
     <label>KortingsCode: </label>
     <div class="col-md-12">
-      <?=Form::text('stringDiscountCode', $objDiscountCode->getStringDiscountCode(), ['class' => 'form-control', 'readonly' => 'readonly']);?>
+      <?=Form::text('stringDiscountCode', null, ['class' => 'form-control', 'readonly' => 'readonly']);?>
     </div>
   </div>
     <div class="form-group">
     <label>DiscountType: </label>
     <div class="col-md-12">
-      <?=Form::select('enumDiscountType', ['DISCOUNT_AMOUNT' => 'Vast Bedrag', 'DISCOUNT_PERCENTAGE' => 'Percentage'], $objDiscountCode->getEnumDiscountType(), ['class' => 'form-control', 'readonly' => 'readonly']);?>
+      <?=Form::select('enumDiscountType', ['DISCOUNT_AMOUNT' => 'Vast Bedrag', 'DISCOUNT_PERCENTAGE' => 'Percentage'], null, ['class' => 'form-control', 'readonly' => 'readonly']);?>
     </div>
   </div>
   <div class="form-group">
     <label>Hoeveelheid Korting: </label>
     <div class="col-md-12">
-      <?=Form::number('floatDiscount', $objDiscountCode->getFloatDiscount(), ['class' => 'form-control', 'readonly' => 'readonly']);?>
+      <?=Form::number('floatDiscount', null, ['class' => 'form-control', 'readonly' => 'readonly']);?>
     </div>
   </div>
   <div class="form-group">

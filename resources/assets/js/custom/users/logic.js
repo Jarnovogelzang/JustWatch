@@ -1,3 +1,5 @@
+require('../../bootstrap.js');
+
 $(document).ready(function () {
   function getProductByProductId(intProductId) {
     return $.post('/AjaxController/getProductByProductId', {
