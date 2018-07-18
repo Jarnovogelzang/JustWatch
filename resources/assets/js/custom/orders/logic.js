@@ -1,19 +1,40 @@
 require('../../bootstrap.js');
 
 $(document).ready(function () {
-  function getProductByProductId(intProductId) {
-    return $.post('/AjaxController/getProductByProductId', {
-      data: {
-        intProductId: intProductId
-      }
+  function getOrderByOrderId() {
+    var objPromise = new Promise(function (callBackResolve, callBackReject) {
+      $.post('/AjaxController/getOrderByOrderId', {
+        data: {
+          intOrderId: intOrderId
+        },
+        success: function (objOrder) {
+          callBackResolve(objOrder);
+        },
+        error: function (objError) {
+          callBackReject(objError);
+        }
+      });
     });
+
+    return objPromise;
   }
 
-  getProductByProductId().done(function (arrayData) {
-    Object.keys(arrayData).each(function (stringKey) {
-      $('input[name=' + stringKey + ']').val(arrayData[stringKey]);
+  window.objIndexedDB.then(function (objDb) {
+    return objDb.transaction('store', 'readonly').objectStore('Order').get(1).loadArrayIntoJqueryObj();
+  }).then(function () {
+    return getOrderByOrderId().then(function (arrayData) {
+      arrayData.loadArrayIntoJqueryObj();
+
+      return arrayData;
+    })).then(function (arrayData) {
+      return window.objIndexedDB.then(function (objDb) {
+        var objTransaction = objDB.transaction('store', 'readwrite');
+        objTransaction.objectStore('Order').put(arrayData);
+
+        return objTransaction.complete;
+      });
     })
-  }).error(function (objError) {
-    console.log(objError);
-  });
+}).catch(function (objError) {
+  console.log('Something went wrong with the Error as ' + objError);
+});
 });

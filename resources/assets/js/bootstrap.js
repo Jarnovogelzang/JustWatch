@@ -22,6 +22,26 @@ $(document).ready(function () {
 });
 
 /**
+ * Make a global function to load data into an input field
+ * @param {jQuery} objJQuery 
+ */
+Array.prototype.loadArrayIntoJqueryObj = function (objJQuery) {
+  Object.keys(this).each(function (stringKey) {
+    $('input[name=' + stringKey + ']').val(arrayData[stringKey]);
+  });
+};
+
+/**
+ * Make a global function to load data into a table row
+ * @param {jQuery} objJQuery 
+ */
+Array.prototype.addToTableAsRow = function (objJQuery) {
+  objJQuery.append('<tr></tr>').append(this.each(function (stringKey) {
+    return '<td>' + this[stringKey] + '</td>';
+  }));
+}
+
+/**
  * Setup some Toastr-object with the desired configuration
  */
 window.Toastr.options.closeButton = true;

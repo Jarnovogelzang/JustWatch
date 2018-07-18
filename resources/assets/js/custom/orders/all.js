@@ -1,14 +1,11 @@
 require('../../bootstrap.js');
 
 $(document).ready(function () {
-  function getUserByUserId() {
+  function fetchOrders() {
     var objPromise = new Promise(function (callBackResolve, callBackReject) {
-      $.post('/AjaxController/getUserByUserId', {
-        data: {
-          intUserId: intUserId
-        },
-        success: function (objUser) {
-          callBackResolve(objUser);
+      $.post('/AjaxController/fetchOrders', {
+        success: function (arrayOrders) {
+          callBackResolve(arrayOrders);
         },
         error: function (objError) {
           callBackReject(objError);
@@ -20,16 +17,23 @@ $(document).ready(function () {
   }
 
   window.objIndexedDB.then(function (objDb) {
-    return objDb.transaction('store', 'readonly').objectStore('User').get(1).loadArrayIntoJqueryObj();
+    return objDb.transaction('store', 'readonly').objectStore('Order').getAll().each(function (objOrder) {
+      objOrder.addToTableAsRow();
+    });
   }).then(function () {
-    return getUserByUserId().then(function (arrayData) {
-      arrayData.loadArrayIntoJqueryObj();
+    return fetchOrders().then(function (arrayOrders) {
+      arrayOrders.each(function (objOrder) {
+        objOrder.loadArrayIntoJqueryObj();
+      });
 
-      return arrayData;
-    })).then(function (arrayData) {
+      return arrayOrders;
+    })).then(function (arrayOrders) {
       return window.objIndexedDB.then(function (objDb) {
         var objTransaction = objDB.transaction('store', 'readwrite');
-        objTransaction.objectStore('User').put(arrayData);
+        var objStore = objTransaction.objectStore('Order');
+
+        objStore.clear();
+        objStore.put(arrayOrders);
 
         return objTransaction.complete;
       });
