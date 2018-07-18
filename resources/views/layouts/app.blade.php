@@ -11,18 +11,17 @@
     <title><?=config('app.name', 'Laravel');?></title>
 
     <!-- Scripts -->
-    <script src="<?=asset('js/register.js');?>"></script>
-    <script src="worker.js"></script>
+    <script async defer src="<?=asset('js/register.js');?>"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" media="false" onload="if(media!='all')media='all'">
     <link rel="shortcut icon" type="image/x-icon" href="<?=ENV('APP_URL');?>/favicon.ico" media="false" onload="if(media!='all')media='all'">
 
     <!-- Styles -->
-    <link href="<?=asset('css/app.css');?>" rel="stylesheet" media="false" onload="if(media!='all')media='all'">
+    <link type="text/css" href="<?=asset('css/app.css');?>" rel="stylesheet" media="false" onload="if(media!='all')media='all'">
 
     <!-- Manifests -->
-    <link rel="manifest" href="manifest.json" media="false" onload="if(media!='all')media='all'">
+    <link type="text/json" rel="manifest" href="manifest.json" media="false" onload="if(media!='all')media='all'" />
 </head>
 <body>
     <div id="app">
