@@ -10,14 +10,7 @@ let mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-/*
-browserSync(process.env.MIX_BROWSER_SYNC_URL)
-  .options({
-    extractVueStyles: false,
-    processCssUrls: true,
-    purifyCss: true
-  })
-  */
+
 mix.options({
   purifyCss: true,
   processCssUrls: true

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Ajax\FetchCategoriesRequest;
-use App\Http\Requests\Ajax\FetchProductByIdRequest;
+use App\Http\Requests\Ajax\FetchCategoryByCategoryIdRequest;
 use App\Http\Requests\Ajax\FetchProductsByCategoryIdRequest;
 use App\Http\Requests\Ajax\FetchProductSpecificationsByProductId;
 use App\Http\Requests\Ajax\FetchProductsRequest;
@@ -44,7 +44,7 @@ class AjaxController extends Controller {
    * @param fetchCategoryProductsByCategoryId $objRequest
    * @param Category $objCategory
    */
-  public function fetchCategoryProductsByCategoryId(fetchCategoryProductsByCategoryId $objRequest, Category $objCategory) {
+  public function fetchCategoryProductsByCategoryId(FetchCategoryProductsByCategoryId $objRequest, Category $objCategory) {
     return $this->makeResponse(Cache::remember('fetchCategoryProductsByCategoryId', $this->floatCacheDurationInMinutes, function ($objCategory) {
       $objCategory->getProducts->toArray();
     }));
@@ -62,7 +62,7 @@ class AjaxController extends Controller {
   /**
    * @return mixed
    */
-  public function fetchFeaturedCategories() {
+  public function fetchFeaturedCategories(FetchFeaturedCategoriesRequest $objRequest) {
     return $this->makeResponse(Cache::remember('fetchFeaturedCategories', $this->floatCacheDurationInMinutes, function () {
       return Category::whereIsFeatured()->get();
     }));
@@ -71,7 +71,7 @@ class AjaxController extends Controller {
   /**
    * @return mixed
    */
-  public function fetchHottestProducts() {
+  public function fetchHottestProducts(FetchHottestProductsRequest $objRequest) {
     return $this->makeResponse(Cache::remember('fetchHottestProducts', $this->floatCacheDurationInMinutes, function () {
       return Product::orderByOrderAmount()->paginate(3)->get();
     }));
@@ -118,7 +118,7 @@ class AjaxController extends Controller {
   /**
    * @param FetchProductByIdRequest $objRequest
    */
-  public function fetchProductByProductId(FetchProductByIdRequest $objRequest, Product $objProduct) {
+  public function fetchProductByProductId(FetchProductByProductIdRequest $objRequest, Product $objProduct) {
     return $this->makeResponse(Cache::remember('fetchProductByProductId', $this->floatCacheDurationInMinutes, function ($objProduct) {
       return $objProduct->toArray();
     }));

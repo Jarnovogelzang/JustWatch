@@ -2,32 +2,40 @@
 
 @section('content')
 <div class="container">
-  <?=Form::open(['action' => ['ProductController@store'], 'method' => 'POST']);?>
-    <div class="form-group">
-      <label>Titel: </label>
-      <div class="col-md-12">
-        <?=Form::text('stringTitle', null, ['class' => 'form-control', 'required' => 'required']);?>
+  <div class="form-group text-center">
+    <?=Form::open(['action' => ['ProductController@store'], 'method' => 'POST']);?>
+      <div class="form-group">
+        <label>Titel: </label>
+        <div class="col-md-12">
+          <?=Form::text('stringTitle', null, ['class' => 'form-control', 'required' => 'required']);?>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label>Prijs: </label>
-      <div class="col-md-12">
-        <?=Form::number('floatPrice', null, ['class' => 'form-control', 'required' => 'required']);?>
+      <div class="form-group">
+        <label>Prijs: </label>
+        <div class="col-md-12">
+          <?=Form::number('floatPrice', null, ['class' => 'form-control', 'required' => 'required']);?>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label>Beschrijving: </label>
-      <div class="col-md-12">
-        <?=Form::text('stringDescription', null, ['class' => 'form-control', 'required' => 'required']);?>
+      <div class="form-group">
+        <label>Beschrijving: </label>
+        <div class="col-md-12">
+          <?=Form::text('stringDescription', null, ['class' => 'form-control', 'required' => 'required']);?>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label>Opslaan: </label>
-      <div class="col-md-12">
-        <?=Form::submit('Opslaan', ['class' => 'btn btn-default', 'style' => 'width:100%;']);?>
+      <div class="form-gorup">
+        <label>Bestellingen: </label>
+        <div class="col-md-12">
+          <?=Form::select('arrayOrders', [], null, ['class' => 'form-control']);?>
+        </div>
       </div>
-    </div>
-  <?=Form::close();?>
+      <div class="form-group">
+        <label>Opslaan: </label>
+        <div class="col-md-12">
+          <?=Form::submit('Opslaan', ['class' => 'btn btn-default', 'style' => 'width:100%;']);?>
+        </div>
+      </div>
+    <?=Form::close();?>
+  </div>
 </div>
 @endsection
 
