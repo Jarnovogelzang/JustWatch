@@ -37,7 +37,7 @@ class OrderController extends Controller {
   public function delete(DeleteOrderRequest $objRequest, Order $objOrder) {
     return redirect()
       ->back()
-      ->with($objOrder->delete() ? [
+      ->with($objOrder->deleteModel() ? [
         'stringSuccess' => 'Order succesvol verwijderd!',
       ] : [
         'stringError' => 'Order onsuccesvol verwijderd!',
@@ -61,7 +61,7 @@ class OrderController extends Controller {
    * @param Order $objOrder
    */
   public function pay(PayOrderRequest $objRequest, Order $objOrder) {
-    event(new OrderPaid($objOrder->update([
+    event(new OrderPaid($objOrder->updateModel([
       'boolIsPaid' => true,
     ])->save()));
 
@@ -83,7 +83,7 @@ class OrderController extends Controller {
    * @param StoreOrderRequest $objRequest
    */
   public function store(StoreOrderRequest $objRequest) {
-    event(new OrderStored($objOrder = Order::create($objRequest->all())));
+    event(new OrderStored($objOrder = Order::createModel($objRequest->all())));
 
     return redirect()
       ->back()
@@ -99,7 +99,7 @@ class OrderController extends Controller {
   public function update(UpdateOrderRequest $objRequest, Order $objOrder) {
     return redirect()
       ->back()
-      ->with($objOrder->update($objRequest->all()) ? [
+      ->with($objOrder->updateModel($objRequest->all()) ? [
         'stringSuccess' => 'Bestelling succesvol aangepast!',
       ] : [
         'stringError' => 'Bestelling onsuccesvol aangepast!',

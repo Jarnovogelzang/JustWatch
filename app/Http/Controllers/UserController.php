@@ -24,7 +24,7 @@ class UserController extends Controller {
   public function delete(DeleteUserRequest $objRequest, User $objUser) {
     return redirect()
       ->back()
-      ->with($objUser->delete() ? [
+      ->with($objUser->deleteModel() ? [
         'stringSuccess' => 'Gebruiker succesvol verwijderd!',
       ] : [
         'stringError' => 'Gebruiker onsuccesvol verwijderd!',
@@ -57,7 +57,7 @@ class UserController extends Controller {
   public function store(StoreUserRequest $objRequest) {
     return redirect()
       ->back()
-      ->with(User::create($objRequest->all()) ? [
+      ->with(User::createModel($objRequest->all()) ? [
         'stringSuccess' => 'Gebruiker succesvol aangemaakt!',
       ] : [
         'stringError' => 'Gebruiker onsuccesvol aangemaakt!',
@@ -71,7 +71,7 @@ class UserController extends Controller {
   public function update(UpdateUserRequest $objRequest, User $objUser) {
     return redirect()
       ->back()
-      ->with($objUser->update($objRequest->all()) ? [
+      ->with($objUser->updateModel($objRequest->all()) ? [
         'stringSuccess' => 'Gebruiker succesvol aangepast!',
       ] : [
         'stringError' => 'Gebruiker onsuccesvol aangepast!',

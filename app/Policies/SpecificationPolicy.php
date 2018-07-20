@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ProductPolicy {
+class SpecificationPolicy {
   use HandlesAuthorization;
 
   /**
@@ -16,41 +16,41 @@ class ProductPolicy {
 
   /**
    * @param User $objUse
-   * @param Product $objProducts
+   * @param Specification $objSpecificationr
    */
-  public function destroy(User $objUse, Product $objProduct) {
+  public function destroy(User $objUse, Specification $objSpecificationr) {
     return isset($objUser) && $objUser && $objUser->isAdmin();
   }
 
   /**
    * @param User $objUser
-   * @param Product $objProduct
+   * @param Specification $objSpecification
    */
-  public function edit(User $objUser, Product $objProduct) {
+  public function edit(User $objUser, Specification $objSpecification) {
     return isset($objUser) && $objUser && $objUser->isAdmin();
   }
 
   /**
    * @param User $objUser
-   * @param Product $objProduct
+   * @param Specification $objSpecification
    */
-  public function show(User $objUser, Product $objProduct) {
+  public function show(User $objUser, Specification $objSpecification) {
     return isset($objUser) && $objUser;
   }
 
   /**
    * @param User $objUser
-   * @param Product $objProduct
+   * @param Specification $objSpecification
    */
-  public function store(User $objUser, Product $objProduct) {
+  public function store(User $objUser, Specification $objSpecification) {
     return isset($objUser) && $objUser && $objUser->isAdmin();
   }
 
   /**
    * @param User $objUser
-   * @param Product $objProduct
+   * @param Specification $objSpecification
    */
-  public function update(User $objUser, Product $objProduct) {
+  public function update(User $objUser, Specification $objSpecification) {
     return isset($objUser) && $objUser && $objUser->isAdmin();
   }
 }

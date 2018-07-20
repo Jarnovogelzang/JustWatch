@@ -17,7 +17,7 @@ class TagController extends Controller {
   public function delete(DeleteTagRequest $objRequest, Tag $objTag) {
     return redirect()
       ->back()
-      ->with($objTag->delete() ? [
+      ->with($objTag->deleteModel() ? [
         'stringSuccess' => 'Tag succesvol verwijderd!',
       ] : [
         'stringError' => 'Tag onsuccesvol verwijderd!',
@@ -50,7 +50,7 @@ class TagController extends Controller {
   public function store(StoreTagRequest $objRequest) {
     return redirect()
       ->back()
-      ->with(Tag::create($objRequest->all()) ? [
+      ->with(Tag::createModel($objRequest->all()) ? [
         'stringSuccess' => 'Tag succesvol aangemaakt!',
       ] : [
         'stringError' => 'Specificatie onsuccesvol aangemaakt!',
@@ -64,7 +64,7 @@ class TagController extends Controller {
   public function update(UpdateTagRequest $objRequest, Tag $objTag) {
     return redirect()
       ->back()
-      ->with($objTag->update($objRequest->all()) ? [
+      ->with($objTag->updateModel($objRequest->all()) ? [
         'stringSuccess' => 'Tag succesvol aangepast!',
       ] : [
         'stringError' => 'Tag onsuccesvol aangepast!',

@@ -19,7 +19,7 @@ class DiscountCodeController extends Controller {
   public function destroy(DestroyDiscountCodeRequest $objRequest, DiscountCode $objDiscountCode) {
     return redirect()
       ->back()
-      ->with($objDiscountCode->delete() ? [
+      ->with($objDiscountCode->deleteModel() ? [
         'stringSuccess' => 'Kortingscode succesvol verwijderd!',
       ] : [
         'stringError' => 'Kortingscode onsuccesvol verwijderd!',
@@ -52,7 +52,7 @@ class DiscountCodeController extends Controller {
   public function store(StoreDiscountCodeRequest $objRequest) {
     return redirect()
       ->back()
-      ->with(Discount::create($objRequest->all()) ? [
+      ->with(Discount::createModel($objRequest->all()) ? [
         'stringSuccess' => 'KortingsCode succesvol aangemaakt!',
       ] : [
         'stringError' => 'KortingsCode onsuccesvol aangemaakt!',
@@ -66,7 +66,7 @@ class DiscountCodeController extends Controller {
   public function update(UpdateDiscountCodeRequest $objRequest, DiscountCode $objDiscountCode) {
     return redirect()
       ->back()
-      ->with($objDiscountCode->update($objRequest->all()) ? [
+      ->with($objDiscountCode->updateModel($objRequest->all()) ? [
         'stringSuccess' => 'KortingsCode succesvol aangepast!',
       ] : [
         'stringError' => 'KortingsCode onsuccesvol aangepast!',

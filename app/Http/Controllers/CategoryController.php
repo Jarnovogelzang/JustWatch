@@ -24,7 +24,7 @@ class CategoryController extends Controller {
   public function delete(DeleteCategoryRequest $objRequest, Category $objCategory) {
     return redirect()
       ->back()
-      ->with($objCategory->delete() ? [
+      ->with($objCategory->deleteModel() ? [
         'stringSuccess' => 'Categorie succesvol verwijderd!',
       ] : [
         'stringError' => 'Categorie onsuccesvol verwijderd!',
@@ -57,7 +57,7 @@ class CategoryController extends Controller {
   public function store(StoreCategoryRequest $objRequest) {
     return redirect()
       ->back()
-      ->with(Category::create($objRequest->all()) ? [
+      ->with(Category::createModel($objRequest->all()) ? [
         'stringSuccess' => 'Categorie succesvol aangemaakt!',
       ] : [
         'stringError' => 'Categorie onsuccesvol aangemaakt!',
@@ -71,7 +71,7 @@ class CategoryController extends Controller {
   public function update(UpdateCategoryRequest $objRequest, Category $objCategory) {
     return redirect()
       ->back()
-      ->with($objCategory->update($objRequest->all()) ? [
+      ->with($objCategory->updateModel($objRequest->all()) ? [
         'stringSuccess' => 'Categorie succesvol aangepast!',
       ] : [
         'stringError' => 'Categorie onsuccesvol aangepast!',

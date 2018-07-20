@@ -26,7 +26,7 @@ class ProductController extends Controller {
   public function delete(DeleteProductRequest $objRequest, Product $objProduct) {
     return redirect()
       ->back()
-      ->with($objProduct->delete() ? [
+      ->with($objProduct->deleteModel() ? [
         'stringSuccess' => 'Product succesvol verwijderd!',
       ] : [
         'stringError' => 'Product onsuccesvol verwijderd!',
@@ -57,7 +57,7 @@ class ProductController extends Controller {
    * @param StoreProductRequest $objRequest
    */
   public function store(StoreProductRequest $objRequest) {
-    $objProduct = Product::create($objRequest->all());
+    $objProduct = Product::createModel($objRequest->all());
     if ($objRequest->input('boolSetDefaultAliData')) {
       $objProduct->setIntAliId($objRequest->input('intAliId'))->setAliDefaultData()->save();
     }
@@ -76,7 +76,7 @@ class ProductController extends Controller {
   public function update(UpdateProductRequest $objRequest, Product $objProduct) {
     return redirect()
       ->back()
-      ->with($objProduct->update($objRequest->all()) ? [
+      ->with($objProduct->updateModel($objRequest->all()) ? [
         'stringSuccess' => 'Product succesvol aangepast!',
       ] : [
         'stringError' => 'Product onsuccesvol aangepast!',

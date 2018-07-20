@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ProductPolicy {
+class TagPolicy {
   use HandlesAuthorization;
 
   /**
@@ -16,41 +16,41 @@ class ProductPolicy {
 
   /**
    * @param User $objUse
-   * @param Product $objProducts
+   * @param Tag $objTag
    */
-  public function destroy(User $objUse, Product $objProduct) {
+  public function destroy(User $objUse, Tag $objTag) {
     return isset($objUser) && $objUser && $objUser->isAdmin();
   }
 
   /**
    * @param User $objUser
-   * @param Product $objProduct
+   * @param Tag $objTag
    */
-  public function edit(User $objUser, Product $objProduct) {
+  public function edit(User $objUser, Tag $objTag) {
     return isset($objUser) && $objUser && $objUser->isAdmin();
   }
 
   /**
    * @param User $objUser
-   * @param Product $objProduct
+   * @param Tag $objTag
    */
-  public function show(User $objUser, Product $objProduct) {
+  public function show(User $objUser, Tag $objTag) {
     return isset($objUser) && $objUser;
   }
 
   /**
    * @param User $objUser
-   * @param Product $objProduct
+   * @param Tag $objTag
    */
-  public function store(User $objUser, Product $objProduct) {
+  public function store(User $objUser, Tag $objTag) {
     return isset($objUser) && $objUser && $objUser->isAdmin();
   }
 
   /**
    * @param User $objUser
-   * @param Product $objProduct
+   * @param Tag $objTag
    */
-  public function update(User $objUser, Product $objProduct) {
+  public function update(User $objUser, Tag $objTag) {
     return isset($objUser) && $objUser && $objUser->isAdmin();
   }
 }

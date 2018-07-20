@@ -17,7 +17,7 @@ class SpecificationController extends Controller {
   public function delete(DeleteSpecificationRequest $objRequest, Specification $objSpecification) {
     return redirect()
       ->back()
-      ->with($objSpecification->delete() ? [
+      ->with($objSpecification->deleteModel() ? [
         'stringSuccess' => 'Specification succesvol verwijderd!',
       ] : [
         'stringError' => 'Specification onsuccesvol verwijderd!',
@@ -50,7 +50,7 @@ class SpecificationController extends Controller {
   public function store(StoreSpecificationRequest $objRequest) {
     return redirect()
       ->back()
-      ->with(Specification::create($objRequest->all()) ? [
+      ->with(Specification::createModel($objRequest->all()) ? [
         'stringSuccess' => 'Specification succesvol aangemaakt!',
       ] : [
         'stringError' => 'Specificatie onsuccesvol aangemaakt!',
@@ -64,7 +64,7 @@ class SpecificationController extends Controller {
   public function update(UpdateSpecificationRequest $objRequest, Specification $objSpecification) {
     return redirect()
       ->back()
-      ->with($objSpecification->update($objRequest->all()) ? [
+      ->with($objSpecification->updateModel($objRequest->all()) ? [
         'stringSuccess' => 'Specification succesvol aangepast!',
       ] : [
         'stringError' => 'Specification onsuccesvol aangepast!',
