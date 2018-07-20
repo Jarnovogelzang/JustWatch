@@ -29,6 +29,12 @@
         </div>
       </div>
       <div class="form-group">
+        <label>Tags: </label>
+        <div class="col-md-12">
+          <?=Form::select('arrayTags', [], null, ['class' => 'form-control']);?>
+        </div>
+      </div>
+      <div class="form-group">
         <label>Opslaan: </label>
         <div class="col-md-12">
           <?=Form::submit('Opslaan', ['class' => 'btn btn-default', 'style' => 'width:100%;']);?>

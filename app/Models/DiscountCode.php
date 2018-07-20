@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\SystemModel;
+use App\Models\SystemModel;
 
 class DiscountCode extends SystemModel {
   const DISCOUNT_AMOUNT = 'DISCOUNT_AMOUNT';

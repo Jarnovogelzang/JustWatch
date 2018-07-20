@@ -1,9 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use App\Models\SystemModel;
 use App\Product;
-use App\SystemModel;
 use Illuminate\Database\Eloquent\Builder;
 
 class Category extends SystemModel {

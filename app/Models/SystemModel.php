@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 abstract class SystemModel extends Model {
@@ -105,9 +106,9 @@ abstract class SystemModel extends Model {
    * @param $arrayData
    * @return mixed
    */
-  public function update($arrayData) {
+  public function updateModel($arrayData, $arrayOptions = array()) {
     return DB::transaction(function () use ($arrayData) {
-      return parent::update($arrayData);
+      return parent::update($arrayData, $arrayOptions);
     });
   }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\SystemModel;
+use App\Models\SystemModel;
 
 class Specification extends SystemModel {
   /**
@@ -49,6 +49,13 @@ class Specification extends SystemModel {
    */
   public function getIntProductId() {
     return $this->intProductId;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getProduct() {
+    return $this->belongsTo(Product::class, 'intId', 'intUserId');
   }
 
   /**

@@ -2,6 +2,16 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
+use App\Models\DiscountCode;
+use App\Models\Order;
+use App\Models\PriceRange;
+use App\Models\Product;
+use App\Models\Specification;
+use App\Models\Tag;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Includes\Mollie\MollieDataMover;
 
@@ -50,7 +60,10 @@ class AppServiceProvider extends ServiceProvider {
     }
 
     DB::listen(function ($objQuery) {
-      Log::info('Executing query with SQL as: ' . $objQuery->sql . ', bindings as: ' . implode(', ', $objQuery->bindings) . 'and time as: ' . $objQuery->time);
+      Log::info('Executing Query.', [
+        'objQuery' => $objQuery->toArray(),
+        'dateExecutedAt' => Carbon::now()->toDateTimeString(),
+      ]);
     });
   }
 

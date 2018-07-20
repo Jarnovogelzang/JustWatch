@@ -1,15 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Category;
+use App\Models\SystemModel;
 use App\Order;
-use App\SystemModel;
 use Illuminate\Database\Eloquent\Builder;
 
 class Product extends SystemModel {
-  use SoftDeletes;
-
   /**
    * @var mixed
    */
@@ -107,6 +105,13 @@ class Product extends SystemModel {
 
   public function getPriceRange() {
     return PriceRange::wherePriceIntervalBetween($this->getPriceActual())->first();
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getSpecifications() {
+    return $this->hasMany(Specification::class, 'intProductId', 'intId');
   }
 
   /**

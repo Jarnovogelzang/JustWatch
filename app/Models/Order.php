@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\SystemModel;
+use App\Models\SystemModel;
 use App\User;
 
 class Order extends SystemModel {
