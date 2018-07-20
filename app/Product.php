@@ -18,6 +18,16 @@ class Product extends SystemModel {
   /**
    * @var array
    */
+  protected $casts = [
+    'intId' => 'integer',
+    'stringDescription' => 'string',
+    'floatPrice' => 'float',
+    'stringTitle' => 'string',
+  ];
+
+  /**
+   * @var array
+   */
   protected $fillable = [
     'intId',
     'stringDescription',
@@ -100,13 +110,6 @@ class Product extends SystemModel {
   }
 
   /**
-   * @return mixed
-   */
-  public function getSpecifications() {
-    return $this->hasMany(Specification::class, 'intId', 'intProductId');
-  }
-
-  /**
    * Get the value of stringDescription
    */
   public function getStringDescription() {
@@ -118,6 +121,13 @@ class Product extends SystemModel {
    */
   public function getStringTitle() {
     return $this->stringTitle;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getTags() {
+    return $this->belongsToMany(Tag::class, 'ProductTag', 'intTagId', 'intProductId');
   }
 
   /**

@@ -8,6 +8,16 @@ class PriceRange extends SystemModel {
   /**
    * @var array
    */
+  protected $casts = [
+    'intId' => 'integer',
+    'floatPriceLow' => 'float',
+    'floatPriceHigh' => 'float',
+    'floatPriceActual' => 'float',
+  ];
+
+  /**
+   * @var array
+   */
   protected $fillable = [
     'intId',
     'floatPriceLow',

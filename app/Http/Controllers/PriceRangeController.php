@@ -14,8 +14,6 @@ class PriceRangeController extends Controller {
    * @param CreatePriceRangeRequest $objRequest
    */
   public function create(CreatePriceRangeRequest $objRequest) {
-    Log::info('Creating a new PriceRange.');
-
     return view('priceranges.create');
   }
 
@@ -24,8 +22,6 @@ class PriceRangeController extends Controller {
    * @param PriceRange $objPriceRange
    */
   public function delete(DeletePriceRangeRequest $objRequest, PriceRange $objPriceRange) {
-    Log::critical('Deleting a PriceRange with ID as ' . $objPriceRange->getIntId() . '.');
-
     return redirect()
       ->back()
       ->with($objPriceRange->delete() ? [
@@ -40,14 +36,10 @@ class PriceRangeController extends Controller {
    * @param PriceRange $objPriceRange
    */
   public function edit(EditPriceRangeRequest $objRequest, PriceRange $objPriceRange) {
-    Log::info('Editing a PriceRange with ID as ' . $objPriceRange->getIntId() . '.');
-
     return view('priceranges.edit');
   }
 
   public function index() {
-    Log::info('Showing all the PriceRanges.');
-
     return view('priceranges.index');
   }
 
@@ -56,8 +48,6 @@ class PriceRangeController extends Controller {
    * @param PriceRange $objPriceRange
    */
   public function show(ShowPriceRangeRequest $objRequest, PriceRange $objPriceRange) {
-    Log::info('Showing a PriceRange with ID as ' . $objPriceRange->getIntId() . '.');
-
     return view('priceranges.show');
   }
 
@@ -65,8 +55,6 @@ class PriceRangeController extends Controller {
    * @param StorePriceRangeRequest $objRequest
    */
   public function store(StorePriceRangeRequest $objRequest) {
-    Log::info('Storing a new PriceRange.');
-
     return redirect()
       ->back()
       ->with(PriceRange::create($objRequest->all()) ? [
@@ -81,8 +69,6 @@ class PriceRangeController extends Controller {
    * @param PriceRange $objPriceRange
    */
   public function update(UpdatePriceRangeRequest $objRequest, PriceRange $objPriceRange) {
-    Log::info('Updating a PriceRange with ID as ' . $objPriceRange->getIntId() . '.');
-
     return redirect()
       ->back()
       ->with($objPriceRange->update($objRequest->all()) ? [

@@ -14,6 +14,11 @@ abstract class SystemModel extends Model {
   const UPDATED_AT = 'dateUpdatedAt';
 
   /**
+   * @var string
+   */
+  protected $dataFormat = 'Y-m-d H:i:s';
+
+  /**
    * @var array
    */
   protected $dates = [
@@ -70,7 +75,7 @@ abstract class SystemModel extends Model {
 
   /**
    * @param $dateUpdatedAt
-   * @return mixed
+   * @return mixedd
    */
   public function setDateUpdatedAt($dateUpdatedAt) {
     $this->dateUpdatedAt = $dateUpdatedAt;

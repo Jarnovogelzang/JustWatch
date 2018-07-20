@@ -9,6 +9,15 @@ class Order extends SystemModel {
   /**
    * @var array
    */
+  protected $casts = [
+    'intId' => 'integer',
+    'intUserId' => 'integer',
+    'boolIsPaid' => 'boolean',
+  ];
+
+  /**
+   * @var array
+   */
   protected $fillable = [
     'intId',
     'intUserId',

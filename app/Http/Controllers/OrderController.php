@@ -27,8 +27,6 @@ class OrderController extends Controller {
    * @param CreateOrderRequest $objRequest
    */
   public function create(CreateOrderRequest $objRequest) {
-    Log::info('Creating an new Order.');
-
     return view('orders.create');
   }
 
@@ -37,8 +35,6 @@ class OrderController extends Controller {
    * @param Order $objOrder
    */
   public function delete(DeleteOrderRequest $objRequest, Order $objOrder) {
-    Log::critical('Deleting an Order with ID as ' . $objOrder->getIntId() . '.');
-
     return redirect()
       ->back()
       ->with($objOrder->delete() ? [
@@ -53,14 +49,10 @@ class OrderController extends Controller {
    * @param Order $objOrder
    */
   public function edit(EditOrderRequest $objRequest, Order $objOrder) {
-    Log::info('Editing an Order with ID as ' . $objCategory->getIntId() . '.');
-
     return view('orders.edit');
   }
 
   public function index() {
-    Log::info('Showing all the Orders.');
-
     return view('orders.index');
   }
 
@@ -69,8 +61,6 @@ class OrderController extends Controller {
    * @param Order $objOrder
    */
   public function pay(PayOrderRequest $objRequest, Order $objOrder) {
-    Log::critical('Paying an Order with ID as ' . $objOrder->getIntId() . '.');
-
     event(new OrderPaid($objOrder->update([
       'boolIsPaid' => true,
     ])->save()));
@@ -86,8 +76,6 @@ class OrderController extends Controller {
    * @param Order $objOrder
    */
   public function show(ShowOrderRequest $objRequest, Order $objOrder) {
-    Log::info('Showing an Order with ID as ' . $objOrder->getIntId() . '.');
-
     return view('orders.show');
   }
 
@@ -95,8 +83,6 @@ class OrderController extends Controller {
    * @param StoreOrderRequest $objRequest
    */
   public function store(StoreOrderRequest $objRequest) {
-    Log::info('Storing an new Order.');
-
     event(new OrderStored($objOrder = Order::create($objRequest->all())));
 
     return redirect()
@@ -111,8 +97,6 @@ class OrderController extends Controller {
    * @param Order $objOrder
    */
   public function update(UpdateOrderRequest $objRequest, Order $objOrder) {
-    Log::info('Updating an Order with ID as ' . $objOrder->getIntId() . '.');
-
     return redirect()
       ->back()
       ->with($objOrder->update($objRequest->all()) ? [

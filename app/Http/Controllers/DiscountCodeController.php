@@ -9,8 +9,6 @@ class DiscountCodeController extends Controller {
    * @param CreateDiscountCodeRequest $objRequest
    */
   public function create(CreateDiscountCodeRequest $objRequest) {
-    Log::info('Creating an new DiscountCode.');
-
     return view('discountcodes.create');
   }
 
@@ -19,8 +17,6 @@ class DiscountCodeController extends Controller {
    * @param DiscountCode $objDiscountCode
    */
   public function destroy(DestroyDiscountCodeRequest $objRequest, DiscountCode $objDiscountCode) {
-    Log::critical('Deleting an DiscountCode with ID as ' . $objDiscountCode->getIntId() . '.');
-
     return redirect()
       ->back()
       ->with($objDiscountCode->delete() ? [
@@ -35,14 +31,10 @@ class DiscountCodeController extends Controller {
    * @param DiscountCode $objDiscountCode
    */
   public function edit(EditDiscountCodeRequest $objRequest, DiscountCode $objDiscountCode) {
-    Log::info('Editing an DiscountCode with ID as ' . $objDiscountCode->getIntId() . '.');
-
     return view('discountcodes.edit');
   }
 
   public function index() {
-    Log::info('Showing all the DiscountCodes.');
-
     return view('discountcodes.index');
   }
 
@@ -51,8 +43,6 @@ class DiscountCodeController extends Controller {
    * @param DiscountCode $objDiscountCode
    */
   public function show(ShowDiscountCodeRequest $objRequest, DiscountCode $objDiscountCode) {
-    Log::info('Showing an DiscountCode with ID as ' . $objDiscountCode->getIntId() . '.');
-
     return view('orders.show');
   }
 
@@ -60,8 +50,6 @@ class DiscountCodeController extends Controller {
    * @param StoreDiscountCodeRequest $objRequest
    */
   public function store(StoreDiscountCodeRequest $objRequest) {
-    Log::info('Storing a new DiscountCode.');
-
     return redirect()
       ->back()
       ->with(Discount::create($objRequest->all()) ? [
@@ -76,8 +64,6 @@ class DiscountCodeController extends Controller {
    * @param DiscountCode $objDiscountCode
    */
   public function update(UpdateDiscountCodeRequest $objRequest, DiscountCode $objDiscountCode) {
-    Log::info('Updating an DiscountCode with ID as ' . $objDiscountCode->getIntId() . '.');
-
     return redirect()
       ->back()
       ->with($objDiscountCode->update($objRequest->all()) ? [

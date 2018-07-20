@@ -12,6 +12,16 @@ class DiscountCode extends SystemModel {
   /**
    * @var array
    */
+  protected $casts = [
+    'intId' => 'integer',
+    'stringDiscountCode' => 'string',
+    'enumDiscountType' => 'string',
+    'floatDiscount' => 'float',
+  ];
+
+  /**
+   * @var array
+   */
   protected $fillable = [
     'intId',
     'stringDiscountCode',

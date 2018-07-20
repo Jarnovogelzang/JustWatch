@@ -8,6 +8,16 @@ class Specification extends SystemModel {
   /**
    * @var array
    */
+  protected $casts = [
+    'intId' => 'integer',
+    'stringKey' => 'string',
+    'stringValue' => 'string',
+    'intProductId' => 'integer',
+  ];
+
+  /**
+   * @var array
+   */
   protected $fillable = [
     'intId',
     'stringKey',
@@ -25,22 +35,10 @@ class Specification extends SystemModel {
   /**
    * @var string
    */
-  protected $primaryKey = 'intId';
+  protected $table = 'Specification';
 
   /**
-   * @var string
-   */
-  protected $table = 'Spefication';
-
-  /**
-   * @return mixed
-   */
-  public function getCategories() {
-    return $this->hasManyThrough(Product::class);
-  }
-
-  /**
-   * @return mixed
+   * Get the value of intId
    */
   public function getIntId() {
     return $this->intId;
@@ -51,13 +49,6 @@ class Specification extends SystemModel {
    */
   public function getIntProductId() {
     return $this->intProductId;
-  }
-
-  /**
-   * @return mixed
-   */
-  public function getProduct() {
-    return $this->belongsTo(Product::class, 'intId', 'intProductId');
   }
 
   /**
@@ -75,8 +66,9 @@ class Specification extends SystemModel {
   }
 
   /**
-   * @param $intId
-   * @return mixed
+   * Set the value of intId
+   *
+   * @return  self
    */
   public function setIntId($intId) {
     $this->intId = $intId;

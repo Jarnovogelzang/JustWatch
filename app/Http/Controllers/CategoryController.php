@@ -14,8 +14,6 @@ class CategoryController extends Controller {
    * @param CreateCategoryRequest $objRequest
    */
   public function create(CreateCategoryRequest $objRequest) {
-    Log::info('Creating a new Category.');
-
     return view('categories.create');
   }
 
@@ -24,8 +22,6 @@ class CategoryController extends Controller {
    * @param Category $objCategory
    */
   public function delete(DeleteCategoryRequest $objRequest, Category $objCategory) {
-    Log::critical('Deleting a Category with ID as ' . $objCategory->getIntId() . '.');
-
     return redirect()
       ->back()
       ->with($objCategory->delete() ? [
@@ -40,14 +36,10 @@ class CategoryController extends Controller {
    * @param Category $objCategory
    */
   public function edit(EditCategoryRequest $objRequest, Category $objCategory) {
-    Log::info('Editing a Category with ID as ' . $objCategory->getIntId() . '.');
-
     return view('categories.edit');
   }
 
   public function index() {
-    Log::info('Showing all the Categories.');
-
     return view('categories.index');
   }
 
@@ -56,8 +48,6 @@ class CategoryController extends Controller {
    * @param Category $objCategory
    */
   public function show(ShowCategoryRequest $objRequest, Category $objCategory) {
-    Log::info('Showing a Category with ID as ' . $objCategory->getIntId() . '.');
-
     return view('categories.show');
   }
 
@@ -65,8 +55,6 @@ class CategoryController extends Controller {
    * @param StoreCategoryRequest $objRequest
    */
   public function store(StoreCategoryRequest $objRequest) {
-    Log::info('Storing a new Category.');
-
     return redirect()
       ->back()
       ->with(Category::create($objRequest->all()) ? [
@@ -81,8 +69,6 @@ class CategoryController extends Controller {
    * @param Category $objCategory
    */
   public function update(UpdateCategoryRequest $objRequest, Category $objCategory) {
-    Log::info('Updating a Category with ID as ' . $objCategory->getIntId() . '.');
-
     return redirect()
       ->back()
       ->with($objCategory->update($objRequest->all()) ? [

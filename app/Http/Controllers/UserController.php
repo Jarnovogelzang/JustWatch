@@ -14,8 +14,6 @@ class UserController extends Controller {
    * @param CreateUserRequest $objRequest
    */
   public function create(CreateUserRequest $objRequest) {
-    Log::info('Creating an new User.');
-
     return view('users.create');
   }
 
@@ -24,8 +22,6 @@ class UserController extends Controller {
    * @param User $objUser
    */
   public function delete(DeleteUserRequest $objRequest, User $objUser) {
-    Log::critical('Deleting an User with ID as ' . $objUser->getIntId() . '.');
-
     return redirect()
       ->back()
       ->with($objUser->delete() ? [
@@ -40,14 +36,10 @@ class UserController extends Controller {
    * @param User $objUser
    */
   public function edit(EditUserRequest $objRequest, User $objUser) {
-    Log::info('Editing an User with ID as ' . $objUser->getIntId() . '.');
-
     return view('users.edit');
   }
 
   public function index() {
-    Log::info('Showing all the Users.');
-
     return view('users.index');
   }
 
@@ -56,8 +48,6 @@ class UserController extends Controller {
    * @param User $objUser
    */
   public function show(ShowUserRequest $objRequest, User $objUser) {
-    Log::info('Showing an User with ID as ' . $objUser->getIntId() . '.');
-
     return view('users.show');
   }
 
@@ -65,8 +55,6 @@ class UserController extends Controller {
    * @param StoreUserRequest $objRequest
    */
   public function store(StoreUserRequest $objRequest) {
-    Log::info('Storing an new User.');
-
     return redirect()
       ->back()
       ->with(User::create($objRequest->all()) ? [
@@ -81,8 +69,6 @@ class UserController extends Controller {
    * @param User $objUser
    */
   public function update(UpdateUserRequest $objRequest, User $objUser) {
-    Log::info('Updating an User with ID as ' . $objUser->getIntId() . '.');
-
     return redirect()
       ->back()
       ->with($objUser->update($objRequest->all()) ? [

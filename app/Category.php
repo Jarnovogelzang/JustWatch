@@ -10,6 +10,14 @@ class Category extends SystemModel {
   /**
    * @var array
    */
+  protected $casts = [
+    'intId' => 'integer',
+    'stringTitle' => 'string',
+  ];
+
+  /**
+   * @var array
+   */
   protected $fillable = [
     'intId',
     'stringTitle',
