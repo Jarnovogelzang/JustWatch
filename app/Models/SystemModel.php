@@ -33,6 +33,24 @@ abstract class SystemModel extends Model {
   protected $primaryKey = 'intId';
 
   /**
+   * @param $arrayData
+   */
+  public static function create($arrayData) {
+    return DB::transaction(function () use ($arrayData) {
+      return parent::create($arrayData);
+    });
+  }
+
+  /**
+   * @return mixed
+   */
+  public function delete() {
+    return DB::transaction(function () {
+      return parent::delete();
+    });
+  }
+
+  /**
    * @return mixed
    */
   public function getDateCreatedAt() {
@@ -81,5 +99,15 @@ abstract class SystemModel extends Model {
     $this->dateUpdatedAt = $dateUpdatedAt;
 
     return $this;
+  }
+
+  /**
+   * @param $arrayData
+   * @return mixed
+   */
+  public function update($arrayData) {
+    return DB::transaction(function () use ($arrayData) {
+      return parent::update($arrayData);
+    });
   }
 }
