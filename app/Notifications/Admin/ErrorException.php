@@ -2,7 +2,6 @@
 
 namespace App\Notifications;
 
-use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -50,20 +49,20 @@ class ErrorException extends Notification implements ShouldQueue {
   /**
    * Get the array representation of the notification.
    *
-   * @param  mixed  $notifiable
+   * @param  mixed  $objNotification
    * @return array
    */
-  public function toArray($notifiable) {
+  public function toArray($objNotification) {
     return [
       'mail',
     ];
   }
 
   /**
-   * @param $notifiable
+   * @param $objNotification
    * @return mixed
    */
-  public function toDatabase($notifiable) {
+  public function toDatabase($objNotification) {
     return [
       'stringData' => $this->getObjException()->toString(),
       'stringMessage' => $this->getObjException()->getMessage(),
@@ -75,10 +74,10 @@ class ErrorException extends Notification implements ShouldQueue {
   /**
    * Get the mail representation of the notification.
    *
-   * @param  mixed  $notifiable
+   * @param  mixed  $objNotification
    * @return \Illuminate\Notifications\Messages\MailMessage
    */
-  public function toMail($notifiable) {
+  public function toMail($objNotification) {
     return (new MailMessage)
       ->line('The introduction to the notification.')
       ->action('Notification Action', url('/'))
@@ -88,10 +87,10 @@ class ErrorException extends Notification implements ShouldQueue {
   /**
    * Get the notification's delivery channels.
    *
-   * @param  mixed  $notifiable
+   * @param  mixed  $objNotification
    * @return array
    */
-  public function via($notifiable) {
+  public function via($objNotification) {
     return [
       'mail',
     ];

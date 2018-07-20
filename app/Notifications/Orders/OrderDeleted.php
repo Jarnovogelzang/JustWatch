@@ -5,8 +5,9 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class OrderNotPaid extends Notification {
+class OrderNotPaid extends Notification implements ShouldQueue {
   use Queueable;
 
   /**
@@ -48,37 +49,35 @@ class OrderNotPaid extends Notification {
   /**
    * Get the array representation of the notification.
    *
-   * @param  mixed  $notifiable
+   * @param  mixed  $objNotification
    * @return array
    */
-  public function toArray($notifiable) {
-    return [
-      //
-    ];
+  public function toArray($objNotification) {
+    return $this->getObjOrder()->toArray();
   }
 
   /**
-   * @param $notifiable
+   * @param $objNotification
    */
-  public function toBroadcast($notifiable) {
+  public function toBroadcast($objNotification) {
     return new BroadcastMessage($this->getObjOrder()->toArray());
   }
 
   /**
-   * @param $notifiable
+   * @param $objNotification
    * @return mixed
    */
-  public function toDatabase($notifiable) {
-    return $this->getObjOrder->toArray();
+  public function toDatabase($objNotification) {
+    return $this->getObjOrder()->toArray();
   }
 
   /**
    * Get the mail representation of the notification.
    *
-   * @param  mixed  $notifiable
+   * @param  mixed  $objNotification
    * @return \Illuminate\Notifications\Messages\MailMessage
    */
-  public function toMail($notifiable) {
+  public function toMail($objNotification) {
     return (new MailMessage)
       ->line('The introduction to the notification.')
       ->action('Notification Action', url('/'))
@@ -88,10 +87,10 @@ class OrderNotPaid extends Notification {
   /**
    * Get the notification's delivery channels.
    *
-   * @param  mixed  $notifiable
+   * @param  mixed  $objNotification
    * @return array
    */
-  public function via($notifiable) {
+  public function via($objNotification) {
     return [
       'mail',
     ];

@@ -24,6 +24,9 @@ class EventServiceProvider extends ServiceProvider {
       'App\Listeners\Orders\SendUserOrderDeletedNotification',
       'App\Listeners\Orders\SendAdminOrderDeletedNotification',
     ],
+    'App\Events\Exceptions\ExceptionThrown' => [
+      'App\Listeners\Exceptions\SendAdminExceptionNotification',
+    ],
   ];
 
   /**

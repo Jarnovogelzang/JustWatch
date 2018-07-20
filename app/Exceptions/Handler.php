@@ -32,14 +32,12 @@ class Handler extends ExceptionHandler {
    * @param  \Exception  $exception
    * @return \Illuminate\Http\Response
    */
-  public function render($request, Exception $exception) {
-    /*return view('pages.exception')
-    ->with([
-    'stringMessage' => 'Er is een onverwachte fout opgetreden!',
-    'stringTitle' => 'Onverwachte Fout!',
-    ]);*/
+  public function render($objRequest, Exception $objException) {
+    if (app()->environment('testing')) {
+      return parent::render($objRequest, $objException);
+    }
 
-    return parent::render($request, $exception);
+    return view('pages.exception');
   }
 
   /**
@@ -48,8 +46,11 @@ class Handler extends ExceptionHandler {
    * @param  \Exception  $exception
    * @return void
    */
-  public function report(Exception $exception) {
-    //NotifyUsers::dispatch(User::whereIsAdminEquals(true)->get(), new ErrorException($objException));
+  public function report(Exception $objException) {
+    event(new ExceptionThrown($objException));
+    Log::error('Exception Caught.', [
+      'objException' => $objException->toArray(),
+    ]);
 
     parent::report($exception);
   }

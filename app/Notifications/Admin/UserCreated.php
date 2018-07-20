@@ -3,10 +3,11 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UserCreated extends Notification {
+class UserCreated extends Notification implements ShouldQueue {
   use Queueable;
 
   /**
@@ -44,18 +45,18 @@ class UserCreated extends Notification {
   /**
    * Get the array representation of the notification.
    *
-   * @param  mixed  $notifiable
+   * @param  mixed  $objNotification
    * @return array
    */
-  public function toArray($notifiable) {
+  public function toArray($objNotification) {
     return $this->getObjUser()->toArray();
   }
 
   /**
-   * @param $notifiable
+   * @param $objNotification
    * @return mixed
    */
-  public function toDatabase($notifiable) {
+  public function toDatabase($objNotification) {
     return [
       'intId' => $this->getObjUser()->getIntId(),
     ];
@@ -64,10 +65,10 @@ class UserCreated extends Notification {
   /**
    * Get the mail representation of the notification.
    *
-   * @param  mixed  $notifiable
+   * @param  mixed  $objNotification
    * @return \Illuminate\Notifications\Messages\MailMessage
    */
-  public function toMail($notifiable) {
+  public function toMail($objNotification) {
     return (new MailMessage)
       ->line('The introduction to the notification.')
       ->action('Notification Action', url('/'))
@@ -77,10 +78,10 @@ class UserCreated extends Notification {
   /**
    * Get the notification's delivery channels.
    *
-   * @param  mixed  $notifiable
+   * @param  mixed  $objNotification
    * @return array
    */
-  public function via($notifiable) {
+  public function via($objNotification) {
     return ['mail'];
   }
 }
