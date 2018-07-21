@@ -1,24 +1,21 @@
 /**
  * Load all the required modules
  */
-window.jQuery = window.$ = jQuery = $ = require('jquery');
-window.Bootstrap = require('bootstrap');
-window.Popper = require('popper.js').default;
+window.Axios = require('axios');
 window.Echo = require('laravel-echo');
 window.Pusher = require('pusher-js');
 window.Toastr = require('toastr');
 
 /**
- * Setup an AJAX-default requestsetup for requesting the Server
+ * Setup an Axios-instance for requesting the servers
  */
-$(document).ready(function () {
-  $.ajaxSetup({
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    },
-    async: true,
-    cache: true
-  });
+window.objAxiosInstance = Axios.create({
+  baseURL: 'http://localhost:1234/getAjaxData/',
+  timeout: 1000,
+  headers: {
+    'X-CSRF-TOKEN': document.head.querySelector("[name=csrf-token]").getAttribute('content')
+  },
+  responseType: 'json'
 });
 
 /**
@@ -47,21 +44,10 @@ Array.prototype.addToTableAsRow = function (objJQuery) {
 window.Toastr.options.closeButton = true;
 window.Toastr.options.preventDuplicates = true;
 
-window.Toastr.options.onShown = function () {
-  console.log('hello');
-};
-
-window.Toastr.options.onHidden = function () {
-  console.log('goodbye');
-};
-
-window.Toastr.options.onClick = function () {
-  console.log('clicked');
-};
-
-window.Toastr.options.onCloseClick = function () {
-  console.log('close button clicked');
-};
+window.Toastr.options.onShown = function () { };
+window.Toastr.options.onHidden = function () { };
+window.Toastr.options.onClick = function () { };
+window.Toastr.options.onCloseClick = function () { };
 
 /**
  * Setup some Echo-object with the desired configuration

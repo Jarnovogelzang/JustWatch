@@ -12,6 +12,6 @@ class OrderPublicChannel {
    * @return array|bool
    */
   public function join(User $objUser, Order $objOrder) {
-    return true;
+    return isset($objOrder) && $objOrder && $objOrder->isPaid();
   }
 }

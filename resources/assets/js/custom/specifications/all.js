@@ -1,8 +1,8 @@
 require('../../bootstrap.js');
 
 document.addEventListener("DOMContentLoaded", function (objEvent) {
-  function fetchOrders() {
-    return Axios.post('/fetchOrders')
+  function fetchSpecifications() {
+    return Axios.post('/fetchSpecifications')
       .then(function (objResult) {
         return objResult;
       }).catch(function (objError) {
@@ -11,24 +11,24 @@ document.addEventListener("DOMContentLoaded", function (objEvent) {
   }
 
   window.objIndexedDB.then(function (objDb) {
-    return objDb.transaction('store', 'readonly').objectStore('Order').getAll().each(function (objOrder) {
-      objOrder.addToTableAsRow();
+    return objDb.transaction('store', 'readonly').objectStore('Specification').getAll().each(function (objSpecification) {
+      objSpecification.addToTableAsRow();
     });
   }).then(function () {
-    return fetchOrders().then(function (arrayOrders) {
-      arrayOrders.each(function (objOrder) {
-        objOrder.loadArrayIntoJqueryObj();
+    return fetchSpecifications().then(function (arraySpecifications) {
+      arraySpecifications.each(function (objSpecification) {
+        objSpecification.loadArrayIntoJqueryObj();
       });
 
-      return arrayOrders;
+      return arraySpecifications;
     });
-  }).then(function (arrayOrders) {
+  }).then(function (arraySpecifications) {
     return window.objIndexedDB.then(function (objDb) {
       var objTransaction = objDB.transaction('store', 'readwrite');
-      var objStore = objTransaction.objectStore('Order');
+      var objStore = objTransaction.objectStore('Specification');
 
       objStore.clear();
-      objStore.put(arrayOrders);
+      objStore.put(arraySpecifications);
 
       return objTransaction.complete;
     });

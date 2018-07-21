@@ -1,33 +1,27 @@
 require('../../bootstrap.js');
 
-$(document).ready(function () {
-  function getProducts() {
-    var objPromise = new Promise(function (callBackResolve, callBackReject) {
-      $.post('/AjaxController/fetchProducts', {
-        success: function (arrayProducts) {
-          callBackResolve(arrayProducts);
-        },
-        error: function (objError) {
-          callBackReject(objError);
-        }
+document.addEventListener("DOMContentLoaded", function (objEvent) {
+  function getUsers() {
+    return Axios.post('/fetchUsers')
+      .then(function (objResult) {
+        return objResult;
+      }).catch(function (objError) {
+        return objError;
       });
-    });
-
-    return objPromise;
   }
 
   window.objIndexedDB.then(function (objDb) {
-    return objDb.transaction('store', 'readonly').objectStore('Product').getAll().loadArrayIntoJqueryObj();
+    return objDb.transaction('store', 'readonly').objectStore('User').getAll().loadArrayIntoJqueryObj();
   }).then(function () {
-    return getProducts().then(function (arrayProducts) {
-      arrayProducts.loadArrayIntoJqueryObj();
+    return getUsers().then(function (arrayUsers) {
+      arrayUsers.loadArrayIntoJqueryObj();
 
-      return arrayProducts;
+      return arrayUsers;
     });
-  }).then(function (arrayProducts) {
+  }).then(function (arrayUsers) {
     return window.objIndexedDB.then(function (objDb) {
       var objTransaction = objDB.transaction('store', 'readwrite');
-      objTransaction.objectStore('Product').put(arrayProducts);
+      objTransaction.objectStore('User').put(arrayUsers);
 
       return objTransaction.complete;
     });

@@ -1,22 +1,14 @@
 require('../../bootstrap.js');
 
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", function (objEvent) {
   function getOrderByOrderId() {
-    var objPromise = new Promise(function (callBackResolve, callBackReject) {
-      $.post('/AjaxController/getOrderByOrderId', {
-        data: {
-          intOrderId: intOrderId
-        },
-        success: function (objOrder) {
-          callBackResolve(objOrder);
-        },
-        error: function (objError) {
-          callBackReject(objError);
-        }
-      });
+    return Axios.post('/getOrderByOrderId', {
+      intOrderId: window.intOrderId
+    }).then(function (objResult) {
+      return objResult;
+    }).catch(function (objError) {
+      return objError;
     });
-
-    return objPromise;
   }
 
   window.objIndexedDB.then(function (objDb) {

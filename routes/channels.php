@@ -13,3 +13,4 @@
 
 Broadcast::channel('OrderPrivateChannel.{objOrder}', OrderPrivateChannel::class);
 Broadcast::channel('OrderPublicChannel.{objOrder}', OrderPublicChannel::class);
+Broadcast::channel('ExceptionPrivateChannel', ExceptionPrivateChannel::class);

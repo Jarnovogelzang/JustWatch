@@ -1,19 +1,13 @@
 require('../../bootstrap.js');
 
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", function (objEvent) {
   function fetchProducts() {
-    var objPromise = new Promise(function (callBackResolve, callBackReject) {
-      $.post('/AjaxController/fetchProducts', {
-        success: function (arrayProducts) {
-          callBackResolve(arrayProducts);
-        },
-        error: function (objError) {
-          callBackReject(objError);
-        }
+    return Axios.post('/fetchProducts')
+      .then(function (objResult) {
+        return objResult;
+      }).catch(function (objError) {
+        return objError;
       });
-    });
-
-    return objPromise;
   }
 
   window.objIndexedDB.then(function (objDb) {

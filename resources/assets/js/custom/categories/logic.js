@@ -1,22 +1,14 @@
 require('../../bootstrap.js');
 
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", function (objEvent) {
   function getCategoryByCategoryId() {
-    var objPromise = new Promise(function (callBackResolve, callBackReject) {
-      $.post('/AjaxController/getCategoryByCategoryId', {
-        data: {
-          intCategoryId: intCategoryId
-        },
-        success: function (objCategory) {
-          callBackResolve(objCategory);
-        },
-        error: function (objError) {
-          callBackReject(objError);
-        }
-      });
+    return Axios.post('/fetchCategoryByCategoryId', {
+      intCategoryId: window.intCategoryId
+    }).then(function (objResult) {
+      return objResult;
+    }).catch(function (objError) {
+      return objError;
     });
-
-    return objPromise;
   }
 
   window.objIndexedDB.then(function (objDb) {

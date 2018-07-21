@@ -1,9 +1,9 @@
 require('../../bootstrap.js');
 
 document.addEventListener("DOMContentLoaded", function (objEvent) {
-  function getDiscountCodeByDiscountCodeId() {
-    return Axios.post('/getDiscountCodeByDiscountCodeId', {
-      intDiscountCodeId: window.intDiscountCodeId
+  function getSpecificationBySpecificationId() {
+    return Axios.post('/getSpecificationBySpecificationId', {
+      intSpecificationId: window.intSpecificationId
     }).then(function (objResult) {
       return objResult;
     }).catch(function (objError) {
@@ -12,9 +12,9 @@ document.addEventListener("DOMContentLoaded", function (objEvent) {
   }
 
   window.objIndexedDB.then(function (objDb) {
-    return objDb.transaction('store', 'readonly').objectStore('DiscountCode').get(1).loadArrayIntoJqueryObj();
+    return objDb.transaction('store', 'readonly').objectStore('Specification').get(1).loadArrayIntoJqueryObj();
   }).then(function () {
-    return getDiscountCodeByDiscountCodeId().then(function (arrayData) {
+    return getSpecificationBySpecificationId().then(function (arrayData) {
       arrayData.loadArrayIntoJqueryObj();
 
       return arrayData;
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function (objEvent) {
   }).then(function (arrayData) {
     return window.objIndexedDB.then(function (objDb) {
       var objTransaction = objDB.transaction('store', 'readwrite');
-      objTransaction.objectStore('DiscountCode').put(arrayData);
+      objTransaction.objectStore('Specification').put(arrayData);
 
       return objTransaction.complete;
     });

@@ -25,11 +25,8 @@ Route::middleware(['auth:admin'])->group(function () {
     'PriceRange' => 'objPriceRange',
     'Category' => 'objCategory',
   ]);
+
+  Route::post('/getAjaxData/{objMethodName}', 'AjaxController@{objMethodName}');
 });
 
-Route::get('/test', function () {
-  return view('products.show');
-});
-
-Route::get('/', 'ProductController@index');
 Auth::routes();

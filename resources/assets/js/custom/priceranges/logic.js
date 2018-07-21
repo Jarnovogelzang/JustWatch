@@ -1,22 +1,14 @@
 require('../../bootstrap.js');
 
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", function (objEvent) {
   function getPriceRangeByPriceRangeId() {
-    var objPromise = new Promise(function (callBackResolve, callBackReject) {
-      $.post('/AjaxController/getPriceRangeByPriceRangeId', {
-        data: {
-          intPriceRangeId: intPriceRangeId
-        },
-        success: function (objPriceRange) {
-          callBackResolve(objPriceRange);
-        },
-        error: function (objError) {
-          callBackReject(objError);
-        }
-      });
+    return Axios.post('/getPriceRangeByPriceRangeId', {
+      intPriceRangeId: window.intPriceRangeId
+    }).then(function (objResult) {
+      return objResult;
+    }).catch(function (objError) {
+      return objError;
     });
-
-    return objPromise;
   }
 
   window.objIndexedDB.then(function (objDb) {
