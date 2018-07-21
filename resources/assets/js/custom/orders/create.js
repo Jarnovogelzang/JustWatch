@@ -1,31 +1,18 @@
 require('../../bootstrap.js');
 
 document.addEventListener("DOMContentLoaded", function (objEvent) {
-  function getUsers() {
-    return Axios.post('/fetchUsers')
-      .then(function (objResult) {
-        return objResult;
-      }).catch(function (objError) {
-        return objError;
-      });
-  }
-
   window.objIndexedDB.then(function (objDb) {
-    return objDb.transaction('store', 'readonly').objectStore('User').getAll().loadArrayIntoJqueryObj();
+    document.getElementById('selectProducts').loadOptionsFromStore('Product');
+    document.getElementById('selectUser').loadOptionsFromStore('User');
   }).then(function () {
-    return getUsers().then(function (arrayUsers) {
-      arrayUsers.loadArrayIntoJqueryObj();
-
-      return arrayUsers;
-    });
-  }).then(function (arrayUsers) {
-    return window.objIndexedDB.then(function (objDb) {
-      var objTransaction = objDB.transaction('store', 'readwrite');
-      objTransaction.objectStore('User').put(arrayUsers);
-
-      return objTransaction.complete;
-    });
-  }).catch(function (objError) {
-    console.log('Something went wrong with the Error as ' + objError);
+    return Axios.all([
+      fetchProducts(),
+      fetchUsers()
+    ]);
+  }).then(Axios.spread(function (arrayProducts, arrayUsers) {
+    document.getElementById('selectProducts').loadOptionsFromArray(arrayProducts);
+    document.getElementById('selectUser').loadOptionsFromArray(arrayUsers);
+  })).catch(function (objError) {
+    Toastr.error('Er is een fout opgetreden! Probeer opnieuw of neem contact op met ons!', 'Foutmelding!');
   });
 });

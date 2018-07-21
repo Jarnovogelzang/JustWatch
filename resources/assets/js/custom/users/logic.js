@@ -1,32 +1,18 @@
 require('../../bootstrap.js');
 
 document.addEventListener("DOMContentLoaded", function (objEvent) {
-  function getUserByUserId() {
-    return Axios.post('/getUserByUserId', {
-      intUserId: window.intUserId
-    }).then(function (objResult) {
-      return objResult;
-    }).catch(function (objError) {
-      return objError;
-    });
-  }
-
   window.objIndexedDB.then(function (objDb) {
-    return objDb.transaction('store', 'readonly').objectStore('User').get(1).loadArrayIntoJqueryObj();
+    document.getElementById('selectOrders').loadOptionsFromStore('Order');
   }).then(function () {
-    return getUserByUserId().then(function (arrayData) {
-      arrayData.loadArrayIntoJqueryObj();
-
-      return arrayData;
-    });
-  }).then(function (arrayData) {
-    return window.objIndexedDB.then(function (objDb) {
-      var objTransaction = objDB.transaction('store', 'readwrite');
-      objTransaction.objectStore('User').put(arrayData);
-
-      return objTransaction.complete;
-    });
-  }).catch(function (objError) {
-    console.log('Something went wrong with the Error as ' + objError);
+    return Axios.all([
+      fetchOrders(),
+      fetchUserByUserId(window.intUserId)
+    ]);
+  }).then(Axios.spread(function (arrayOrders, objUser) {
+    document.getElementById('selectOrders').loadOptionsFromArray(arrayOrders);
+    objUser.loadIntoObjects();
+  })).catch(function (objError) {
+    Toastr.error('Er is een fout opgetreden! Probeer opnieuw of neem contact op met ons!', 'Foutmelding!');
   });
 });
+

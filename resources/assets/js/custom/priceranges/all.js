@@ -1,38 +1,13 @@
 require('../../bootstrap.js');
 
 document.addEventListener("DOMContentLoaded", function (objEvent) {
-  function fetchPriceRanges() {
-    return Axios.post('/fetchPriceRanges')
-      .then(function (objResult) {
-        return objResult;
-      }).catch(function (objError) {
-        return objError;
-      });
-  }
-
   window.objIndexedDB.then(function (objDb) {
-    return objDb.transaction('store', 'readonly').objectStore('PriceRange').getAll().each(function (objPriceRange) {
-      objPriceRange.addToTableAsRow();
-    });
+    document.getElementById('tablePriceRanges').loadRowsFromStore('PriceRange');
   }).then(function () {
-    return fetchPriceRanges().then(function (arrayPriceRanges) {
-      arrayPriceRanges.each(function (objPriceRange) {
-        objPriceRange.loadArrayIntoJqueryObj();
-      });
-
-      return arrayPriceRanges;
-    });
+    return fetchPriceRanges();
   }).then(function (arrayPriceRanges) {
-    return window.objIndexedDB.then(function (objDb) {
-      var objTransaction = objDB.transaction('store', 'readwrite');
-      var objStore = objTransaction.objectStore('PriceRange');
-
-      objStore.clear();
-      objStore.put(arrayPriceRanges);
-
-      return objTransaction.complete;
-    });
+    document.getElementById('tablePriceRanges').loadRowsFromArray(arrayPriceRanges);
   }).catch(function (objError) {
-    console.log('Something went wrong with the Error as ' + objError);
+    Toastr.error('Er is een fout opgetreden! Probeer opnieuw of neem contact op met ons!', 'Foutmelding!');
   });
 });

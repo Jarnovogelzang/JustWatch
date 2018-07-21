@@ -1,38 +1,13 @@
 require('../../bootstrap.js');
 
 document.addEventListener("DOMContentLoaded", function (objEvent) {
-  function fetchUsers() {
-    return Axios.post('/fetchUsers')
-      .then(function (objResult) {
-        return objResult;
-      }).catch(function (objError) {
-        return objError;
-      });
-  }
-
   window.objIndexedDB.then(function (objDb) {
-    return objDb.transaction('store', 'readonly').objectStore('User').getAll().each(function (objUser) {
-      objUser.addToTableAsRow($('table > tbody'));
-    });
+    document.getElementById('tableUsers').loadRowsFromStore('User');
   }).then(function () {
-    return fetchUsers().then(function (arrayUsers) {
-      arrayUsers.each(function (objUser) {
-        objUser.loadArrayIntoJqueryObj();
-      });
-
-      return arrayUsers;
-    });
+    return fetchUsers();
   }).then(function (arrayUsers) {
-    return window.objIndexedDB.then(function (objDb) {
-      var objTransaction = objDB.transaction('store', 'readwrite');
-      var objStore = objTransaction.objectStore('User');
-
-      objStore.clear();
-      objStore.put(arrayUsers);
-
-      return objTransaction.complete;
-    });
+    document.getElementById('tableUsers').loadRowsFromArray(arrayUsers);
   }).catch(function (objError) {
-    console.log('Something went wrong with the Error as ' + objError);
+    Toastr.error('Er is een fout opgetreden! Probeer opnieuw of neem contact op met ons!', 'Foutmelding!');
   });
 });

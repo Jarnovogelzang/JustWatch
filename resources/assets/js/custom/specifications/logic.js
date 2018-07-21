@@ -1,32 +1,18 @@
 require('../../bootstrap.js');
 
 document.addEventListener("DOMContentLoaded", function (objEvent) {
-  function getSpecificationBySpecificationId() {
-    return Axios.post('/getSpecificationBySpecificationId', {
-      intSpecificationId: window.intSpecificationId
-    }).then(function (objResult) {
-      return objResult;
-    }).catch(function (objError) {
-      return objError;
-    });
-  }
-
   window.objIndexedDB.then(function (objDb) {
-    return objDb.transaction('store', 'readonly').objectStore('Specification').get(1).loadArrayIntoJqueryObj();
+    document.getElementById('selectProduct').loadOptionsFromStore('Product');
   }).then(function () {
-    return getSpecificationBySpecificationId().then(function (arrayData) {
-      arrayData.loadArrayIntoJqueryObj();
-
-      return arrayData;
-    });
-  }).then(function (arrayData) {
-    return window.objIndexedDB.then(function (objDb) {
-      var objTransaction = objDB.transaction('store', 'readwrite');
-      objTransaction.objectStore('Specification').put(arrayData);
-
-      return objTransaction.complete;
-    });
-  }).catch(function (objError) {
-    console.log('Something went wrong with the Error as ' + objError);
+    return Axios.all([
+      fetchSpecificationBySpecificationId(window.intSpecificationId),
+      fetchProducts(),
+      fetchProductBySpecificationId(),
+    ]);
+  }).then(Axios.spread(function (objSpecification, arrayProducts, objProduct) {
+    objSpecification.loadIntoObjects();
+    document.getElementById('selectProduct').loadOptionsFromArray(arrayProducts, objProduct);
+  })).catch(function (objError) {
+    Toastr.error('Er is een fout opgetreden! Probeer opnieuw of neem contact op met ons!', 'Foutmelding!');
   });
 });
