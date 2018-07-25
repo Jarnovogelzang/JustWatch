@@ -9,11 +9,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Product extends SystemModel {
   /**
-   * @var mixed
-   */
-  protected $arrayAliDefaultData;
-
-  /**
    * @var array
    */
   protected $casts = [
@@ -50,31 +45,6 @@ class Product extends SystemModel {
    */
   protected $table = 'Product';
 
-  public function getActualPrice() {
-    $floatPrice = $this->getArrayAliDefaultData()['floatPrice'];
-
-    return PriceRange::wherePriceIntervalBetween($floatPrice)
-      ->first()
-      ->getFloatPriceActual();
-  }
-
-  /**
-   * Get the value of arrayAliDefaultData
-   *
-   * @return  mixed
-   */
-  public function getArrayAliDefaultData() {
-    if (!isset($this->arrayAliDefaultData) && !$this->arrayAliDefaultData) {
-      $intAliId = $this->getIntAliId();
-
-      $this->arrayAliDefaultData = $this->makeResponse(Cache::remember('fetchAliDataByAliId', 15, function ($objZincDataMover, $intAliId) {
-        return $objZincDataMover->fetchAliProductById($intAliId);
-      }));
-    }
-
-    return $this->arrayAliDefaultData;
-  }
-
   /**
    * @return mixed
    */
@@ -101,10 +71,6 @@ class Product extends SystemModel {
    */
   public function getOrders() {
     return $this->belongsToMany(Order::class, 'ProductOrder', 'intProductId', 'intOrderId');
-  }
-
-  public function getPriceRange() {
-    return PriceRange::wherePriceIntervalBetween($this->getPriceActual())->first();
   }
 
   /**
@@ -153,32 +119,12 @@ class Product extends SystemModel {
   }
 
   /**
+   * @param $objQuery
+   * @param $stringTitle
    * @return mixed
    */
-  public function setAliDefaultData() {
-    $this->getSpecifications()->associative(array_map(function ($objSpecification) {
-      return (new Specification())->setStringKey($objSpecification['stringKey'])->setStringValue($objSpecification['stringValue'])->getIntId();
-    }, $this->getArrayAliDefaultData()));
-
-    $this->update([
-      'stringTitle' => $this->getArrayAliDefaultData()['stringTitle'],
-      'stringDescription' => $this->getArrayAliDefaultData()['stringDescription'],
-    ])->save();
-
-    return $this;
-  }
-
-  /**
-   * Set the value of arrayAliDefaultData
-   *
-   * @param  mixed  $arrayAliDefaultData
-   *
-   * @return  self
-   */
-  public function setArrayAliDefaultData($arrayAliDefaultData) {
-    $this->arrayAliDefaultData = $arrayAliDefaultData;
-
-    return $this;
+  public function scopeWhereStringTitle($objQuery, $stringTitle) {
+    return $objQuery->where('stringTitle', '=', $stringTitle);
   }
 
   /**

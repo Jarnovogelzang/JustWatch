@@ -8,8 +8,7 @@ use App\Http\Requests\Products\EditProductRequest;
 use App\Http\Requests\Products\ShowProductRequest;
 use App\Http\Requests\Products\StoreProductRequest;
 use App\Http\Requests\Products\UpdateProductRequest;
-use App\Product;
-use Illuminate\Support\Facades\Log;
+use App\Models\Product;
 
 class ProductController extends Controller {
   /**

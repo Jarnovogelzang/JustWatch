@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Product;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,19 +13,62 @@
 |
  */
 
+/**
+ * Routing voor de Webshop
+ */
+Route::get('/', 'ShopController@index');
+
+Route::get('/producten', 'ShopController@products');
+Route::get('/producten/{stringProductName}', 'ShopController@product');
+
+Route::get('/collecties', 'ShopController@categories');
+Route::get('/collecties/{stringCategoryName}', 'ShopController@category');
+
+Route::get('/winkelmandje', 'ShopController@basket');
+Route::get('/betalen', 'ShopController@payout');
+
+/**
+ * Routing voor de Adminapplicatie
+ */
+Route::get('/over', 'PagesController@about');
+Route::get('/contact', 'PagesController@contact');
+Route::get('/home', 'PagesController@index');
+
 Route::middleware(['auth:admin'])->group(function () {
-  Route::resources([
-    'User' => 'UserController',
-    'Order' => 'OrderController',
-    'Product' => 'ProductController',
-    'PriceRange' => 'PriceRangeController',
-    'Category' => 'CategoryController',
-  ], [
-    'User' => 'objUser',
-    'Order' => 'objOrder',
-    'Product' => 'objProduct',
-    'PriceRange' => 'objPriceRange',
-    'Category' => 'objCategory',
+  Route::resource('User', 'UserController', [
+    'parameters' => [
+      'User' => 'objUser',
+    ],
+  ]);
+
+  Route::resource('Order', 'OrderController', [
+    'parameters' => [
+      'Order' => 'objOrder',
+    ],
+  ]);
+
+  Route::resource('Order', 'OrderController', [
+    'parameters' => [
+      'Product' => 'objProduct',
+    ],
+  ]);
+
+  Route::resource('Category', 'CategoryController', [
+    'parameters' => [
+      'Category' => 'objCategory',
+    ],
+  ]);
+
+  Route::resource('Tag', 'TagController', [
+    'parameters' => [
+      'Tag' => 'objTag',
+    ],
+  ]);
+
+  Route::resource('Specification', 'SpecificationController', [
+    'parameters' => [
+      'Specification' => 'objSpecification',
+    ],
   ]);
 
   Route::post('/getAjaxData/{objMethodName}', 'AjaxController@{objMethodName}');

@@ -17,7 +17,7 @@ class AjaxController extends Controller {
   /**
    * @param $floatCacheDurationInMinutes
    */
-  public function __construct($floatCacheDurationInMinutes = 15) {
+  public function __construct(float $floatCacheDurationInMinutes = 15) {
     $this->floatCacheDurationInMinutes = app()->environment('production') ? $floatCacheDurationInMinutes : 0;
   }
 
@@ -73,7 +73,7 @@ class AjaxController extends Controller {
    */
   public function fetchHottestProducts(FetchHottestProductsRequest $objRequest) {
     return $this->makeResponse(Cache::remember('fetchHottestProducts', $this->floatCacheDurationInMinutes, function () {
-      return Product::orderByOrderAmount()->paginate(3)->get();
+      return Product::orderByOrderAmount()->paginate(3);
     }));
   }
 

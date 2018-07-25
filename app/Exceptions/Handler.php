@@ -33,11 +33,13 @@ class Handler extends ExceptionHandler {
    * @return \Illuminate\Http\Response
    */
   public function render($objRequest, Exception $objException) {
-    if (app()->environment('testing')) {
-      return parent::render($objRequest, $objException);
-    }
+    return parent::render($objRequest, $objException);
 
-    return view('pages.exception');
+    /*if (app()->environment('testing')) {
+  return parent::render($objRequest, $objException);
+  }
+
+  return view('pages.errors.404');*/
   }
 
   /**
@@ -47,11 +49,8 @@ class Handler extends ExceptionHandler {
    * @return void
    */
   public function report(Exception $objException) {
-    event(new ExceptionThrown($objException));
-    Log::error('Exception Caught.', [
-      'objException' => $objException->toArray(),
-    ]);
+    //event(new ExceptionThrown($objException));
 
-    parent::report($exception);
+    parent::report($objException);
   }
 }

@@ -77,6 +77,15 @@ class Category extends SystemModel {
   }
 
   /**
+   * @param $objQuery
+   * @param $stringName
+   * @return mixed
+   */
+  public function scopeWhereStringName($objQuery, $stringName) {
+    return $objQuery->where('stringName', '=', $stringName);
+  }
+
+  /**
    * Set the value of intId
    *
    * @return  self

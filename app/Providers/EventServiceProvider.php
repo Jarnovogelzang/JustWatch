@@ -26,6 +26,7 @@ class EventServiceProvider extends ServiceProvider {
     ],
     'App\Events\Exceptions\ExceptionThrown' => [
       'App\Listeners\Exceptions\SendAdminExceptionNotification',
+      'App\Listeners\Exceptions\LogException',
     ],
   ];
 

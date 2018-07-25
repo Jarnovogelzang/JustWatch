@@ -5,13 +5,13 @@ namespace App\Providers;
 use App\Models\Category;
 use App\Models\DiscountCode;
 use App\Models\Order;
-use App\Models\PriceRange;
 use App\Models\Product;
 use App\Models\Specification;
 use App\Models\Tag;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 use Includes\Mollie\MollieDataMover;
 
@@ -23,7 +23,6 @@ class AppServiceProvider extends ServiceProvider {
     Category::class => CategoryObserver::class,
     DiscountCode::class => DiscountCodeObserver::class,
     Order::class => OrderObserver::class,
-    PriceRange::class => PriceRangeObserver::class,
     Product::class => ProductObserver::class,
     Specification::class => SpecificationObserver::class,
     Tag::class => TagObserver::class,
@@ -61,7 +60,7 @@ class AppServiceProvider extends ServiceProvider {
 
     DB::listen(function ($objQuery) {
       Log::info('Executing Query.', [
-        'objQuery' => $objQuery->toArray(),
+        'objQuery' => $objQuery,
         'dateExecutedAt' => Carbon::now()->toDateTimeString(),
       ]);
     });
