@@ -12,10 +12,6 @@ use App\Models\Product;
 | contains the "web" middleware group. Now create something great!
 |
  */
-
-/**
- * Routing voor de Webshop
- */
 Route::get('/', 'ShopController@index');
 
 Route::get('/producten', 'ShopController@products');
